@@ -1,5 +1,5 @@
 {
-  "name": "raptor-backend",
+  "name": "raptor-test",
   "version": "1.0.0",
   "scripts": {
     "start": "node --max-old-space-size=450 server.js",
