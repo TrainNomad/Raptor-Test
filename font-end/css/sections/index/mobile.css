@@ -1,0 +1,127 @@
+/* ============================================================
+   TrainNomad.eu — css/index-mobile.css
+   Téléphones  ·  max-width: 639px
+   ============================================================ */
+
+/* ── Mobile menu masqué par défaut ── */
+#mobile-menu-btn { display: none; }
+#mobile-nav      { display: none; }
+
+@media (max-width: 639px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 56px; padding-left: 1rem; padding-right: 1rem; }
+  nav .hidden.md\:flex { display: none !important; }
+  #mobile-menu-btn { display: flex !important; }
+
+  /* ── Menu mobile déroulant ── */
+  #mobile-nav {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #f1f5f9;
+    z-index: 60;
+    padding: 1rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 24px rgba(26,43,60,0.08);
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  #mobile-nav.open { display: flex; }
+  #mobile-nav a {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 0.5rem; font-size: 0.95rem; font-weight: 700;
+    color: #1A2B3C; border-radius: 0.75rem; text-decoration: none;
+    transition: background 0.15s;
+  }
+  #mobile-nav a:hover { background: #f8fafc; }
+  #mobile-nav a.nav-cta {
+    background: #1A2B3C; color: #fff;
+    padding: 0.75rem 1rem; margin-top: 0.5rem;
+  }
+  #mobile-nav a.nav-cta:hover { background: #4ade80; color: #1A2B3C; }
+
+  /* ── Hero ── */
+  section.relative.pt-24 { padding-top: 2.5rem; padding-bottom: 3rem; }
+  h1 { font-size: 2.4rem !important; line-height: 1.15 !important; }
+  section p.text-lg { font-size: 1rem !important; margin-bottom: 2rem !important; }
+
+  /* ── Search box ── */
+  .max-w-5xl { padding: 0; }
+
+  /* Tabs */
+  .flex.items-center.gap-2.mb-0 { gap: 0.25rem; }
+  .tab-btn { padding: 0.5rem 0.85rem; font-size: 0.75rem; }
+
+  /* Grille search — empilement vertical */
+  #search-grid,
+  #grid-carte .grid { display: flex !important; flex-direction: column; }
+  #search-grid > div,
+  #grid-carte .grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid #f1f5f9;
+    border-radius: 0 !important;
+    padding: 0.85rem 1rem;
+  }
+  #search-grid > div:last-child,
+  #grid-carte .grid > div:last-child { border-bottom: none; }
+
+  /* Inputs de saisie */
+  #input-from, #input-to, #input-date, #return-date,
+  #carte-input-from, #carte-input-date { font-size: 1rem !important; }
+
+  /* Bouton rechercher */
+  #btn-cell { padding: 0.5rem; }
+  #btn-search, #btn-search-carte {
+    min-width: unset !important;
+    width: 100%;
+    border-radius: 0.75rem !important;
+    flex-direction: row !important;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem !important;
+  }
+  #btn-search .material-symbols-outlined,
+  #btn-search-carte .material-symbols-outlined { font-size: 1.25rem !important; }
+
+  /* Trip type pills */
+  #trip-type-row { padding: 0.5rem 0.75rem; gap: 0.35rem; }
+
+  /* Features row */
+  .mt-12.flex.flex-wrap { gap: 0.75rem 1rem; margin-top: 1.5rem; font-size: 0.8rem; }
+
+  /* ── Destinations ── */
+  .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr 1fr !important; gap: 1rem; }
+  h3.font-bold.text-xl { font-size: 1rem; }
+  .aspect-\[4\/5\] { aspect-ratio: 1/1; }
+
+  /* ── Section destinations ── */
+  section.bg-background-light { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .flex.items-end.justify-between { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  h2.text-3xl { font-size: 1.5rem; }
+
+  /* ── Features ── */
+  .py-32 { padding-top: 3rem; padding-bottom: 3rem; }
+  .grid.grid-cols-1.md\:grid-cols-3 { gap: 2rem; }
+
+  /* ── Footer ── */
+  footer .grid.grid-cols-1.md\:grid-cols-4 { grid-template-columns: 1fr !important; gap: 2rem; }
+  footer .flex.flex-col.md\:flex-row { flex-direction: column; gap: 1rem; text-align: center; }
+  footer .flex.gap-10 { gap: 1.25rem; flex-wrap: wrap; justify-content: center; }
+
+  /* ── Section TGVmax ── */
+  .trainmax-card-container {
+    margin: 0 !important;
+    border-radius: 1.25rem !important;
+    min-height: unset !important;
+  }
+  .trainmax-card-content {
+    width: 100% !important;
+    padding: 1.75rem 1.25rem !important;
+    text-align: center;
+  }
+  .trainmax-card-content__title { font-size: 1.6rem !important; }
+  .trainmax-button { width: 100%; justify-content: center; }
+
+}

@@ -1,0 +1,80 @@
+{
+  "id": "seville",
+  "city": "Séville",
+  "country": "Espagne",
+  "tagline": "Flamenco, Alcázar et nuits andalouses",
+  "excerpt": "3 jours à Séville",
+  "cover": "seville-cover.jpg",
+  "hero": "seville-hero.jpg",
+  "badges": ["2 correspondances", "TGV + AVE"],
+  "travel": {
+    "duration": "~13h (via Barcelone + Madrid)",
+    "operator": "TGV Inoui + Renfe AVE",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Sevilla Santa Justa",
+    "price_from": "109€",
+    "best_season": "Mars · Avril · Octobre · Novembre",
+    "co2_saved": "87%",
+    "correspondance": "2 changements : Barcelona Sants puis Madrid Atocha",
+    "note": "Paris Gare de Lyon → Barcelone Sants (6h50, dès 79€), puis AVE Barcelone → Madrid (~2h30, dès 25€), puis AVE Madrid → Séville (~2h30, dès 25€). Total ~13h. Achetez les segments Paris–Barcelone sur SNCF Connect et Barcelone–Séville sur Renfe.es. En été, un train direct Paris–Barcelone + AVE direct Barcelone–Séville (5h50) est possible sans passer par Madrid.",
+    "operators_used": ["SNCF", "RENFE", "OUIGO_ES"]
+  },
+  "intro": "Séville est la capitale émotionnelle de l'Espagne. Aucune autre ville du pays n'a autant de beauté concentrée en si peu d'espace : l'Alcázar, la Giralda, le Barrio Santa Cruz, les orangers qui embaument les ruelles en janvier. Et la nuit ? Le flamenco commence à minuit, les tapas s'enchaînent jusqu'à l'aube. Séville ne dort que pour recommencer. En train depuis Paris via Barcelone et Madrid, l'aventure andalouse commence sur les rails.",
+  "essentials": {
+    "voir": [
+      { "icon": "castle",         "name": "Real Alcázar",             "note": "Palais mudéjar inscrit à l'UNESCO — réservez obligatoirement" },
+      { "icon": "church",         "name": "Cathédrale + Giralda",     "note": "3e plus grande cathédrale du monde. Montez la Giralda." },
+      { "icon": "location_city",  "name": "Barrio Santa Cruz",       "note": "Le labyrinthe de ruelles blanches de l'ancienne judería" },
+      { "icon": "palette",        "name": "Musée des Beaux-Arts",    "note": "Zurbarán et Murillo — gratuit pour les citoyens UE" }
+    ],
+    "manger": [
+      { "icon": "restaurant",     "name": "Bodega Santa Cruz",        "note": "Tapas debout pour quelques euros dans le Barrio Santa Cruz" },
+      { "icon": "storefront",     "name": "Mercado de Triana",        "note": "Le marché du quartier gitan — plus authentique que la Boqueria" },
+      { "icon": "local_cafe",     "name": "El Rinconcillo",            "note": "La plus vieille taverne d'Espagne (1670) — montaditos et fino" },
+      { "icon": "sports_bar",     "name": "Fin de la nuit",           "note": "Le flamenco commence à 21h dans les tablaos de Triana" }
+    ],
+    "transport": [
+      { "icon": "subway",         "name": "Métro de Séville",         "note": "1 ligne, 1,35€ — utile pour les quartiers périphériques" },
+      { "icon": "tram",           "name": "Tramway MetroCentro",      "note": "Gratuit entre Puerta Jerez et Prado de San Sebastián" },
+      { "icon": "directions_bike","name": "Sevici (vélos)",           "note": "150 km de pistes cyclables — Séville est plate et cyclable" },
+      { "icon": "directions_walk","name": "À pied",                   "note": "Le centre historique se parcourt entièrement à pied" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Les monuments historiques", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Real Alcázar",                   "desc": "Arrivez à l'ouverture avec billet réservé. Comptez 2h minimum." },
+        { "time": "11:30", "title": "Cathédrale et Giralda",          "desc": "Montez les 35 rampes (sans escalier !) jusqu'au sommet. Vue imprenable." },
+        { "time": "13:30", "title": "Barrio Santa Cruz",              "desc": "Déjeuner dans les ruelles blanches. Bodega Santa Cruz pour les tapas." },
+        { "time": "16:00", "title": "Plaza de España",               "desc": "L'édifice de l'Exposition Ibéro-Américaine de 1929. Promenade en barque." },
+        { "time": "20:00", "title": "Tapas nocturnes",               "desc": "El Rinconcillo pour commencer, puis flânerie dans le Barrio Santa Cruz." }
+      ]
+    },
+    {
+      "day": 2, "title": "Triana et flamenco", "color": "#1A2B3C",
+      "points": [
+        { "time": "10:00", "title": "Mercado de Triana",              "desc": "Le marché du quartier des gitans et des toreros. Azulejos partout." },
+        { "time": "12:00", "title": "Quartier Triana",               "desc": "Les ruelles et céramiques de l'autre rive du Guadalquivir." },
+        { "time": "14:00", "title": "Déjeuner de poisson",           "desc": "Restaurants de poisson grillé au bord du Guadalquivir." },
+        { "time": "16:30", "title": "Musée des Beaux-Arts",          "desc": "La meilleure collection de Murillo au monde dans un couvent baroque." },
+        { "time": "21:00", "title": "Tablao de flamenco",            "desc": "Les vrais tablaos de Triana commencent tard. Réservez à l'avance." }
+      ]
+    },
+    {
+      "day": 3, "title": "Noblesse et départ", "color": "#94a3b8",
+      "points": [
+        { "time": "10:00", "title": "Palacio de las Dueñas",         "desc": "La demeure des Ducs d'Albe — moins connue, moins chère, plus intime." },
+        { "time": "12:00", "title": "Último tapeo",                  "desc": "Dernier tour dans les bars à tapas de la Calle Betis." },
+        { "time": "15:00", "title": "Sevilla Santa Justa",           "desc": "AVE vers Madrid, puis correspondance pour Barcelone et Paris." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "train",       "text": "Achetez les billets en 2 temps : Paris–Barcelone sur SNCF Connect (à partir de 79€), puis Barcelone–Séville (via Madrid ou direct en été) sur Renfe.es (à partir de ~30€). En été, un AVE direct Barcelone–Séville existe sans passer par Madrid (5h50)." },
+    { "icon": "castle",      "text": "L'Alcázar est le monument le plus visité d'Espagne. Réservez obligatoirement sur alcazardesevilla.org — jamais de file improvisée." },
+    { "icon": "wb_sunny",    "text": "Évitez absolument juillet-août : Séville est la ville la plus chaude d'Europe continentale (42-45°C régulièrement). La Semana Santa (Pâques) et la Feria (avril) sont magiques mais bondées." },
+    { "icon": "schedule",    "text": "Le flamenco authentique se vit dans les tablaos de Triana à partir de 21h. Évitez les spectacles touristiques du centre — demandez conseil à l'office de tourisme." }
+  ],
+  "related": ["madrid", "grenade", "lisbonne"]
+}

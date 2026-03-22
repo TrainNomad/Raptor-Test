@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>404 — Page introuvable · TrainNomad.eu</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">
+
+    <!-- Fonts & icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="script/tailwind.config.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+
+    <!-- CSS partagé -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        #mobile-menu-btn { display: none; }
+        #mobile-nav      { display: none; }
+
+        /* Menu mobile */
+        @media (max-width: 767px) {
+            #mobile-menu-btn { display: flex !important; }
+            nav .hidden.md\:flex { display: none !important; }
+            #mobile-nav {
+                display: none;
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid #f1f5f9;
+                z-index: 60;
+                padding: 1rem 1.5rem 1.5rem;
+                box-shadow: 0 8px 24px rgba(26,43,60,0.08);
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            #mobile-nav.open { display: flex; }
+            #mobile-nav a {
+                display: flex; align-items: center; gap: 0.75rem;
+                padding: 0.75rem 0.5rem; font-size: 0.95rem; font-weight: 700;
+                color: #1A2B3C; border-radius: 0.75rem; text-decoration: none;
+            }
+            #mobile-nav a.nav-cta {
+                background: #1A2B3C; color: #fff;
+                padding: 0.75rem 1rem; margin-top: 0.5rem;
+                border-radius: 0.75rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="bg-white text-midnight min-h-screen flex flex-col">
+
+<!-- ══ NAV ══ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+        <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity">
+            <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight" style="color:#1A2B3C">
+                TrainNomad<span style="color:#4ade80">.eu</span>
+            </span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="trajets.html" style="color:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">train</span> Voyager
+            </a>
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="explorer.html" style="color:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">explore</span> Explorer
+            </a>
+            <a class="text-sm font-bold text-white px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-sm"
+               href="outilstgvmax.html"
+               style="background:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+            </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors"
+                aria-label="Menu">
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-2xl" style="color:#1A2B3C">menu</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+    <a href="trajets.html">
+        <span class="material-symbols-outlined text-xl">train</span> Voyager
+    </a>
+    <a href="explorer.html">
+        <span class="material-symbols-outlined text-xl">explore</span> Explorer
+    </a>
+    <a href="outilstgvmax.html" class="nav-cta">
+        <span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax
+    </a>
+</div>
+
+<!-- ══ CONTENU 404 ══ -->
+<main class="flex-grow flex items-center justify-center px-6 py-20">
+    <div class="max-w-6xl w-full mx-auto flex flex-col items-center text-center max-w-2xl mx-auto">
+
+        <!-- Texte -->
+        <div>
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-slate-50 mb-8">
+                <span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-slate-400">Erreur 404</span>
+            </div>
+
+            <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight leading-none mb-6" style="color:#1A2B3C">
+                Ce train<br>
+                <span style="color:#4ade80">a déraillé.</span>
+            </h1>
+
+            <p class="text-slate-500 text-lg leading-relaxed mb-10 ">
+                La page que vous cherchez n'est plus en gare. Elle a peut-être changé d'itinéraire ou le trajet a été supprimé.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="index.html"
+                   class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-base transition-all hover:opacity-90 hover:-translate-y-0.5 shadow-md"
+                   style="background:#1A2B3C">
+                    <span class="material-symbols-outlined text-xl">home</span>
+                    Retour à l'accueil
+                </a>
+                <a href="trajets.html"
+                   class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base border-2 border-slate-200 hover:border-slate-300 transition-all hover:-translate-y-0.5"
+                   style="color:#1A2B3C">
+                    <span class="material-symbols-outlined text-xl">train</span>
+                    Chercher un trajet
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="text-white py-20" style="background:#1A2B3C">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 mb-12" style="border-bottom:1px solid rgba(255,255,255,0.1)">
+
+            <!-- Branding -->
+            <div class="col-span-1">
+                <a href="index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        TrainNomad<span style="color:#4ade80">.eu</span>
+                    </span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+
+            <!-- Navigation -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-green-400 transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+
+            <!-- Engagement -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="text-slate-400 text-base leading-relaxed" style="font-style:italic">
+                    "Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion.
+                    Voyagez léger, voyagez loin, voyagez responsable."
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Barre légale -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<script>
+function toggleMobileMenu() {
+    const nav  = document.getElementById('mobile-nav');
+    const icon = document.getElementById('mobile-menu-icon');
+    const open = nav.classList.toggle('open');
+    icon.textContent = open ? 'close' : 'menu';
+}
+</script>
+
+</body>
+</html>

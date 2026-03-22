@@ -1,0 +1,487 @@
+/* -------------------------------------- */
+/* --- MAIN.CSS - Page Trajets         --- */
+/* -------------------------------------- */
+
+/* Conteneur principal */
+.results__main {
+    flex: 1;
+    max-width: 1024px;
+    margin: 32px auto;
+    padding: 0 20px 60px;
+    width: 100%;
+}
+
+/* -------------------------------------- */
+/* --- LISTE DES RÉSULTATS             --- */
+/* -------------------------------------- */
+
+#results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.results-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgb(var(--blue-color)) 0%, rgba(var(--blue-color), 0.8) 100%);
+    color: white;
+    border-radius: 8px;
+}
+
+.results-title {
+    font-size: var(--subheadline-font-size);
+    font-weight: 600;
+    color: white;
+}
+
+.results-count {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-family: var(--roboto);
+}
+
+/* -------------------------------------- */
+/* --- CARTE DE TRAJET                 --- */
+/* -------------------------------------- */
+
+.journey-card {
+    background: rgb(var(--secondary-color));
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(var(--primary-color), 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.journey-card:hover {
+    box-shadow: 0 2px 8px rgba(var(--primary-color), 0.15);
+}
+
+.journey-card.expanded {
+    box-shadow: 0 6px 20px rgba(var(--primary-color), 0.2);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Résumé : grille principale */
+.card-summary {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+}
+
+/* Horaires */
+.card-times {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-time-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-time {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(var(--primary-color));
+    min-width: 60px;
+}
+
+.card-sep {
+    color: rgba(var(--primary-color), 0.3);
+    font-size: 14px;
+}
+
+.card-station-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-station {
+    font-size: 14px;
+    color: rgba(var(--primary-color), 0.6);
+    min-width: 60px;
+}
+
+/* Durée */
+.card-duration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(var(--primary-color), 0.5);
+    font-weight: 400;
+}
+
+/* Badges direct / correspondance */
+.card-badges {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Bouton Sélectionner (mode aller-retour) */
+.btn-select-journey {
+    background: transparent;
+    /* border: 1.5px solid rgb(var(--primary-color)); */
+    /* color: rgb(var(--primary-color)); */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+    font-family: var(--roboto);
+}
+
+.btn-select-journey:hover {
+    background: rgba(var(--primary-color), 0.07);
+}
+
+.badge-direct {
+    background-color: rgba(var(--blue-color), 0.1);
+    color: rgb(var(--blue-color));
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-xfer {
+    background: rgba(243, 156, 18, 0.15);
+    color: #f39c12;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Badges types de train (inline dans la carte) */
+.card-train-types {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+/* -------------------------------------- */
+/* --- PRIX                            --- */
+/* -------------------------------------- */
+
+.card-price {
+    padding: 10px 20px;
+    background: rgba(var(--primary-color), 0.03);
+    border-top: 1px solid rgba(var(--primary-color), 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-family: var(--roboto);
+}
+
+.price-range   { display: flex; align-items: baseline; gap: 6px; }
+.price-min     { font-size: 20px; font-weight: 700; color: rgb(var(--primary-color)); }
+.price-max     { font-size: 13px; color: rgba(var(--primary-color), 0.5); }
+.price-label   { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(var(--primary-color), 0.5); }
+.price-ter     { font-size: 11px; color: rgba(var(--primary-color), 0.5); font-style: italic; }
+.price-unavail { font-size: 11px; color: rgba(var(--primary-color), 0.4); font-style: italic; }
+
+/* -------------------------------------- */
+/* --- TIMELINE DÉPLIÉE               --- */
+/* -------------------------------------- */
+
+.card-legs {
+    display: none;
+    padding: 20px;
+    background: rgba(var(--grey-color), 0.05);
+    border-top: 1px solid rgba(var(--primary-color), 0.1);
+    animation: slideDown 0.3s ease;
+}
+
+.journey-card.expanded .card-legs { display: block; }
+
+@keyframes slideDown {
+    from { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; }
+    to   { opacity: 1; max-height: 1000px; padding-top: 20px; padding-bottom: 20px; }
+}
+
+.trip-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.timeline-step {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.timeline-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 40px;
+    bottom: -15px;
+    width: 2px;
+    background: rgba(var(--primary-color), 0.15);
+}
+
+.timeline-icon {
+    font-size: 20px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--secondary-color));
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(var(--primary-color), 0.1);
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.timeline-content {
+    flex: 1;
+    padding: 4px 0;
+}
+
+.timeline-time {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(var(--primary-color));
+    font-family: var(--roboto);
+}
+
+.timeline-station {
+    font-size: 15px;
+    color: rgba(var(--primary-color), 0.8);
+    margin-top: 3px;
+    font-family: var(--roboto);
+}
+
+.timeline-train-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgb(var(--secondary-color));
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(var(--primary-color), 0.1);
+}
+
+.timeline-train-number {
+    font-weight: 500;
+    color: rgba(var(--primary-color), 0.6);
+    font-size: 14px;
+}
+
+.timeline-duration {
+    margin-left: auto;
+    color: rgba(var(--primary-color), 0.5);
+    font-size: 14px;
+}
+
+.timeline-transfer-info {
+    margin-top: 6px;
+    color: rgba(var(--primary-color), 0.6);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.leg-transfer-row {
+    padding: 8px 20px;
+    background: rgba(var(--primary-color), 0.03);
+    font-size: 11px;
+    color: rgba(var(--primary-color), 0.5);
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgba(var(--primary-color), 0.08);
+    border-bottom: 1px solid rgba(var(--primary-color), 0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* -------------------------------------- */
+/* --- ÉTATS : vide / erreur / loading --- */
+/* -------------------------------------- */
+
+.state-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(var(--primary-color), 0.5);
+    background: rgb(var(--secondary-color));
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(var(--primary-color), 0.1);
+}
+
+.state-empty .icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.state-empty p {
+    font-size: 18px;
+    font-style: italic;
+}
+
+.state-error {
+    padding: 20px;
+    background: rgba(196, 74, 58, 0.1);
+    border: 2px solid rgba(196, 74, 58, 0.3);
+    border-radius: 8px;
+    color: #c44a3a;
+    font-size: 13px;
+    font-family: var(--roboto);
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    gap: 16px;
+    font-family: var(--roboto);
+    color: rgba(var(--primary-color), 0.5);
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(var(--grey-color), 0.3);
+    border-top: 4px solid rgb(var(--blue-color));
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* -------------------------------------- */
+/* --- BOUTON VOIR PLUS                --- */
+/* -------------------------------------- */
+
+.btn-more {
+    background: linear-gradient(135deg, #2c5f6f 0%, #3d7a8a 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(44, 95, 111, 0.2);
+    font-family: var(--roboto);
+}
+
+.btn-more:hover {
+    background: linear-gradient(135deg, #234a57 0%, #2c5f6f 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(44, 95, 111, 0.3);
+}
+
+.btn-more:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* --- Liste des Résultats --- */
+#results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+/* La carte de trajet */
+.journey-item {
+    display: flex;
+    align-items: center; /* Aligne tout sur une ligne */
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.2s;
+}
+
+.journey-item:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Section Heures et Gares */
+.journey__main-info {
+    flex: 2; /* Prend plus de place à gauche */
+}
+
+/* Section Correspondance / Direct */
+.journey__connection-info {
+    flex: 1;
+    font-size: 13px;
+    color: var(--grey-color);
+    text-align: right; /* Aligne le texte vers le bouton */
+    padding-right: 20px;
+}
+
+/* --- TON BOUTON SÉLECTIONNER --- */
+.btn-select {
+    background: transparent; /* Pas de fond */
+    /* color: rgb(var(--primary-color)); */
+    /* border: 1.5px solid rgb(var(--primary-color)); */
+    padding: 8px 20px;
+    border-radius: 4px; /* Forme rectangle légèrement adoucie */
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.btn-select:hover {
+    background: rgba(var(--primary-color), 0.05); /* Léger effet au survol */
+    transform: scale(1.02);
+}
+
+/* Message si aucun résultat */
+.state-empty {
+    text-align: center;
+    padding: 60px;
+    color: var(--grey-color);
+}
+
+
+/* -------------------------------------- */
+/* --- RESPONSIVE MAIN                 --- */
+/* -------------------------------------- */
+
+@media (max-width: 680px) {
+    .card-summary    { grid-template-columns: 1fr; gap: 10px; }
+    .card-badges     { display: none; }
+    .results-header  { flex-direction: column; gap: 6px; }
+    .results__main   { margin: 16px auto; padding: 0 12px 40px; }
+}

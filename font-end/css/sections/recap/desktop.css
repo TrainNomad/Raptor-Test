@@ -1,0 +1,14 @@
+/* ============================================================
+   TrainNomad.eu — css/recap-desktop.css
+   Desktop  ·  1280px et +
+   ============================================================ */
+
+@media (min-width: 1280px) {
+  nav .max-w-7xl { padding-left: 2rem; padding-right: 2rem; }
+  main.max-w-4xl { max-width: 900px; }
+  .card-summary { padding: 26px 28px; gap: 32px; }
+  .card-time { font-size: 20px; }
+  .tl-wrap { margin: 0 28px 28px; padding: 28px; }
+  h1#recap-title { font-size: 2.2rem; }
+  .max-w-7xl { max-width: 1400px; }
+}

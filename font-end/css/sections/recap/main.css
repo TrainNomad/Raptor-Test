@@ -1,0 +1,103 @@
+/* ============================================================
+   TrainNomad.eu — css/recap.css
+   Styles propres à la page Récapitulatif
+   ============================================================ */
+
+:root { --midnight-blue:#1A2B3C; --green-highlight:#4ade80; --bg-gray:#F8FAFC; }
+* { font-family:'Plus Jakarta Sans',sans-serif; }
+body { background-color:var(--bg-gray); color:var(--midnight-blue); }
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+/* ── Journey card — identique trajets.html ── */
+.journey-card {
+  background:#fff; border-radius:16px; border:1px solid #f1f5f9;
+  box-shadow:0 1px 3px rgba(26,43,60,.06); overflow:hidden;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  animation:cardIn .35s ease both;
+}
+.journey-card:hover { box-shadow:0 10px 25px -5px rgba(26,43,60,.08); transform:translateY(-2px); }
+@keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.card-summary {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:24px; cursor:pointer; gap:32px;
+}
+.card-summary:hover { background:#fafcff; }
+
+.card-dep-block, .card-arr-block { text-align:center; }
+.card-time { display:block; font-size:18px; font-weight:800; line-height:1.1; color:var(--midnight-blue); }
+.card-station-lbl {
+  display:block; font-size:10px; font-weight:700; color:#94a3b8;
+  letter-spacing:.08em; text-transform:uppercase; margin-top:3px;
+}
+.card-overnight { font-size:11px; font-weight:700; color:#f59e0b; vertical-align:super; }
+
+.card-mid-block { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.card-dur-lbl { font-size:10px; font-weight:700; color:#94a3b8; }
+.card-track { display:flex; align-items:center; gap:4px; width:96px; }
+.card-track-dot  { width:6px; height:6px; border-radius:50%; background:#cbd5e1; flex-shrink:0; }
+.card-track-line { flex:1; height:2px; background:#f1f5f9; border-radius:1px; }
+.card-track-icon { font-size:14px; color:#cbd5e1; }
+.card-direct  { font-size:10px; font-weight:700; color:var(--green-highlight); letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+.card-corresp { font-size:10px; font-weight:700; color:#f59e0b; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+
+/* Toggle chevron */
+.card-chevron {
+  width:30px; height:30px; border-radius:50%; background:#f8fafc; border:1px solid #e2e8f0;
+  display:flex; align-items:center; justify-content:center;
+  color:#94a3b8; font-size:11px; flex-shrink:0;
+  transition:all .25s ease;
+}
+.journey-card.expanded .card-chevron {
+  background:var(--midnight-blue); color:#fff; border-color:var(--midnight-blue); transform:rotate(180deg);
+}
+
+/* ── Expanded legs — identique trajets.html ── */
+.card-legs { display:none; }
+.journey-card.expanded .card-legs { display:block; }
+
+.tl-wrap {
+  position:relative; background:#F8FAFC; border-radius:12px;
+  border:1px solid #f1f5f9; margin:0 24px 24px; padding:24px;
+}
+.tl-wrap::before {
+  content:''; position:absolute; left:33px; top:32px; bottom:32px; width:2px;
+  background:repeating-linear-gradient(to bottom,#E2E8F0 0,#E2E8F0 4px,transparent 4px,transparent 8px);
+}
+.tl-stop { display:flex; gap:24px; align-items:flex-start; margin-bottom:32px; position:relative; }
+.tl-stop--final { margin-bottom:0; }
+.tl-transfer { display:flex; gap:24px; align-items:flex-start; margin-bottom:32px; position:relative; }
+.tl-node-col { display:flex; flex-direction:column; align-items:center; flex-shrink:0; z-index:1; }
+.tl-circle { border-radius:50%; flex-shrink:0; }
+.tl-circle--dep  { width:16px; height:16px; background:#fff; border:4px solid var(--midnight-blue); margin-left:1px; margin-top:6px; }
+.tl-circle--mid  { width:16px; height:16px; background:#fff; border:4px solid #cbd5e1; margin-left:1px; margin-top:6px; }
+.tl-circle--arr  { width:16px; height:16px; background:var(--green-highlight); margin-left:1px; margin-top:6px; }
+.tl-circle--xfer { width:24px; height:24px; background:#fff7ed; border:2px solid #fed7aa; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.tl-vline { display:none; }
+.tl-body { flex:1; }
+.tl-stop-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:4px; }
+.tl-stop-name  { font-size:14px; font-weight:800; color:var(--midnight-blue); }
+.tl-stop-time  { font-size:12px; color:#94a3b8; font-weight:500; display:block; margin-top:2px; }
+.tl-dur-box {
+  display:flex; align-items:center; gap:8px; margin-top:12px; padding:10px 14px;
+  background:#fff; border:1px solid #f1f5f9; border-radius:8px; width:fit-content;
+}
+.tl-dur-ico  { font-size:14px; }
+.tl-dur-text { font-size:12px; font-weight:600; color:#64748b; }
+.tl-xfer-body { display:flex; align-items:center; gap:12px; flex:1; }
+.tl-xfer-station { font-size:14px; font-weight:700; color:#f59e0b; }
+.tl-xfer-wait    { font-size:12px; font-weight:700; color:#f59e0b; }
+.tl-xfer-sep     { flex:1; height:1px; background:#fed7aa; }
+
+/* ── Section label ── */
+.section-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.section-label-text { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; }
+.section-label-line { flex:1; height:1px; background:#f1f5f9; }
+
+/* ── Spinner ── */
+.spinner { width:32px; height:32px; border:3px solid #e2e8f0; border-top-color:var(--green-highlight); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── Mobile menu masqué par défaut ── */
+#mobile-menu-btn { display: none; }
+#mobile-nav      { display: none; }

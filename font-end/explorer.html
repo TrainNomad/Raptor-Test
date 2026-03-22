@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TrainNomad — Explorer la carte</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="script/tailwind.config.js"></script>
+
+<!-- Fonts & icons -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..0&display=swap" rel="stylesheet"/>
+<script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+
+<!-- MapLibre GL JS (WebGL natif, remplace Leaflet) -->
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"/>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+<!-- Logo -->
+<link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">   
+
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/explorer.css">
+
+<!-- Logo -->
+<link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">   
+
+</head>
+
+<body class="min-h-screen">
+
+<!-- ══ NAV ══ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        <a href="index.html" id="logo-home" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity">
+                <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+                <span class="text-xl font-extrabold tracking-tight text-midnight">
+                    TrainNomad<span class="text-primary">.eu</span>
+                </span>
+            </a>
+
+        <div class="hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="trajets.html">
+                <span class="material-symbols-outlined text-lg">train</span> Voyager
+            </a>
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="explorer.html">
+                <span class="material-symbols-outlined text-lg">explore</span> Explorer
+            </a>
+            <a class="text-sm font-bold text-white bg-midnight px-4 py-2 rounded-xl hover:bg-primary hover:text-midnight transition-all flex items-center gap-2 shadow-sm" href="outilstgvmax.html">
+                <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+            </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
+                <span class="status-dot ok" id="status-dot"></span>
+                <span id="status-text">Prêt</span>
+            </div>
+            <!-- Bouton menu mobile (masqué sur desktop) -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors"
+                aria-label="Menu">
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-midnight text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+    <a href="trajets.html">
+        <span class="material-symbols-outlined text-xl">train</span> Voyager
+    </a>
+    <a href="explorer.html">
+        <span class="material-symbols-outlined text-xl">explore</span> Explorer
+    </a>
+    <a href="outilstgvmax.html" class="nav-cta">
+        <span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax
+    </a>
+</div>
+
+<!-- ══ SEARCH BAR ══ -->
+<div class="bg-white border-b border-slate-100 py-4 px-6 z-40" style="position:sticky;top:64px;">
+    <div style="max-width:100%;margin:0 auto;">
+        <div class="flex flex-wrap lg:flex-nowrap gap-3 p-2 bg-white rounded-2xl border border-slate-100" style="box-shadow:0 4px 20px -2px rgba(26,43,60,.05)">
+
+            <!-- De -->
+            <div class="flex-1 min-w-[220px] relative group">
+                <label class="absolute left-4 top-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gare de départ</label>
+                <div class="flex items-center pt-5 pb-2 px-4 input-ac-wrapper">
+                    <span class="material-symbols-outlined text-slate-400 mr-2 text-xl flex-shrink-0"><i class="fa-solid fa-location-dot fa-xs"></i></span>
+                    <input id="input-from" type="text" autocomplete="off" placeholder="Ex : Paris Gare de Lyon"
+                        class="w-full border-none p-0 text-sm font-semibold focus:ring-0 placeholder:text-slate-300 outline-none bg-transparent" style="color:var(--midnight-blue)"/>
+                    <input type="hidden" id="id-from"/>
+                    <div id="ac-from" class="suggestions-container hidden"></div>
+                </div>
+            </div>
+
+            <div class="w-px bg-slate-100 my-2 hidden lg:block"></div>
+
+            <!-- Date -->
+            <div class="w-full lg:w-44 relative group cursor-pointer" onclick="document.getElementById('date-input').showPicker()">
+                <label class="absolute left-4 top-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider pointer-events-none">Date</label>
+                <div class="flex items-center pt-5 pb-2 px-4 relative">
+                    <span class="material-symbols-outlined text-slate-400 mr-2 text-xl flex-shrink-0"><i class="fa-regular fa-calendar fa-xs"></i></span>
+                    <input id="date-input" type="date" style="color-scheme:light;color:var(--midnight-blue)"
+                        class="w-full border-none p-0 text-sm font-semibold focus:ring-0 outline-none bg-transparent cursor-pointer"/>
+                </div>
+            </div>
+
+            <div class="w-px bg-slate-100 my-2 hidden lg:block"></div>
+
+            <!-- Bouton -->
+            <button id="search-btn"
+                onclick="doSearch()"
+                class="px-8 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 whitespace-nowrap text-white"
+                style="background:var(--midnight-blue)">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>Explorer</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- ══ EXPLORER MAIN ══ -->
+<div id="explorer-main">
+
+    <!-- Panneau latéral -->
+    <div id="side-panel">
+        <div id="panel-header">
+            <div class="panel-title">Destinations accessibles</div>
+            <div id="results-count-row">
+                <span id="results-count-label">Lancez une recherche</span>
+                <span id="results-count" style="color:var(--midnight-blue)"></span>
+            </div>
+        </div>
+
+        <!-- Filtres -->
+        <div id="filters-bar">
+            <button class="filter-chip active" data-filter="all">Tous</button>
+            <button class="filter-chip" data-filter="direct">Direct</button>
+            <button class="filter-chip" data-filter="INOUI">TGV Inoui</button>
+            <button class="filter-chip" data-filter="OUIGO">Ouigo</button>
+            <button class="filter-chip" data-filter="IC">Intercités</button>
+            <button class="filter-chip" data-filter="TER">TER</button>
+            <button class="filter-chip" data-filter="ICE">ICE</button>
+            <button class="filter-chip" data-filter="LYRIA">Lyria</button>
+        </div>
+
+        <!-- Toggle Tout / Pertinent -->
+        <div id="display-toggle">
+            <button class="dtoggle-btn active" id="btn-smart" onclick="setDisplayMode('smart')">
+                <i class="fa-solid fa-star fa-xs"></i> Pertinent
+            </button>
+            <button class="dtoggle-btn" id="btn-all" onclick="setDisplayMode('all')">
+                <i class="fa-solid fa-circle-dot fa-xs"></i> Tout
+            </button>
+        </div>
+
+        <!-- Durée du trajet (slider) -->
+        <div id="duration-legend">
+            <div class="legend-header">
+                <span class="legend-title">Durée du trajet</span>
+                <span class="legend-cur-val" id="dur-val">Toutes</span>
+            </div>
+            <div class="legend-gradient-track">
+                <div class="legend-gradient"></div>
+                <div class="legend-mask" id="dur-mask"></div>
+                <div class="legend-slider-thumb" id="dur-thumb"></div>
+                <input type="range" id="dur-slider" min="30" max="900" step="15" value="900" class="legend-slider-range"/>
+            </div>
+            <div class="legend-labels">
+                <span>0h</span>
+                <span>3h</span>
+                <span>6h</span>
+                <span>9h</span>
+                <span>12h+</span>
+            </div>
+        </div>
+
+        <!-- Liste -->
+        <div id="results-list"></div>
+    </div>
+
+    <!-- Carte Leaflet -->
+    <div id="map-container">
+        <div id="progress-bar"></div>
+        <div id="map"></div>
+
+        <!-- Hint initial -->
+        <div id="map-hint">
+            <div class="hint-icon">🗺️</div>
+            <div class="hint-title">Explorez le réseau ferroviaire</div>
+            <div class="hint-sub">Saisissez une gare de départ<br>pour visualiser toutes les destinations accessibles</div>
+        </div>
+    </div>
+
+    <!-- Bouton fermer la carte (mobile uniquement) -->
+    <button id="mobile-close-map" onclick="toggleMapMobile()">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Destinations
+    </button>
+
+    <!-- Toggle sidebar — hors map-container pour z-index correct -->
+    <button id="toggle-panel-btn" onclick="togglePanel()">
+        <i class="fa-solid fa-list fa-sm"></i>
+        <span id="toggle-label">Masquer</span>
+    </button>
+
+    <!-- Bouton carte/liste (mobile uniquement) -->
+    <button id="mobile-view-btn" onclick="toggleMapMobile()">
+        <span class="material-symbols-outlined" id="mobile-view-icon">map</span>
+        <span id="mobile-view-label">Voir la carte</span>
+    </button>
+
+
+
+
+
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="bg-midnight text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16 mb-12">
+            <!-- Branding -->
+            <div class="col-span-1">
+                <a href="index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        TrainNomad<span class="text-primary">.eu</span>
+                    </span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+            <!-- Navigation -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-primary transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <!-- Engagement -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="text-slate-400 text-base leading-relaxed" style="font-style:italic">
+                    "Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."
+                </p>
+            </div>
+        </div>
+        <!-- Barre légale -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ══ JS ══ -->
+<script src="script/Explorer-enhanced.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* ============================================================
+   TrainNomad.eu — css/trajetsmax-desktop.css
+   Desktop  ·  1280px et +
+   ============================================================ */
+
+@media (min-width: 1280px) {
+
+  nav .max-w-7xl { padding-left: 2rem; padding-right: 2rem; }
+
+  .bg-white.border-b.border-slate-100.py-6.px-6.sticky { padding: 1.25rem 2rem !important; }
+  .flex-1.min-w-\[200px\] { min-width: 220px; }
+  .w-full.lg\:w-40 { width: 11rem !important; }
+
+  .results__main { padding: 2rem; gap: 2.5rem; }
+  aside { width: 280px !important; }
+  aside .sticky { top: 11rem; }
+
+  .card-summary { padding: 26px 28px; gap: 36px; }
+  .card-time { font-size: 20px; }
+  .card-track { width: 110px; }
+  .tl-wrap { margin: 0 28px 28px; padding: 28px; }
+
+  .results-title { font-size: 24px; }
+  .max-w-7xl { max-width: 1400px; }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "zurich",
+  "city": "Zurich",
+  "country": "Suisse",
+  "tagline": "Lac, montagne et chocolat à 4h de Paris",
+  "excerpt": "2 jours à Zurich",
+  "cover": "zurich-cover.jpg",
+  "hero": "zurich-hero.jpg",
+  "badges": ["Train direct", "TGV Lyria"],
+  "travel": {
+    "duration": "4h",
+    "operator": "TGV Lyria",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Zürich Hauptbahnhof",
+    "price_from": "29€",
+    "best_season": "Juin · Septembre",
+    "co2_saved": "90%"
+  },
+  "intro": "Zurich est souvent réduite à ses banques et son coût de la vie vertigineux. C'est passer à côté de l'essentiel : une vieille ville médiévale impeccable, un lac d'une clarté irréelle où l'on peut se baigner en été, et une scène culturelle qui rivalise avec Berlin. Deux jours suffisent pour en voir les deux visages — le luxueux et le bohème — à condition de connaître les bons endroits.",
+  "essentials": {
+    "voir": [
+      { "icon": "church",       "name": "Grossmünster",       "note": "La tour offre la meilleure vue sur le lac" },
+      { "icon": "palette",      "name": "Kunsthaus Zürich",   "note": "L'un des plus grands musées d'art de Suisse" },
+      { "icon": "water",        "name": "Lac de Zurich",      "note": "Baignade gratuite aux Badeanstalten en été" },
+      { "icon": "storefront",   "name": "Bahnhofstrasse",     "note": "La rue commerçante la plus chère d'Europe" }
+    ],
+    "manger": [
+      { "icon": "restaurant",   "name": "Zeughauskeller",     "note": "Brasserie dans une ancienne armurerie depuis 1487" },
+      { "icon": "local_cafe",   "name": "Café Sprüngli",      "note": "Chocolats et Luxemburgerli depuis 1836" },
+      { "icon": "lunch_dining", "name": "Marché Bürkliplatz", "note": "Marché bio le mardi et vendredi matin" },
+      { "icon": "sports_bar",   "name": "Langstrasse",        "note": "Le quartier festif — bars et restaurants du monde entier" }
+    ],
+    "transport": [
+      { "icon": "tram",         "name": "Trams ZVV",          "note": "Réseau impeccable — couvre toute la ville" },
+      { "icon": "directions_boat","name": "Bateaux du lac",  "note": "Inclus dans le ZürichCARD (24h/48h)" },
+      { "icon": "train",        "name": "S-Bahn",             "note": "Pour aller jusqu'aux bords du lac et villages" },
+      { "icon": "directions_bike","name": "Züri rollt",       "note": "Vélos gratuits sur dépôt — vraiment gratuits" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "La vieille ville et le lac", "color": "#4ade80",
+      "points": [
+        { "time": "09:30", "title": "Niederdorf",         "desc": "Le quartier médiéval. Rues pavées, fontaines et cafés." },
+        { "time": "11:00", "title": "Grossmünster",       "desc": "Montez à la tour Karlsturm pour la vue sur les toits et le lac." },
+        { "time": "13:00", "title": "Déjeuner Zeughauskeller","desc": "Saucisses, rösti et bière sous les voûtes d'une ancienne armurerie." },
+        { "time": "15:00", "title": "Lac de Zurich",      "desc": "Promenade sur les quais ou baignade au Seebad si été." },
+        { "time": "18:00", "title": "Sprüngli",           "desc": "Chocolats à emporter et Luxemburgerli pour l'hôtel." }
+      ]
+    },
+    {
+      "day": 2, "title": "Art et départ", "color": "#1A2B3C",
+      "points": [
+        { "time": "10:00", "title": "Kunsthaus Zürich",   "desc": "2h minimum. Giacometti, Monet, la collection est remarquable." },
+        { "time": "12:30", "title": "Langstrasse",        "desc": "Le quartier alternatif. Brunch dans un café indépendant." },
+        { "time": "14:30", "title": "Bahnhofstrasse",     "desc": "Vitrine ou shopping selon le budget. Les vitrines valent le coup d'œil." },
+        { "time": "16:30", "title": "Zürich HB",          "desc": "La gare principale, elle-même une attraction. TGV Lyria vers Paris." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "savings",   "text": "La ZürichCARD (24h : 24 CHF) couvre transports + réductions musées. Rentable dès 2 musées." },
+    { "icon": "schedule",  "text": "Les Badeanstalten (bains publics sur le lac) ferment en septembre. Vérifiez les dates." },
+    { "icon": "train",     "text": "TGV Lyria Paris–Zurich : jusqu'à 6 trains/jour depuis la Gare de Lyon. À partir de 29€. Premier départ de Paris à 7h10." },
+    { "icon": "payments",  "text": "La Suisse n'est pas dans la zone euro. Emportez des francs suisses ou payez par carte sans frais." }
+  ],
+  "related": ["milan", "geneve", "munich"]
+}

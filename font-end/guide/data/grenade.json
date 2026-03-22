@@ -1,0 +1,71 @@
+{
+  "id": "grenade",
+  "city": "Grenade",
+  "country": "Espagne",
+  "tagline": "L'Alhambra, les tapas gratuites et l'Andalousie profonde",
+  "excerpt": "2 jours à Grenade",
+  "cover": "grenade-cover.jpg",
+  "hero": "grenade-hero.jpg",
+  "badges": ["2 correspondances", "TGV + AVE + MD"],
+  "travel": {
+    "duration": "~14h (via Barcelone + Madrid)",
+    "operator": "TGV Inoui + Renfe AVE + Media Distancia",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Granada",
+    "price_from": "109€",
+    "best_season": "Mars · Avril · Octobre · Novembre",
+    "co2_saved": "87%",
+    "correspondance": "2 changements : Barcelona Sants puis Madrid Atocha ou Antequera-Santa Ana",
+    "note": "Paris Gare de Lyon → Barcelone Sants (6h50, dès 79€), puis AVE Barcelone → Madrid (~2h30, dès 25€), puis AVE/MD Madrid → Grenade (~3h via Antequera, dès 20€). Alternative : Paris → Barcelone → Antequera-Santa Ana → Grenade (~2h) sans passer par Madrid. Achetez sur SNCF Connect et Renfe.es.",
+    "operators_used": ["SNCF", "RENFE"]
+  },
+  "intro": "Grenade est la ville la plus secrète d'Andalousie. Son trésor — l'Alhambra, forteresse nasride dominant la ville depuis ses jardins irrigués — est le monument le plus visité d'Espagne. Mais Grenade c'est aussi la tradition unique des tapas gratuites avec chaque verre commandé, le quartier du Sacromonte creusé dans la falaise par les gitans, la Sierra Nevada à portée de vue depuis les toits. Une ville qui se mérite.",
+  "essentials": {
+    "voir": [
+      { "icon": "castle",         "name": "Alhambra + Generalife",    "note": "RÉSERVATION OBLIGATOIRE des mois à l'avance sur alhambra.org" },
+      { "icon": "location_city",  "name": "Albaicín",                 "note": "Quartier maure inscrit à l'UNESCO — Mirador San Nicolás pour la vue" },
+      { "icon": "music_note",     "name": "Sacromonte",               "note": "Grottes troglodytes des gitans — flamenco authentique" },
+      { "icon": "church",         "name": "Cathédrale et Capilla Real","note": "Le tombeau des Rois Catholiques Isabel et Fernando" }
+    ],
+    "manger": [
+      { "icon": "sports_bar",     "name": "Tapas gratuites",           "note": "Chaque verre commandé donne droit à une tapa — unique en Espagne" },
+      { "icon": "restaurant",     "name": "Bar Los Diamantes",         "note": "Les meilleures crevettes fritas de Grenade depuis 1942" },
+      { "icon": "local_cafe",     "name": "Tetería del Bañuelo",       "note": "Salon de thé arabe dans le vieil Albaicín — pastillas au miel" },
+      { "icon": "storefront",     "name": "Alcaicería",                "note": "L'ancien souk de Grenade — épices, huile d'olive et souvenirs" }
+    ],
+    "transport": [
+      { "icon": "directions_bus", "name": "Bus LAC et C3",            "note": "Bus touristiques de la ville — 1,40€ le ticket" },
+      { "icon": "tram",           "name": "Metro Ligero",             "note": "1 ligne reliant la gare au centre-ville" },
+      { "icon": "directions_walk","name": "À pied",                   "note": "L'Albaicín et le Sacromonte se font absolument à pied" },
+      { "icon": "directions_bike","name": "Vélos electriques",        "note": "Attention aux rues pavées en pente de l'Albaicín" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "L'Alhambra et les hauteurs", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Alhambra (1ère session)",         "desc": "Arrivez 15 min avant le créneau. Palais nasrides, Generalife, Alcazaba." },
+        { "time": "13:00", "title": "Parador de Grenade",             "desc": "Déjeuner dans l'hôtel au sein de l'Alhambra — une expérience unique." },
+        { "time": "15:30", "title": "Mirador San Nicolás",            "desc": "La vue la plus photographiée d'Espagne — Alhambra face à vous, Sierra Nevada derrière." },
+        { "time": "17:00", "title": "Albaicín",                       "desc": "Perdez-vous dans le quartier maure. Petits placettes ombragées et fontaines." },
+        { "time": "20:00", "title": "Premier verre + tapa gratuite",  "desc": "Bar Los Diamantes. Commandez un verre, recevez des crevettes fritas." }
+      ]
+    },
+    {
+      "day": 2, "title": "Sacromonte et départ", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:30", "title": "Cathédrale et Capilla Real",     "desc": "Les tombeaux des Rois Catholiques. Une heure dans l'histoire de l'Espagne." },
+        { "time": "11:30", "title": "Sacromonte",                     "desc": "Les grottes troglodytes des gitans. Le musée du flamenco y est excellent." },
+        { "time": "13:30", "title": "Tapas de fin",                   "desc": "Tournée des bars de la Calle Navas — 4-5 verres = 4-5 tapas gratuites." },
+        { "time": "16:00", "title": "Gare de Grenade",               "desc": "Renfe vers Madrid ou Antequera-Santa Ana, puis correspondance pour Barcelone et Paris." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "castle",      "text": "L'Alhambra se réserve obligatoirement sur alhambra.org — les billets partent en quelques minutes lors de l'ouverture des ventes (3 mois à l'avance). Ne prenez jamais le risque d'arriver sans billet." },
+    { "icon": "train",       "text": "Depuis Madrid, l'AVE vers Grenade passe par Antequera-Santa Ana (~3h, dès 20€). Alternative plus rapide depuis Barcelone : train direct Barcelone–Antequera, puis correspondance (~6h total sans passer par Madrid). Achetez sur Renfe.es." },
+    { "icon": "sports_bar",  "text": "La tradition des tapas gratuites est unique à Grenade — commandez simplement une caña (bière) ou un mosto (raisin) et une tapa vous est servie. Répétez dans un autre bar pour une tapa différente." },
+    { "icon": "wb_sunny",    "text": "Juillet-août : 40°C dans la ville, mais la Sierra Nevada (à 30 km) est fraîche. Printemps et automne sont idéaux. La Semana Santa est grandiose — hôtels complets 6 mois à l'avance." }
+  ],
+  "related": ["seville", "madrid", "valence"]
+}

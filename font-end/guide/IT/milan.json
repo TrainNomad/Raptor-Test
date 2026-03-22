@@ -1,0 +1,184 @@
+{
+  "id": "milan",
+  "slug": "milan",
+  "country": "IT",
+  "country_name": "Italie",
+  "city": "Milan",
+  "tagline": "La capitale de l'élégance à portée de rail",
+  "description": "Découvrez pourquoi le trajet en train vers Milan est déjà le début du voyage.",
+  "hero_image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAx05mBMwIJUJL_XW_nbZ5XHFU3x9EAD6wx9CayhMNVt20DG8K4mjnHI16BRg_nrts3etLKT8_sPdhc1EEyKjQ52Nks1iB6MM7j9VZM60_iuZ508rIHO-0fwgxGSXNl-tsQfIj1BgJuMme1ri5-wBQDNm197rmE6a8ush09CDI5Q6SW9pOWnLdi4X6e_5ttT5tLa7QMBLNqogQcI0vPE-ZN0jyDFmIjpK3FwUjNmAEwclQxAx8h_XNcutIboVwvHurnynlf_0eaR-oF",
+  "categories": ["city-break", "culture", "gastronomie"],
+  "train": {
+    "duration": "7h 15min",
+    "price_from": 45,
+    "co2_saving": 92,
+    "stop_area_id": "stop_area:OCE83000455",
+    "stop_name": "Milano Centrale"
+  },
+  "plane": {
+    "duration": "~6h 30min",
+    "co2_kg": 240
+  },
+  "editorial": {
+    "intro": "Milan ne ressemble à aucune autre ville italienne. Elle vit à l'heure du nord — efficace, tendue, ambitieuse — mais elle s'arrête chaque soir comme une seule personne pour l'apéritivo, verre en main face aux canaux. C'est cette contradiction qui la rend irrésistible : la rigueur lombarde et le génie du plaisir, dans la même journée.",
+    "sections": [
+      {
+        "id": "histoire",
+        "icon": "history_edu",
+        "title": "Une ville construite par les génies",
+        "image": "https://images.unsplash.com/photo-1610016302534-6f67f1c968d8?w=900&q=80",
+        "body": "Milan a deux mille ans d'histoire, mais c'est la Renaissance qui lui a donné son visage. Les Visconti d'abord, les Sforza ensuite, ont fait de la ville une cour parmi les plus brillantes d'Europe — invitant Léonard de Vinci, Bramante et les meilleurs artistes du continent. C'est sous Ludovic le More, à la fin du XVe siècle, que Léonard passera près de vingt ans à Milan : il y peindra la Cène, concevra des canaux, des machines de guerre, des projets architecturaux jamais réalisés.\n\nLe Duomo, commencé en 1386 et achevé seulement sous Napoléon, incarne cet élan sans fin. Avec ses 135 flèches, ses 3 400 statues et sa terrasse perchée à 65 mètres, il reste l'un des chantiers les plus longs de l'histoire de l'architecture. La Galleria Vittorio Emanuele II qui lui fait face, inaugurée en 1877, est l'autre symbole de cette ambition milanaise : fer, verre, mosaïques — l'Italie qui entre dans la modernité."
+      },
+      {
+        "id": "musees",
+        "icon": "museum",
+        "title": "Musées & chef-d'œuvres",
+        "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
+        "body": "La concentration d'œuvres majeures à Milan est vertigineuse. La Pinacothèque de Brera, installée dans un palazzo baroque du XVIIe siècle, rassemble des tableaux de Mantegna, Raphael, Caravage et Hayez — dont le célébrissime «Il Bacio», le baiser. La Pinacothèque Ambrosienne abrite quant à elle le seul portrait de musicien de Léonard et des pages de son Codex Atlanticus.\n\nMais l'incontournable absolu reste la Cène. Peinte entre 1495 et 1498 sur le mur du réfectoire de Santa Maria delle Grazie, elle n'est pas une fresque au sens technique — Léonard avait expérimenté une technique à la détrempe sur enduit sec, ce qui explique sa fragilité extrême. Quinze minutes de face à face, en petit groupe, dans une salle à température et humidité contrôlées. Réservation indispensable des semaines à l'avance.\n\nLe Château des Sforza (Castello Sforzesco) mérite bien plus qu'un passage rapide : ses sept musées abritent notamment la dernière œuvre de Michel-Ange, la Pietà Rondanini, laissée inachevée à sa mort en 1564. La salle qui lui est consacrée est l'une des plus émouvantes de Milan."
+      },
+      {
+        "id": "gastronomie",
+        "icon": "restaurant",
+        "title": "La table milanaise",
+        "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
+        "body": "La cuisine milanaise est une des plus riches d'Italie — et une des plus méconnues. Le risotto alla milanese, jaune safran, crémeux et profond, est l'antithèse du risotto fade que l'on sert partout ailleurs. L'ossobuco (jarret de veau braisé) se mange traditionnellement avec lui, nappé de gremolata — zeste de citron, ail, persil. La cotoletta alla milanese, escalope panée cuite au beurre clarifié, est arrivée avant la Wiener Schnitzel viennoise, et les Milanais vous le rappelleront volontiers.\n\nL'heure magique, c'est l'apéritivo. Pas un apéritif — une institution. Entre 18h et 21h, les bars des Navigli, de Brera et de Porta Romana servent un verre (Aperol Spritz, Negroni, verre de vin local) accompagné d'un buffet généreux inclus dans le prix. Pour moins de 10€, on mange et on boit dans l'un des plus beaux décors de Milan.\n\nPour dîner, fuyez les abords du Duomo. Direction les Navigli, Isola ou Porta Romana : trattorias familiales, pizzerias au feu de bois, bars à vins naturels. Le marché de Porta Romana le matin est l'un des plus authentiques de la ville.",
+        "tips": [
+          { "icon": "restaurant", "text": "Risotto alla milanese + ossobuco chez Ratanà ou Trattoria Masuelli San Marco" },
+          { "icon": "wine_bar", "text": "Apéritivo aux Navigli : Mag Café ou Spritz & Tonic pour l'ambiance canal" },
+          { "icon": "local_cafe", "text": "Café debout au comptoir — c'est la règle ici, et c'est deux fois moins cher" },
+          { "icon": "storefront", "text": "Gelato : Artico ou Pavé, jamais les enseignes à côté du Duomo" }
+        ]
+      },
+      {
+        "id": "navigli",
+        "icon": "water",
+        "title": "Les Navigli & la ville vivante",
+        "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=900&q=80",
+        "body": "Le réseau de canaux qui traverse le sud de Milan est l'œuvre des ingénieurs lombards du Moyen Âge, perfectionnée au XVe siècle notamment avec la contribution de Léonard de Vinci. Longtemps industriels — ils servaient à transporter le marbre du Duomo depuis les carrières du lac Majeur — ils ont été progressivement couverts au XXe siècle. Seuls deux subsistent aujourd'hui : le Naviglio Grande et le Naviglio Pavese.\n\nCe quartier est aujourd'hui le plus vivant de Milan après la tombée du jour. Le dimanche matin, le plus grand marché aux puces de la ville s'étale sur plusieurs kilomètres le long du canal. Le reste du temps, les galeries d'art, les bars, les ateliers de créateurs et les restaurants s'enchaînent dans un mélange décontracté et populaire, très loin du luxe froid du centre."
+      }
+    ]
+  },
+  "highlights": [
+    {
+      "icon": "architecture",
+      "label": "Le Duomo",
+      "description": "135 flèches et une terrasse panoramique sur les Alpes.",
+      "url": "https://www.duomomilano.it/fr/"
+    },
+    {
+      "icon": "shopping_bag",
+      "label": "Galleria Vittorio Emanuele II",
+      "description": "La plus belle galerie marchande d'Europe sous une verrière du XIXe s.",
+      "url": "https://en.wikipedia.org/wiki/Galleria_Vittorio_Emanuele_II"
+    },
+    {
+      "icon": "water",
+      "label": "Les Navigli",
+      "description": "Apéritivo face aux canaux au coucher du soleil.",
+      "url": "https://www.naviglilombardi.it/en/"
+    },
+    {
+      "icon": "palette",
+      "label": "Pinacothèque de Brera",
+      "description": "Raphael, Caravage et Hayez dans un palazzo baroque.",
+      "url": "https://pinacotecabrera.org"
+    },
+    {
+      "icon": "brush",
+      "label": "La Cène",
+      "description": "Patrimoine UNESCO — réservation obligatoire à l'avance.",
+      "url": "https://cenacolovinciano.org"
+    },
+    {
+      "icon": "castle",
+      "label": "Château des Sforza",
+      "description": "7 musées et la dernière œuvre de Michel-Ange.",
+      "url": "https://www.milanocastello.it"
+    }
+  ],
+  "gyg_partner_id": "URMJDFO",
+  "gyg_location_id": "139",
+  "gyg_cmp": "milan-guide",
+  "gyg_location_url": "https://www.getyourguide.com/milan-l139/",
+  "gyg_tours": [
+    {
+      "tour_id": "153354",
+      "icon": "architecture",
+      "category": "Incontournable",
+      "title": "Duomo — Terrasse & cathédrale",
+      "description": "Accès tout compris à la cathédrale, ses terrasses panoramiques et le musée. Vue sur les Alpes par temps clair.",
+      "image": "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=700&q=80"
+    },
+    {
+      "tour_id": "45879",
+      "icon": "group",
+      "category": "Visite guidée",
+      "title": "Duomo — Visite guidée rooftop coupe-file",
+      "description": "Un guide local vous emmène dans les coulisses du Duomo puis sur les toits parmi les 3 400 statues et les gargouilles.",
+      "image": "https://images.unsplash.com/photo-1610016302534-6f67f1c968d8?w=700&q=80"
+    },
+    {
+      "tour_id": "13993",
+      "icon": "brush",
+      "category": "Patrimoine UNESCO",
+      "title": "La Cène de Léonard — Entrée coupe-file guidée",
+      "description": "Accès prioritaire à la fresque de Santa Maria delle Grazie. 15 minutes face au chef-d'œuvre, avec un guide expert.",
+      "image": "https://images.unsplash.com/photo-1583779457094-ab6f77f7bf57?w=700&q=80"
+    },
+    {
+      "tour_id": "183092",
+      "icon": "castle",
+      "category": "Combo incontournables",
+      "title": "La Cène + Château des Sforza",
+      "description": "La journée idéale pour les primo-visiteurs : la Cène le matin, puis les cours et la Pietà Rondanini de Michel-Ange.",
+      "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=700&q=80"
+    },
+    {
+      "tour_id": "71966",
+      "icon": "directions_bike",
+      "category": "Découverte active",
+      "title": "Vélo & apéritivo aux Navigli",
+      "description": "3h à vélo à travers Milan, de Parco Sempione jusqu'aux canaux. Spritz inclus en fin de parcours au bord de l'eau.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80"
+    },
+    {
+      "tour_id": "425460",
+      "icon": "sailing",
+      "category": "Art de vivre",
+      "title": "Croisière canal + apéritivo au coucher du soleil",
+      "description": "50 minutes de navigation sur le Naviglio Grande au coucher du soleil, Aperol Spritz ou verre de vin à la main.",
+      "image": "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=700&q=80"
+    }
+  ],
+  "hotels": [
+    { "name": "Starhotels Echo", "walk_min": 5, "eco": true, "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC757o0_P-J1B8A04LpXl33o-v_pE5y5C-v6R_9rP_7" },
+    { "name": "Ostello Bello Grande", "walk_min": 2, "eco": true, "image": "" },
+    { "name": "NYX Hotel Milan", "walk_min": 8, "eco": true, "image": "" }
+  ],
+  "restaurants": [
+    { "icon": "restaurant", "name": "Ratanà", "note": "Cuisine milanaise raffinée, ingrédients du marché. Le risotto alla milanese de référence." },
+    { "icon": "restaurant_menu", "name": "Trattoria Masuelli San Marco", "note": "Institution fondée en 1921 — cotoletta et ossobuco dans leur jus." },
+    { "icon": "wine_bar", "name": "Bar Basso", "note": "L'inventeur du Negroni Sbagliato, institution depuis 1947. Apéritivo incontournable." },
+    { "icon": "local_pizza", "name": "Spontini", "note": "La pizzeria milanaise par excellence — pizza al trancio depuis 1953, Corso Buenos Aires." }
+  ],
+  "escapades": [
+    {
+      "title": "Lac de Côme",
+      "tag": "1h de Milan",
+      "desc": "Prenez le train régional depuis Milano Centrale pour une journée de calme au bord de l'eau.",
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAaYpoKegPXPdVq-8_JLZrD-ZS7BWyKHYfjo6XXWXYIGxclg7LLHxvIEE2FS0qlEFo26AqtK38BF-kY67PE--cV5xTGxRzqV4DnHLdCvUZuKFaBUJNSZKt4vRsgkmyykyoanIYQxgdTA8bbWlfMdoCtf-cICqUOQP2vikm3PcQDtybissdMtz4nYTMibbQKDIFDOodaR7kulJNZ8vltEFctfJwFaQ4grrBpZ8p2f0AcsLmyhMaUfT8uMLf36T2Ehgj04t0lf4yItgdx"
+    },
+    {
+      "title": "Bergame Haute-Ville",
+      "tag": "50min de Milan",
+      "desc": "La cité médiévale perchée, ses remparts vénitiens classés UNESCO et ses trattorias sans touristes.",
+      "image": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80"
+    },
+    {
+      "title": "Lac Majeur — Îles Borromées",
+      "tag": "1h15 de Milan",
+      "desc": "Palais baroques sur des îles privées, jardins en terrasses et vue sur les Alpes. Train + bateau depuis Stresa.",
+      "image": "https://images.unsplash.com/photo-1586899028174-e7098604235b?w=600&q=80"
+    }
+  ]
+}

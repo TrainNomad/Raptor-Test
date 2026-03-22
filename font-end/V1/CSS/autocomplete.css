@@ -1,0 +1,151 @@
+/* css/autocomplete.css */
+/* Styles pour l'autocomplétion des gares */
+
+.input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: -1px;
+}
+
+.suggestions-container.hidden {
+    display: none;
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background-color: #f5f8ff;
+}
+
+.suggestion-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.suggestion-main strong {
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.suggestion-main mark {
+    background-color: #ffd700;
+    color: #333;
+    font-weight: 700;
+    padding: 0 2px;
+}
+
+.suggestion-code {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Scrollbar personnalisée */
+.suggestions-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 0 8px 0;
+}
+
+.suggestions-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.suggestions-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Animation d'apparition */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestions-container:not(.hidden) {
+    animation: fadeInDown 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .suggestions-container {
+        max-height: 250px;
+    }
+    
+    .suggestion-item {
+        padding: 10px 12px;
+    }
+    
+    .suggestion-main strong {
+        font-size: 13px;
+    }
+    
+    .suggestion-code {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+}
+
+/* État de chargement */
+.suggestions-container.loading::before {
+    content: "🔍 Recherche en cours...";
+    display: block;
+    padding: 12px 16px;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Message "Aucun résultat" */
+.suggestions-container.no-results::before {
+    content: "Aucune gare trouvée";
+    display: block;
+    padding: 12px 16px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}

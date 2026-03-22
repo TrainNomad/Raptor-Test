@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TrainNomad — Récapitulatif de votre voyage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..0&display=swap" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/8e4de4bf0a.js"></script>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="script/tailwind.config.js"></script>
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/recap.css">
+
+<!-- Logo -->
+<link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">   
+
+</head>
+
+<body class="min-h-screen">
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        <!-- Logo -->
+       <a href="index.html" id="logo-home" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity">
+            <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight text-midnight">
+                TrainNomad<span class="text-primary">.eu</span>
+            </span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="trajets.html">
+                <span class="material-symbols-outlined text-lg">train</span> Voyager
+            </a>
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="explorer.html">
+                <span class="material-symbols-outlined text-lg">explore</span> Explorer
+            </a>
+            <a class="text-sm font-bold text-white bg-midnight px-4 py-2 rounded-xl hover:bg-primary hover:text-midnight transition-all flex items-center gap-2 shadow-sm" href="outilstgvmax.html">
+                <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+            </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors"
+                aria-label="Menu">
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-midnight text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+    <a href="trajets.html">
+        <span class="material-symbols-outlined text-xl">train</span> Voyager
+    </a>
+    <a href="explorer.html">
+        <span class="material-symbols-outlined text-xl">explore</span> Explorer
+    </a>
+    <a href="outilstgvmax.html" class="nav-cta">
+        <span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax
+    </a>
+</div>
+
+<!-- MAIN -->
+<main class="max-w-4xl mx-auto px-6 pt-6 pb-10">
+
+  <!-- Hero -->
+  <header>
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl" style="background:rgba(74,222,128,.12)">
+      <span class="material-symbols-outlined text-2xl" style="color:var(--green-highlight)">confirmation_number</span>
+    </div>
+    <h1 id="recap-title" class="text-3xl font-extrabold tracking-tight" style="color:var(--midnight-blue)">Récapitulatif</h1>
+    <p id="recap-sub" class="text-slate-400 mt-1 font-medium text-sm"></p>
+  </header>
+
+  <!-- Chargement -->
+  <div id="recap-loading" class="flex flex-col items-center justify-center py-20 gap-4">
+    <div class="spinner"></div>
+    <p class="text-sm text-slate-400 font-medium">Chargement…</p>
+  </div>
+
+  <!-- Contenu -->
+  <div id="recap-content" style="display:none">
+
+    <!-- Aller -->
+    <section class="mb-8">
+      <div class="section-label">
+        <span class="section-label-text" style="color:var(--green-highlight)">Trajet Aller</span>
+        <span id="date-aller" class="text-xs font-semibold text-slate-400"></span>
+        <div class="section-label-line"></div>
+      </div>
+      <div id="card-aller"></div>
+    </section>
+
+    <!-- Retour -->
+    <section id="section-retour" class="mb-8">
+      <div class="section-label">
+        <span class="section-label-text text-slate-400">Trajet Retour</span>
+        <span id="date-retour" class="text-xs font-semibold text-slate-400"></span>
+        <div class="section-label-line"></div>
+      </div>
+      <div id="card-retour"></div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-12 rounded-3xl overflow-hidden" style="background:var(--midnight-blue)">
+      <div class="p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="text-center md:text-left">
+          <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:var(--green-highlight)">Prêt à réserver ?</p>
+          <p class="text-white font-semibold text-sm max-w-xs" style="opacity:.6">TrainNomad n'est pas un site de vente. Vous serez redirigé vers le transporteur officiel.</p>
+        </div>
+        <button onclick="goToSncf()"
+          class="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-extrabold text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+          style="background:var(--green-highlight);color:var(--midnight-blue)">
+          Finaliser sur le site officiel
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </button>
+      </div>
+    </section>
+
+    <p class="mt-6 text-center text-xs text-slate-400 font-medium leading-relaxed max-w-md mx-auto">
+      En cliquant, vous serez redirigé vers le site du transporteur pour finaliser l'achat et l'émission de vos billets.
+    </p>
+
+  </div>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="bg-midnight text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16 mb-12">
+            <!-- Branding -->
+            <div class="col-span-1">
+                <a href="index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        TrainNomad<span class="text-primary">.eu</span>
+                    </span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+            <!-- Navigation -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-primary transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <!-- Engagement -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="text-slate-400 text-base leading-relaxed" style="font-style:italic">
+                    "Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."
+                </p>
+            </div>
+        </div>
+        <!-- Barre légale -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script/recap.js"></script>
+</body>
+</html>

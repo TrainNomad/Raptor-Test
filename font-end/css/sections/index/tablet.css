@@ -1,0 +1,59 @@
+/* ============================================================
+   TrainNomad.eu — css/index-tablet.css
+   Tablettes  ·  640px – 1023px
+   ============================================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 64px; padding-left: 1.5rem; padding-right: 1.5rem; }
+  nav .hidden.md\:flex { display: none !important; }
+  #mobile-menu-btn { display: flex !important; }
+
+  /* ── Menu mobile déroulant ── */
+  #mobile-nav {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #f1f5f9;
+    z-index: 60;
+    padding: 1rem 2rem 1.5rem;
+    box-shadow: 0 8px 24px rgba(26,43,60,0.08);
+    flex-direction: column; gap: 0.25rem;
+  }
+  #mobile-nav.open { display: flex; }
+  #mobile-nav a {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 0.5rem; font-size: 1rem; font-weight: 700;
+    color: #1A2B3C; border-radius: 0.75rem; text-decoration: none;
+  }
+  #mobile-nav a:hover { background: #f8fafc; }
+  #mobile-nav a.nav-cta { background: #1A2B3C; color: #fff; padding: 0.75rem 1rem; margin-top: 0.5rem; }
+  #mobile-nav a.nav-cta:hover { background: #4ade80; color: #1A2B3C; }
+
+  /* ── Hero ── */
+  section.relative.pt-24 { padding-top: 3rem; padding-bottom: 4rem; }
+  h1 { font-size: 3.5rem !important; }
+
+  /* ── Search grid : 2 cols + bouton ── */
+  #search-grid { grid-template-columns: 1fr 1fr !important; grid-template-rows: auto auto; }
+  #date-depart-trigger { grid-column: 1; border-right: 1px solid #f1f5f9; }
+  #return-date-field   { grid-column: 2; }
+  #btn-cell            { grid-column: 1 / -1; }
+  #btn-search          { flex-direction: row !important; gap: 0.5rem; width: 100%; border-radius: 0.75rem !important; padding: 0.75rem 1rem !important; }
+  #btn-search .material-symbols-outlined { font-size: 1.25rem !important; }
+
+  /* ── Destinations : 2 colonnes ── */
+  .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Footer ── */
+  footer .grid.grid-cols-1.md\:grid-cols-4 { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
+
+  /* ── Section TGVmax ── */
+  .trainmax-card-container { margin: 0 !important; }
+  .trainmax-card-content { width: 80% !important; padding: 2rem !important; }
+  .trainmax-card-content__title { font-size: 1.9rem !important; }
+
+}

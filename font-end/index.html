@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KNQFGSZX');</script>
+
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TrainNomad.eu - L'Europe est à vous</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Trouvez facilement vos billets TGVmax réservables. Utilisez notre carte interactive et notre calendrier pour planifier vos voyages éco-responsables avec TrainNomad.">
+    <link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">   
+
+    <meta property="og:title"       content="TrainNomad - Le voyage commence sur les rails">
+    <meta property="og:description" content="Marre de chercher des places TGV Max ? Trouvez instantanément vos trajets disponibles avec notre carte interactive. Planifiez vos voyages éco-responsables en un clic.">
+    <meta property="og:url"         content="https://trainnomad.eu">
+    <meta property="og:image"       content="https://trainnomad.eu/assets/background-index.jpeg">
+    <meta property="og:type"        content="website">
+
+    <!-- Fonts & icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind CDN (doit précéder tailwind.config.js) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="script/tailwind.config.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/autocomplete.css">
+
+    
+</head>
+
+<body class="bg-white text-midnight font-display">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQFGSZX"
+    height="0" width="0" class="gtm-noscript"></iframe></noscript>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════════════════════ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+        <!-- Logo -->
+        <div id="logo-home" class="flex items-center gap-3 cursor-pointer">
+            <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight text-midnight">
+                TrainNomad<span class="text-primary">.eu</span>
+            </span>
+        </div>
+
+        <!-- Liens desktop -->
+        <div class="hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="trajets.html">
+                <span class="material-symbols-outlined text-lg">train</span> Voyager
+            </a>
+            <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="explorer.html">
+                <span class="material-symbols-outlined text-lg">explore</span> Explorer
+            </a>
+            <a class="text-sm font-bold text-white bg-midnight px-4 py-2 rounded-xl hover:bg-primary hover:text-midnight transition-all flex items-center gap-2 shadow-sm" href="outilstgvmax.html">
+                <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+            </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors"
+                aria-label="Menu">
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-midnight text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+    <a href="trajets.html">
+        <span class="material-symbols-outlined text-xl">train</span> Voyager
+    </a>
+    <a href="explorer.html">
+        <span class="material-symbols-outlined text-xl">explore</span> Explorer
+    </a>
+    <a href="outilstgvmax.html" class="nav-cta">
+        <span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax
+    </a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="relative pt-24 pb-40 overflow-hidden hero-gradient">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-8">
+            <span class="material-symbols-outlined text-sm">
+                <i class="fa-solid fa-leaf" style="color: hsl(142, 69%, 58%);"></i>
+            </span>
+            Le voyage responsable, simplifié
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1] max-w-4xl mx-auto">
+            L'Europe est à vous, le <span class="text-[#4ade80]">TGVmax</span> aussi.
+        </h1>
+        <p class="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed">
+            Tracez votre itinéraire sur une carte sans frontières. Que vous cherchiez un trajet précis
+            ou une escapade à 0€ avec votre abonnement TGV Max, explorez le rail européen en un seul clic.
+        </p>
+
+        <!-- ── Search Box ────────────────────────────────────── -->
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Tabs -->
+            <div class="flex items-center gap-2 mb-0 ml-2">
+                <button id="tab-europe"
+                    class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-t-2xl text-midnight bg-white font-bold transition-all border-b-2 border-primary shadow-[0_-4px_12px_rgba(0,0,0,0.03)]">
+                    <span class="material-symbols-outlined text-xl"><i class="fa-solid fa-route"></i></span>
+                    Trajets Europe
+                </button>
+                <button id="tab-carte"
+                    class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-t-2xl text-slate-500 text-sm font-bold transition-all border-b-2 border-transparent bg-white/50 hover:bg-white">
+                    <span class="material-symbols-outlined text-xl"><i class="fa-regular fa-map"></i></span>
+                    Explorer la carte
+                </button>
+            </div>
+
+            <div class="bg-white rounded-3xl rounded-tl-none shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] p-3 border border-slate-100">
+
+                <!-- Toggle Aller simple / Aller-retour -->
+                <div class="flex items-center gap-1 px-3 pt-2 pb-2" id="trip-type-row">
+                    <button id="tt-oneway"
+                        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all bg-midnight text-white">
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>Aller simple
+                    </button>
+                    <button id="tt-roundtrip"
+                        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-500 hover:bg-slate-200">
+                        <i class="fa-solid fa-arrow-right-arrow-left text-[10px]"></i>Aller-retour
+                    </button>
+
+                    <!-- IDs fantômes pour compatibilité trip-type -->
+                    <div id="tripTypeBtn" class="hidden"></div>
+                    <div id="tripTypeMenu" class="hidden">
+                        <div class="trip-type-option selected" data-value="oneway"></div>
+                        <div class="trip-type-option" data-value="roundtrip"></div>
+                    </div>
+                    <span id="selectedTripType" class="hidden">Aller simple</span>
+                    <div id="return-date-wrapper" class="hidden"></div>
+
+                    <!-- Inputs cachés -->
+                    <input type="hidden" id="input-time"  value="06:00"/>
+                    <input type="hidden" id="input-carte" value="Tarif Normal"/>
+                </div>
+
+                <!-- ── Grille Europe ────────────────────────────────────── -->
+                <div id="grid-europe">
+                    <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-0" id="search-grid">
+
+                        <!-- Départ -->
+                        <div class="flex flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group border-r border-slate-100">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Départ</span>
+                            <div class="flex items-center gap-3 w-full input-ac-wrapper">
+                                <i class="fa-solid fa-location-dot text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base"></i>
+                                <input
+                                    type="text"
+                                    id="input-from"
+                                    autocomplete="off"
+                                    placeholder="Paris, France"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold placeholder:text-slate-300 text-xl outline-none"
+                                />
+                                <input type="hidden" id="id-from">
+                                <div id="ac-from" class="suggestions-container hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Arrivée -->
+                        <div class="flex flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group border-r border-slate-100">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Arrivée</span>
+                            <div class="flex items-center gap-3 w-full input-ac-wrapper">
+                                <i class="fa-solid fa-location-arrow text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base"></i>
+                                <input
+                                    type="text"
+                                    id="input-to"
+                                    autocomplete="off"
+                                    placeholder="Berlin, Allemagne"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold placeholder:text-slate-300 text-xl outline-none"
+                                />
+                                <input type="hidden" id="id-to">
+                                <div id="ac-to" class="suggestions-container hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Date aller -->
+                        <div id="date-depart-trigger"
+                            class="flex flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group">
+                            <span id="label-date-depart" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Date</span>
+                            <div class="flex items-center gap-3 w-full relative">
+                                <i class="fa-regular fa-calendar icon-calendar text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base" aria-hidden="true"></i>
+                                <input
+                                    type="date"
+                                    id="input-date"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold text-xl outline-none cursor-pointer"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Date retour (cachée par défaut) -->
+                        <div id="return-date-field"
+                            class="hidden flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group border-l border-slate-100">
+                            <span id="date-retour-trigger" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Retour</span>
+                            <div class="flex items-center gap-3 w-full relative">
+                                <i class="fa-regular fa-calendar icon-calendar text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base" aria-hidden="true"></i>
+                                <input
+                                    type="date"
+                                    id="return-date"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold text-xl outline-none cursor-pointer"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Bouton Rechercher -->
+                        <div class="flex p-1.5" id="btn-cell">
+                            <button
+                                id="btn-search"
+                                disabled
+                                class="bg-primary hover:bg-[#3ecf71] text-midnight rounded-2xl flex flex-col items-center justify-center gap-1 transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 w-full h-full min-w-[88px] px-5 font-bold"
+                            >
+                                <span class="material-symbols-outlined font-bold text-3xl">search</span>
+                                <span id="btn-label" class="text-xs font-bold tracking-wide uppercase">Recherche</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div><!-- /grid-europe -->
+
+                <!-- ── Grille Explorer la carte ─────────────────────────── -->
+                <div id="grid-carte" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-0">
+
+                        <!-- Départ -->
+                        <div class="flex flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group border-r border-slate-100">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Départ</span>
+                            <div class="flex items-center gap-3 w-full input-ac-wrapper">
+                                <i class="fa-solid fa-location-dot text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base"></i>
+                                <input
+                                    type="text"
+                                    id="carte-input-from"
+                                    autocomplete="off"
+                                    placeholder="Paris, France"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold placeholder:text-slate-300 text-xl outline-none"
+                                />
+                                <input type="hidden" id="carte-id-from">
+                                <div id="carte-ac-from" class="suggestions-container hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Date -->
+                        <div id="carte-date-trigger"
+                            class="flex flex-col items-start px-6 py-5 hover:bg-slate-50 rounded-2xl transition-colors cursor-pointer group border-r border-slate-100">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 group-hover:text-primary transition-colors">Date</span>
+                            <div class="flex items-center gap-3 w-full relative">
+                                <i class="fa-regular fa-calendar icon-calendar text-slate-300 group-hover:text-primary transition-colors flex-shrink-0 text-base" aria-hidden="true"></i>
+                                <input
+                                    type="date"
+                                    id="carte-input-date"
+                                    class="w-full bg-transparent border-none p-0 focus:ring-0 text-midnight font-bold text-xl outline-none cursor-pointer"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Bouton Explorer -->
+                        <div class="flex p-1.5">
+                            <button
+                                id="btn-search-carte"
+                                onclick="goToExplorer()"
+                                disabled
+                                class="bg-primary hover:bg-[#3ecf71] text-midnight rounded-2xl flex flex-col items-center justify-center gap-1 transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 w-full h-full min-w-[88px] px-5 font-bold"
+                            >
+                                <span class="material-symbols-outlined font-bold text-3xl">search</span>
+                                <span class="text-xs font-bold tracking-wide uppercase">Explorer</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div><!-- /grid-carte -->
+
+            </div><!-- /bg-white -->
+
+            <!-- Features row -->
+            <div class="mt-12 flex flex-wrap justify-center items-center gap-x-12 gap-y-4 text-slate-400 text-sm font-medium">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-xl">confirmation_number</span>
+                    <span>Billets à 0€ TGVmax</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-xl">explore</span>
+                    <span>Carte d'exploration interactive</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-xl">language</span>
+                    <span>Plus de 30 pays européens</span>
+                </div>
+            </div>
+
+        </div><!-- /max-w-5xl -->
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DESTINATIONS BAS CARBONE
+════════════════════════════════════════════════════════════ -->
+<section class="bg-background-light py-16">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="flex items-end justify-between mb-12">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight text-midnight mb-2">Destinations bas carbone</h2>
+                <p class="text-slate-500">Explorez l'Europe sans compromis pour la planète.</p>
+            </div>
+            <a class="text-sm font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors" href="explorer.html">Explorer la carte</a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- Rennes — StopArea OCE87471003 -->
+            <div class="group cursor-pointer"
+                data-href="trajets.html?to=stop_area%3AOCE87471003&toName=Rennes&carte=Tarif%20Normal&tripType=oneway">
+                <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-5">
+                    <img alt="Rennes city view" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" src="assets/destinations/rennes.jpg"/>
+                    <div class="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1.5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-midnight shadow-sm flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-primary text-sm">schedule</span>
+                        <span>1h25 <span class="text-slate-400">de Paris</span></span>
+                    </div>
+                </div>
+                <h3 class="font-bold text-xl text-midnight mb-1">Rennes, France</h3>
+                <p class="text-sm text-slate-500">La Bretagne à portée de main pour un week-end</p>
+            </div>
+
+            <!-- Milano Centrale — StopArea OCE83000455 -->
+            <div class="group cursor-pointer"
+                data-href="trajets.html?to=stop_area%3AOCE83000455&toName=Milano%20Centrale&carte=Tarif%20Normal&tripType=oneway">
+                <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-5">
+                    <img alt="Milan duomo" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" src="assets/destinations/milan.jpg"/>
+                    <div class="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1.5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-midnight shadow-sm flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-primary text-sm">schedule</span>
+                        <span>7h00 <span class="text-slate-400">de Paris</span></span>
+                    </div>
+                </div>
+                <h3 class="font-bold text-xl text-midnight mb-1">Milano Centrale, Italie</h3>
+                <p class="text-sm text-slate-500">La Dolce Vita italienne en direct</p>
+            </div>
+
+            <!-- Genève — StopArea OCE85010086 -->
+            <div class="group cursor-pointer"
+                data-href="trajets.html?to=stop_area%3AOCE85010086&toName=Gen%C3%A8ve&carte=Tarif%20Normal&tripType=oneway">
+                <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-5">
+                    <img alt="Genève lac" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" src="assets/destinations/geneve.jpg"/>
+                    <div class="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1.5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-midnight shadow-sm flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-primary text-sm">schedule</span>
+                        <span>3h10 <span class="text-slate-400">de Paris</span></span>
+                    </div>
+                </div>
+                <h3 class="font-bold text-xl text-midnight mb-1">Genève, Suisse</h3>
+                <p class="text-sm text-slate-500">Évasion immédiate entre lac et montagnes</p>
+            </div>
+
+            <!-- Amsterdam-Centraal — StopArea OCE84000582 -->
+            <div class="group cursor-pointer"
+                data-href="trajets.html?to=stop_area%3AOCE84000582&toName=Amsterdam-Centraal&carte=Tarif%20Normal&tripType=oneway">
+                <div class="relative aspect-[4/5] rounded-3xl overflow-hidden mb-5">
+                    <img alt="Amsterdam canal" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" src="assets/destinations/amsterdam.jpg"/>
+                    <div class="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1.5 rounded-2xl text-[11px] font-bold uppercase tracking-widest text-midnight shadow-sm flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-primary text-sm">schedule</span>
+                        <span>3h20 <span class="text-slate-400">de Paris</span></span>
+                    </div>
+                </div>
+                <h3 class="font-bold text-xl text-midnight mb-1">Amsterdam-Centraal, NL</h3>
+                <p class="text-sm text-slate-500">Les canaux et l'ambiance unique du Nord</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OUTILS TGVMAX
+════════════════════════════════════════════════════════════ -->
+<section class="py-16 px-6">
+  <div class="trainmax-card-container max-w-7xl mx-auto">
+    <div class="trainmax-card-content">
+
+      <div class="trainmax-badge">Outils TGVmax</div>
+
+      <h2 class="trainmax-card-content__title">
+        Optimisez votre abonnement<br>
+        <span>Max Jeune &amp; Senior</span>
+      </h2>
+
+      <p>
+        Abonné TGVmax ? Ne laissez plus passer une place à 0€. Notre outil dédié scanne le réseau TGV Inoui et Intercités pour vous afficher instantanément toutes les disponibilités — visualisez-les sur une carte interactive et lancez votre recherche en un clic.
+      </p>
+
+      <a href="outilstgvmax.html" class="trainmax-button">
+        Accéder aux outils <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════════════════════ -->
+<section class="py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+
+            <div class="flex flex-col gap-6">
+                <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">psychiatry</span>
+                </div>
+                <h4 class="font-bold text-2xl">Expertise TGVmax</h4>
+                <p class="text-slate-500 leading-relaxed text-lg">
+                    Un moteur dédié aux abonnés MAX pour trouver instantanément les places disponibles à 0€ sur l'ensemble du réseau TGV Inoui et Intercités.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+                </div>
+                <h4 class="font-bold text-2xl">Voyage responsable</h4>
+                <p class="text-slate-500 leading-relaxed text-lg">
+                    Le train reste le mode de transport le plus sobre sur les longues distances. TrainNomad vous aide à choisir le rail en toute simplicité, pour chaque trajet.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">smart_toy</span>
+                </div>
+                <h4 class="font-bold text-2xl">Recherche intelligente</h4>
+                <p class="text-slate-500 leading-relaxed text-lg">
+                    Horaires précis, durées de trajet et correspondances sur de nombreux pays européens — tous les opérateurs réunis en un seul coup d'œil.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="bg-midnight text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16 mb-12">
+
+            <!-- Branding -->
+            <div class="col-span-1">
+                <a href="index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        TrainNomad<span class="text-primary">.eu</span>
+                    </span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+
+            <!-- Navigation -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-primary transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+
+            <!-- Engagement -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <div class="flex gap-4">
+                    <p class="footer-quote text-base">
+                        "Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion.
+                        Voyagez léger, voyagez loin, voyagez responsable."
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Barre légale -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="script/index.js" defer></script>
+<script src="script/tailwind.config.js" defer></script>
+
+</body>
+</html>

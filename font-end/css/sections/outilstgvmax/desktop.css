@@ -1,0 +1,39 @@
+/* ============================================================
+   TrainNomad.eu — css/outilstgvmax-desktop.css
+   Desktop  ·  1280px et +
+   ============================================================ */
+
+@media (min-width: 1280px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { padding-left: 2rem; padding-right: 2rem; }
+
+  /* ── Hero ── */
+  section.relative { padding-left: 3rem !important; padding-right: 3rem !important; }
+
+  .grid.grid-cols-1.lg\:grid-cols-2 { gap: 5rem !important; }
+
+  h1 { font-size: 5.5rem !important; line-height: 1.05 !important; }
+
+  /* Booking card plus aéré */
+  .bg-white.rounded-4xl { padding: 2.25rem !important; }
+  .search-field { padding: 16px 20px; }
+  .search-field input { font-size: 1.1rem; }
+
+  /* ── Tableau comparatif ── */
+  .max-w-5xl { max-width: 1100px; }
+  .offer-card { padding: 36px 30px; }
+  .offer-price { font-size: 2.8rem; }
+  .offer-name  { font-size: 1.5rem; }
+
+  /* Feature cards */
+  .bg-\[#fff0f6\], .bg-\[#f3e8ff\] { padding: 2rem !important; }
+
+  /* ── Destinations ── */
+  .dest-card { padding: 24px 22px; }
+  .dest-cities { font-size: 1rem; }
+
+  /* ── Max-width containers ── */
+  .max-w-7xl { max-width: 1400px; }
+  .max-w-5xl { max-width: 1100px; }
+}

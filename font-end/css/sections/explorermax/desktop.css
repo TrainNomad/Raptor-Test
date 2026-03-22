@@ -1,0 +1,32 @@
+/* ============================================================
+   TrainNomad.eu — css/explorermax-desktop.css
+   Desktop  ·  1280px et +
+   ============================================================ */
+
+@media (min-width: 1280px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl, nav > div { padding-left: 2rem !important; padding-right: 2rem !important; }
+
+  /* ── Search bar ── */
+  .searchbar-wrapper { padding: 16px 2rem; }
+  .searchbar-field { min-width: 260px; }
+  .searchbar-date { width: 200px; }
+  #btn-search { padding: 14px 32px; font-size: 15px; }
+
+  /* ── Explorer main ── */
+  #explorer-main { height: calc(100vh - 148px); }
+
+  /* ── Panneau plus large ── */
+  #side-panel { width: 360px; top: 20px; left: 20px; bottom: 20px; }
+  #side-panel.collapsed { transform: translateX(calc(-100% - 24px)); }
+  #toggle-btn { left: 396px; top: 20px; }
+
+  /* ── Résultats ── */
+  .result-city { font-size: 14px; }
+  .result-time { font-size: 14px; }
+  .panel-title { font-size: 14px; }
+
+  /* ── Légende ── */
+  #legend { bottom: 56px; right: 16px; }
+}

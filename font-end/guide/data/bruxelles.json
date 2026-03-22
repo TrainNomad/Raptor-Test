@@ -1,0 +1,62 @@
+{
+  "id": "bruxelles",
+  "city": "Bruxelles",
+  "country": "Belgique",
+  "tagline": "Bières, BD et Grand-Place à 1h22 de Paris",
+  "excerpt": "1 jour à Bruxelles",
+  "cover": "bruxelles-cover.jpg",
+  "hero": "bruxelles-hero.jpg",
+  "badges": ["Train direct", "Budget"],
+  "travel": {
+    "duration": "1h 22min",
+    "operator": "Eurostar",
+    "from": "Paris Gare du Nord",
+    "arrival_station": "Bruxelles-Midi",
+    "price_from": "29€",
+    "best_season": "Avril · Octobre",
+    "co2_saved": "96%"
+  },
+  "intro": "Bruxelles est la ville la plus sous-estimée d'Europe. À 1h22 de Paris, elle offre une Grand-Place classée UNESCO (la plus belle place du monde selon Victor Hugo), une culture de la bière sans équivalent, une scène BD vivante et une gastronomie qui défie les préjugés. Idéale pour une journée ou un week-end — les prix y sont bien plus raisonnables que dans la capitale française.",
+  "essentials": {
+    "voir": [
+      { "icon": "photo_camera",  "name": "Grand-Place",         "note": "Surtout le soir, quand les façades dorées s'illuminent" },
+      { "icon": "museum",        "name": "Musée de la BD",      "note": "Tintin, Spirou, Lucky Luke — l'histoire complète" },
+      { "icon": "architecture",  "name": "Atomium",             "note": "Icône de l'Expo 58, vue panoramique en haut" },
+      { "icon": "park",          "name": "Parc du Cinquantenaire","note": "Arches triomphales et musées royaux" }
+    ],
+    "manger": [
+      { "icon": "lunch_dining",  "name": "Rue des Bouchers",    "note": "La rue des moules-frites — négociez le prix" },
+      { "icon": "local_cafe",    "name": "Maison Dandoy",       "note": "Speculoos artisanaux depuis 1829" },
+      { "icon": "sports_bar",    "name": "Delirium Café",       "note": "2000+ bières — record du monde Guinness" },
+      { "icon": "restaurant",    "name": "Fritland",            "note": "Les meilleures frites de Bruxelles, rue Henri Maus" }
+    ],
+    "transport": [
+      { "icon": "subway",        "name": "Metro / Prémétro",    "note": "Ticket 2,10€ — presque tout à pied en centre" },
+      { "icon": "directions_bike","name": "Villo!",             "note": "Vélos en libre-service partout en ville" },
+      { "icon": "tram",          "name": "Trams",               "note": "Lignes 3, 4 et 7 couvrent les sites principaux" },
+      { "icon": "train",         "name": "RER belge (S-train)", "note": "Pour l'Atomium (ligne S1)" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Le meilleur de Bruxelles en une journée", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Arrivée Bruxelles-Midi",  "desc": "10 min à pied ou métro ligne 2 jusqu'au centre." },
+        { "time": "09:30", "title": "Grand-Place",             "desc": "La place, les façades de guildes, le Musée de la Ville. Café dans l'un des estaminets." },
+        { "time": "11:00", "title": "Manneken-Pis",            "desc": "Le symbole le plus décevant et attachant de Belgique." },
+        { "time": "12:00", "title": "Moules-frites",           "desc": "Rue des Bouchers ou Chez Léon — le classique incontournable." },
+        { "time": "14:00", "title": "Quartier des Marolles",   "desc": "Marché aux puces de la Place du Jeu de Balle. Chine et antiquités." },
+        { "time": "16:00", "title": "Musée de la BD",          "desc": "2h dans l'univers de Tintin et Spirou. Incontournable." },
+        { "time": "18:30", "title": "Delirium Café",           "desc": "Bière belge avant le retour. 2000 références, dont la Delirium Tremens." },
+        { "time": "20:00", "title": "Retour Paris Gare du Nord","desc": "1h22 et vous dormez dans votre lit parisien." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "savings",   "text": "Bruxelles est 20-30% moins chère que Paris. Profitez-en pour les restaurants et hôtels." },
+    { "icon": "schedule",  "text": "La Grand-Place est fermée à la circulation — explorez les ruelles autour pour trouver des cafés locaux sans touristes." },
+    { "icon": "train",     "text": "Eurostar assure jusqu'à 15 allers-retours par jour Paris–Bruxelles depuis la Gare du Nord. À partir de 29€ en réservant à l'avance. Dernier retour vers 21h30." },
+    { "icon": "lunch_dining","text": "Évitez les restaurants directement sur la Grand-Place — prix touristiques. Une rue de côté suffit pour diviser l'addition par deux." }
+  ],
+  "related": ["amsterdam", "berlin", "zurich"]
+}

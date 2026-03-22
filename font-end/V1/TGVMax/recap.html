@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrainNomad — Récapitulatif aller-retour</title>
+  <link rel="icon" type="image/x-icon" href="assets/Train_Marker.svg">
+  <link rel="stylesheet" href="CSS/Recap.css">
+
+  <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ HEADER -->
+<header class="header">
+  <nav class="header__nav">
+    <div class="nav__logo">
+      <a href="index.html"><h3 class="nav__logo-title">TrainNomad</h3></a>
+    </div>
+    <div class="nav__right">
+      <a class="right__link" href="explorer.html"><p class="nav__right-about_me">TrainMax</p></a>
+      <a href="A_propos.html"><p class="nav__right-about_me">À propos</p></a>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════ MAIN -->
+<main class="recap__main">
+
+  <!-- Titre -->
+  <div class="recap__hero">
+    <div class="recap__hero-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+    <div>
+      <div class="recap__hero-title" id="recap-title">Aller-retour</div>
+      <div class="recap__hero-sub" id="recap-sub">Récapitulatif de votre voyage</div>
+    </div>
+    <a href="trajets.html" class="recap__back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Modifier
+    </a>
+  </div>
+
+  <!-- Deux colonnes aller / retour -->
+  <div class="recap__grid">
+
+    <!-- Colonne ALLER -->
+    <div class="recap__col">
+      <div class="recap__col-header recap__col-header--aller">
+        <i class="fa-solid fa-arrow-right"></i>
+        <span class="recap__col-label">Aller</span>
+        <span class="recap__col-date" id="date-aller"></span>
+      </div>
+      <div id="card-aller" class="recap__card-wrap"></div>
+    </div>
+
+    <!-- Séparateur central (desktop) -->
+    <div class="recap__sep">
+      <div class="recap__sep-line"></div>
+      <div class="recap__sep-icon"><i class="fa-solid fa-train"></i></div>
+      <div class="recap__sep-line"></div>
+    </div>
+
+    <!-- Colonne RETOUR -->
+    <div class="recap__col">
+      <div class="recap__col-header recap__col-header--retour">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span class="recap__col-label">Retour</span>
+        <span class="recap__col-date" id="date-retour"></span>
+      </div>
+      <div id="card-retour" class="recap__card-wrap"></div>
+    </div>
+
+  </div>
+
+  <!-- Barre de total -->
+  <div class="recap__total" id="recap-total" style="display:none">
+    <div class="recap__total-label">Total estimé aller-retour</div>
+    <div class="recap__total-price" id="recap-total-price"></div>
+    <div class="recap__total-note">Prix indicatifs SNCF · 2ème classe</div>
+  </div>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════ FOOTER -->
+<footer class="footer">
+  <div class="footer_nav">
+    <div class="footer_left">
+      <p>@TrainNomad - 2026</p>
+      <a href="mention legal.html"><p>Mentions légales</p></a>
+    </div>
+    <div class="footer_right"><h3>TrainNomad</h3></div>
+  </div>
+</footer>
+
+<script src="Script/recap.js"></script>
+</body>
+</html>

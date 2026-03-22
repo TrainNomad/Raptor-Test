@@ -1,0 +1,71 @@
+{
+  "id": "malaga",
+  "city": "Málaga",
+  "country": "Espagne",
+  "tagline": "Picasso, Costa del Sol et tapas au soleil",
+  "excerpt": "2 jours à Málaga",
+  "cover": "malaga-cover.jpg",
+  "hero": "malaga-hero.jpg",
+  "badges": ["2 correspondances", "TGV + AVE"],
+  "travel": {
+    "duration": "~12h (via Barcelone + Madrid)",
+    "operator": "TGV Inoui + Renfe AVE",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Málaga María Zambrano",
+    "price_from": "99€",
+    "best_season": "Avril · Mai · Octobre",
+    "co2_saved": "88%",
+    "correspondance": "2 changements : Barcelona Sants puis Madrid Atocha",
+    "note": "Paris Gare de Lyon → Barcelone Sants (6h50, dès 79€), puis AVE Barcelone → Madrid (~2h30, dès 20€), puis AVE Madrid → Málaga (~2h30, dès 15€). Málaga se rejoint aussi via Séville (55 min en AVE) pour combiner les deux villes. Achetez sur SNCF Connect et Renfe.es.",
+    "operators_used": ["SNCF", "RENFE"]
+  },
+  "intro": "Málaga est la grande surprise de l'Andalousie. Longtemps réduite à une porte d'entrée vers la Costa del Sol, elle s'est métamorphosée en une capitale culturelle de premier plan : musée Picasso (l'enfant du pays), musée Carmen Thyssen, Centre Pompidou, Musée de l'Automobile. Son Alcazaba domine une ville qui a appris à allier soleil, gastronomie et art contemporain. Et elle reste bien moins chère et moins touristique que Barcelone.",
+  "essentials": {
+    "voir": [
+      { "icon": "palette",        "name": "Museo Picasso Málaga",     "note": "233 œuvres dans le palais Buenavista — réservez en ligne" },
+      { "icon": "castle",         "name": "Alcazaba et Castillo de Gibralfaro","note": "Forteresse nasride avec vue panoramique sur la mer" },
+      { "icon": "museum",         "name": "Centre Pompidou Málaga",   "note": "Une antenne du musée parisien dans le port" },
+      { "icon": "beach_access",   "name": "Plage de la Malagueta",    "note": "La plage urbaine à 15 min à pied du centre" }
+    ],
+    "manger": [
+      { "icon": "restaurant",     "name": "Espetos de sardinas",       "note": "Les sardines grillées sur des roseaux — uniquement en bord de mer" },
+      { "icon": "local_cafe",     "name": "El Pimpi",                  "note": "La bodega historique de Málaga — vins locaux et tapas classiques" },
+      { "icon": "storefront",     "name": "Mercado Central Atarazanas","note": "Le marché sous une verrière mauresque — hallucinant" },
+      { "icon": "sports_bar",     "name": "Calle Granada et Beatas",  "note": "Les deux rues à tapas les plus animées de Málaga" }
+    ],
+    "transport": [
+      { "icon": "train",          "name": "Cercanías (train de banlieue)","note": "Lignes C1 et C2 — idéal pour Fuengirola et Torremolinos" },
+      { "icon": "subway",         "name": "Métro de Málaga",           "note": "2 lignes — utile pour le quartier de Teatinos" },
+      { "icon": "directions_walk","name": "À pied",                   "note": "Le centre historique est totalement piéton et compact" },
+      { "icon": "directions_bike","name": "Vélos Malagabici",          "note": "Réseau de pistes cyclables en expansion" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Art et forteresses", "color": "#4ade80",
+      "points": [
+        { "time": "09:30", "title": "Marché Atarazanas",              "desc": "Démarrez par le marché sous la voûte mauresque. Jus de canne à sucre." },
+        { "time": "10:30", "title": "Musée Picasso",                   "desc": "Réservez le créneau matin. Comptez 1h30 pour la collection permanente." },
+        { "time": "13:00", "title": "Alcazaba",                        "desc": "La forteresse nasride au-dessus du centre — jardin et vue sur le port." },
+        { "time": "15:00", "title": "Castillo de Gibralfaro",         "desc": "Montez à pied ou en bus jusqu'au château. Vue sur toute la côte." },
+        { "time": "19:00", "title": "El Pimpi",                       "desc": "La bodega la plus célèbre de Málaga. Vino dulce et tapas." }
+      ]
+    },
+    {
+      "day": 2, "title": "Mer et départ", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:30", "title": "Centre Pompidou Málaga",         "desc": "L'art contemporain dans le Cubo multicolore du port. Vue sur la mer." },
+        { "time": "11:30", "title": "Plage de la Malagueta",          "desc": "Bain de mer méditerranéen à 15 min à pied du musée." },
+        { "time": "13:30", "title": "Espetos sur la plage",           "desc": "Les célèbres sardines grillées sur des roseaux au bord de l'eau." },
+        { "time": "16:30", "title": "Málaga María Zambrano",          "desc": "AVE vers Madrid, puis correspondance pour Barcelone et Paris Gare de Lyon." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "train",       "text": "Achetez Paris–Barcelone (dès 79€) sur SNCF Connect, puis Barcelone–Málaga (dès ~35€) sur Renfe.es. L'AVE Madrid–Málaga est l'une des lignes les plus fréquentées d'Espagne — réservez à l'avance." },
+    { "icon": "palette",     "text": "Málaga a le plus fort réseau de musées par habitant d'Espagne. Tous les musées municipaux sont gratuits le dimanche. Le musée Picasso, lui, ne l'est pas — réservez sur museopicassomalaga.org." },
+    { "icon": "train",       "text": "Combinaison idéale : passez 2 nuits à Séville (55 min en AVE) et 2 nuits à Málaga dans le même voyage — les deux villes sont à 2h30 de Madrid respectivement." },
+    { "icon": "wb_sunny",    "text": "La Costa del Sol est agréable toute l'année (20°C en hiver). Évitez août pour la chaleur et la foule. Avril–mai et octobre sont parfaits." }
+  ],
+  "related": ["seville", "grenade", "barcelone"]
+}

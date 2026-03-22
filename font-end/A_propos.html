@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>À Propos - TrainNomad</title>
+<meta content="Découvrez l'histoire de Goulven Robin et la mission de TrainNomad : simplifier le voyage décarboné avec TGVmax." name="description"/>
+<!-- Logo -->
+<link rel="icon" type="image/svg+xml" href="assets/Logo/SVG/Background_IndexFichier 2.svg">   
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/8e4de4bf0a.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#4ade80",
+          "midnight": "#1A2B3C",
+          "background-light": "#f8f7f5",
+        },
+        fontFamily: {
+          "display": ["Plus Jakarta Sans", "sans-serif"]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body { font-family: "Plus Jakarta Sans", sans-serif; scroll-behavior: smooth; }
+  .hero-gradient { background: radial-gradient(circle at 50% -20%, #4ade8015 0%, transparent 50%); }
+  .quote-mark { font-family: 'Georgia', serif; opacity: 0.2; }
+  .glass-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
+  .image-mask { border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+  /* Timeline */
+  .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #4ade80, #1A2B3C); }
+  .timeline-dot { width: 14px; height: 14px; border-radius: 50%; background: #4ade80; border: 3px solid #1A2B3C; flex-shrink: 0; }
+
+  /* Fade-in on scroll */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body class="bg-white text-midnight font-display">
+
+<!-- ───────────── NAV ───────────── -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    
+    <!-- Logo -->
+        <a href="index.html" id="logo-home" class="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity">
+            <img src="assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight text-midnight">
+                TrainNomad<span class="text-primary">.eu</span>
+            </span>
+        </a>
+
+    <div class="hidden md:flex items-center gap-10">
+      <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="trajets.html">
+        <span class="material-symbols-outlined text-lg">train</span> Voyager
+      </a>
+      <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-2" href="explorer.html">
+        <span class="material-symbols-outlined text-lg">explore</span> Explorer
+      </a>
+      <a class="text-sm font-bold text-white bg-midnight px-4 py-2 rounded-xl hover:bg-primary hover:text-midnight transition-all flex items-center gap-2 shadow-sm" href="outilstgvmax.html">
+        <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+      </a>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-slate-400 hover:text-midnight cursor-pointer">account_circle</span>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ───────────── 1. HERO — L'homme derrière le projet ───────────── -->
+  <section class="relative pt-16 pb-24 overflow-hidden hero-gradient">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-8">
+            L'humain derrière le code
+          </div>
+          <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            Goulven <span class="text-primary">ROBIN</span>
+          </h1>
+          <p class="text-xl text-slate-500 font-semibold mb-6">Créateur et moteur de TrainNomad</p>
+          <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+            <p>À 23 ans, je porte en moi une double fierté : celle d'être un Breton viscéralement attaché à ses terres, et celle d'être un Nomade du Rail, explorateur infatigable des lignes de chemin de fer.</p>
+            <p>Actuellement étudiant aux Arts et Métiers à Angers (76 An 224), cette formation forge la rigueur technique indispensable pour donner vie et excellence à ce projet qui me passionne profondément.</p>
+          </div>
+        </div>
+        <div class="relative fade-up" style="transition-delay:0.2s">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-midnight/10 rounded-full blur-3xl"></div>
+          <img alt="Goulven ROBIN" class="image-mask w-full h-[500px] object-cover relative z-10" src="assets/a_propos/goulven_robin.jpg"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 2. CITATION ───────────── -->
+  <section class="py-24 bg-midnight text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none bg-[url('assets/a_propos/train_a_propos.jpg')] bg-cover bg-center"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-up">
+      <div class="text-primary text-8xl quote-mark mb-[-20px] select-none">"</div>
+      <blockquote class="text-2xl md:text-3xl font-medium italic leading-relaxed mb-8">
+        TGVmax, c'est la liberté, mais sans une carte claire, c'était une vraie chasse au trésor. J'ai simplement codé l'outil que mes potes et moi rêvions d'avoir pour enfin profiter à fond de notre abonnement.
+      </blockquote>
+      <div class="h-1 w-20 bg-primary mx-auto mb-6"></div>
+      <cite class="text-primary font-bold text-xl not-italic uppercase tracking-widest">Goulven ROBIN</cite>
+    </div>
+  </section>
+
+  <!-- ───────────── 3. ORIGINE DU PROJET ───────────── -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row gap-16 items-center">
+        <div class="md:w-1/2 fade-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+            L'origine
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-midnight">Comment tout a commencé</h2>
+          <div class="space-y-6 text-slate-500 text-lg leading-relaxed">
+            <p>Après avoir passé d'innombrables heures à parcourir la France grâce à la liberté offerte par l'abonnement TGVmax, une évidence s'est imposée. Le potentiel de ce mode de voyage est immense, mais l'expérience était entravée par une lacune frustrante : l'absence d'une carte centralisée, vivante, capable de dévoiler l'éventail complet des destinations disponibles.</p>
+            <p>C'est de ce constat qu'est né TrainNomad. Mon objectif était de transcender la complexité de TGVmax pour transformer la recherche de billets en une exploration inspirante — un défi galvanisant, où l'analyse de données rencontre la poésie du voyage.</p>
+          </div>
+        </div>
+        <div class="md:w-1/2 grid grid-cols-2 gap-4 fade-up" style="transition-delay:0.2s">
+          <div class="space-y-4">
+            <div class="rounded-3xl overflow-hidden h-64 shadow-lg group">
+              <img alt="Mont Saint-Michel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/a_propos/mont_saint_michel.jpg"/>
+            </div>
+            <div class="rounded-3xl overflow-hidden h-48 shadow-lg group">
+              <img alt="Angers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/a_propos/Angers.jpg"/>
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="rounded-3xl overflow-hidden h-48 shadow-lg group">
+              <img alt="Paris" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/a_propos/Paris.jpg"/>
+            </div>
+            <div class="rounded-3xl overflow-hidden h-64 shadow-lg group">
+              <img alt="Lille" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="assets/a_propos/Lille.jpg"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 4. L'EUROPE — nouveau terrain de jeu ───────────── -->
+  <section class="py-24 bg-background-light">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row-reverse gap-16 items-center">
+        <div class="md:w-1/2 fade-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+            Nouvelle ambition
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-midnight">L'Europe comme nouveau terrain de jeu</h2>
+          <div class="space-y-6 text-slate-500 text-lg leading-relaxed">
+            <p>Après avoir cartographié les destinations TGVmax à travers la France, une ambition plus grande s'est naturellement imposée : pourquoi s'arrêter aux frontières ? L'Europe ferroviaire est un réseau gigantesque, reliant des centaines de villes en quelques heures, et pourtant elle reste difficile à appréhender dans sa globalité.</p>
+            <p>TrainNomad évolue donc pour devenir une boussole à l'échelle européenne, permettant à chaque voyageur de visualiser d'un seul coup d'œil l'ensemble des trajets accessibles depuis chez lui — qu'il parte de Bordeaux, de Lyon ou de Lille, vers Madrid, Berlin ou Prague.</p>
+          </div>
+        </div>
+        <div class="md:w-1/2 fade-up" style="transition-delay:0.2s">
+          <div class="bg-midnight rounded-[2.5rem] p-8 relative overflow-hidden min-h-[340px] flex flex-col justify-between shadow-2xl">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+            <div class="flex flex-wrap gap-3 relative z-10">
+              <!-- Destination badges -->
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Paris</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Berlin</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Madrid</span>
+              <span class="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 text-primary text-sm font-semibold px-4 py-2 rounded-full">Amsterdam</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Milan</span>
+              <span class="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 text-primary text-sm font-semibold px-4 py-2 rounded-full">Lisbonne</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Bruxelles</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Londres</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Genève</span>
+              <span class="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 text-primary text-sm font-semibold px-4 py-2 rounded-full">Vienne</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Barcelone</span>
+              <span class="inline-flex items-center gap-2 bg-white/10 border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm">Porto</span>
+
+            </div>
+            <div class="mt-10 relative z-10">
+              <p class="text-slate-400 text-sm mb-2 uppercase tracking-widest font-bold">Destinations connectées</p>
+              <div class="flex items-end gap-4">
+                <span class="text-6xl font-extrabold text-white">30<span class="text-primary">+</span></span>
+                <span class="text-slate-400 text-base mb-2">villes européennes<br/>à portée de rail</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 5. LACUNES CONSTATÉES ───────────── -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+          Le constat
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-midnight">Des lacunes concrètes identifiées</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-background-light rounded-[2rem] p-10 fade-up">
+          <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-primary text-3xl">map</span>
+          </div>
+          <h3 class="text-xl font-extrabold mb-4 text-midnight">Une visualisation fragmentée</h3>
+          <p class="text-slate-500 leading-relaxed text-lg">La visualisation des trajets disponibles reste éclatée entre les plateformes : chaque pays possède ses propres codes, et aucune carte unifiée ne permet de voir l'ensemble du réseau ferroviaire comme un tout cohérent. Le voyageur doit jongler entre plusieurs sites pour construire un itinéraire simple.</p>
+        </div>
+        <div class="bg-background-light rounded-[2rem] p-10 fade-up" style="transition-delay:0.15s">
+          <div class="size-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-primary text-3xl">sync_problem</span>
+          </div>
+          <h3 class="text-xl font-extrabold mb-4 text-midnight">Des correspondances opaques</h3>
+          <p class="text-slate-500 leading-relaxed text-lg">Les informations liées aux correspondances entre pays sont particulièrement difficiles à lire. Savoir qu'un trajet Paris-Berlin implique un changement à Francfort, avec un délai de correspondance réaliste, nécessite aujourd'hui de jongler entre plusieurs sites et plusieurs langues. C'est précisément ce vide que TrainNomad cherche à combler.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 6. LA CORRESPONDANCE — maillon manquant ───────────── -->
+  <section class="py-24 bg-midnight text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none bg-[url('assets/a_propos/train_a_propos.jpg')] bg-cover bg-center"></div>
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row gap-16 items-center fade-up">
+        <div class="md:w-1/2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+            Le défi technique
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-8">La correspondance internationale, le maillon manquant</h2>
+          <div class="space-y-6 text-slate-300 text-lg leading-relaxed">
+            <p>La correspondance est le nœud central du voyage ferroviaire européen. Un retard à Paris peut compromettre une connexion à Bruxelles, qui elle-même conditionne un Eurostar vers Londres. TrainNomad ambitionne de rendre ces enchaînements lisibles et fiables : visualiser non seulement les destinations, mais les chaînes de trajets possibles, les temps de battement nécessaires, et les risques de rupture selon les opérateurs impliqués.</p>
+            <p class="text-primary font-semibold text-xl">L'objectif est simple : que planifier un Paris-Lisbonne en train soit aussi intuitif que réserver un vol.</p>
+          </div>
+        </div>
+        <div class="md:w-1/2 fade-up" style="transition-delay:0.2s">
+          <!-- Connexion visuelle stylisée -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-4">
+              <div class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4">
+                <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Départ</p>
+                <p class="text-white font-extrabold text-lg">Paris Gare de Lyon</p>
+              </div>
+              <span class="material-symbols-outlined text-primary text-2xl">arrow_forward</span>
+            </div>
+            <div class="flex items-center gap-4 pl-8">
+              <div class="flex-1 bg-primary/10 border border-primary/20 rounded-2xl px-6 py-4">
+                <p class="text-xs text-primary uppercase tracking-widest font-bold mb-1">Correspondance</p>
+                <p class="text-white font-extrabold text-lg">Francfort Hbf</p>
+                <p class="text-slate-400 text-sm mt-1">⏱ 28 min de battement</p>
+              </div>
+              <span class="material-symbols-outlined text-primary text-2xl">arrow_forward</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4">
+                <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Arrivée</p>
+                <p class="text-white font-extrabold text-lg">Lisboa Santa Apolónia</p>
+              </div>
+              <span class="size-10 flex-shrink-0"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 7. VALEURS ───────────── -->
+  <section class="py-24 bg-background-light">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+          Ce qui nous anime
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-midnight">Nos valeurs</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-slate-100 fade-up">
+          <div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary text-4xl">engineering</span>
+          </div>
+          <h3 class="text-2xl font-extrabold mb-4">L'exigence de l'ingénieur</h3>
+          <p class="text-slate-500 leading-relaxed text-lg">En tant qu'ingénieur en devenir et fier Gadzart, je fais de la rigueur technique le moteur de l'innovation. Chaque ligne de code est pensée pour résoudre, avec élégance et efficacité, un problème quotidien des voyageurs.</p>
+        </div>
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-slate-100 fade-up" style="transition-delay:0.15s">
+          <div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary text-4xl">travel_explore</span>
+          </div>
+          <h3 class="text-2xl font-extrabold mb-4">Le souffle de l'explorateur</h3>
+          <p class="text-slate-500 leading-relaxed text-lg">TrainNomad marie la méthode de l'ingénieur à l'audace de l'explorateur, prouvant que le rail est la voie d'avenir. Nous facilitons l'accès à des destinations emblématiques, de Paris à la sérénité mystique du Mont Saint-Michel.</p>
+        </div>
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-slate-100 fade-up" style="transition-delay:0.3s">
+          <div class="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary text-4xl">eco</span>
+          </div>
+          <h3 class="text-2xl font-extrabold mb-4">L'engagement écologique</h3>
+          <p class="text-slate-500 leading-relaxed text-lg">Chaque trajet en train évite en moyenne 8 fois plus de CO₂ qu'un vol équivalent. TrainNomad rend le voyage ferroviaire irrésistible en simplifiant la planification, pour convaincre chaque voyageur hésitant de laisser l'avion au sol.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── 8. VISION ───────────── -->
+  <section class="py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-6 text-center fade-up">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-8">
+        Notre horizon
+      </div>
+      <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-midnight">La vision</h2>
+      <p class="text-xl text-slate-500 leading-relaxed max-w-4xl mx-auto">
+        Mon rêve est que TrainNomad devienne la boussole incontournable pour chaque voyageur ferroviaire en Europe. Il s'agit d'analyser, de sculpter et d'innover pour que la recherche fastidieuse de billets se métamorphose en une carte interactive d'opportunités, vibrant des destinations à portée de train. Notre horizon : rendre le voyage décarboné irrésistiblement accessible, en optimisant le temps et l'empreinte carbone de chaque aventure — d'un bout à l'autre du continent.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────────── 9. FEUILLE DE ROUTE ───────────── -->
+  <section class="py-24 bg-background-light">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+          Ce qui arrive
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-midnight">La feuille de route</h2>
+        <p class="text-slate-500 text-lg mt-4">TrainNomad est un projet vivant, en constante évolution.</p>
+      </div>
+      <div class="space-y-6">
+        <!-- Étape 1 -->
+        <div class="bg-white rounded-[2rem] p-8 shadow-sm flex gap-6 items-start fade-up">
+          <div class="size-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-midnight text-xl">check_circle</span>
+          </div>
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-3">Aujourd'hui</div>
+            <h3 class="text-lg font-extrabold text-midnight mb-2">Carte interactive TGVmax France</h3>
+            <p class="text-slate-500 leading-relaxed">Visualisation de l'ensemble des trajets TGVmax disponibles en France, avec une carte interactive mise à jour en temps réel.</p>
+          </div>
+        </div>
+        <!-- Étape 2 -->
+        <div class="bg-white rounded-[2rem] p-8 shadow-sm flex gap-6 items-start fade-up">
+          <div class="size-12 bg-midnight/10 rounded-xl flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-midnight text-xl">schedule</span>
+          </div>
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-midnight/5 text-midnight text-xs font-bold uppercase tracking-widest mb-3">Prochainement</div>
+            <h3 class="text-lg font-extrabold text-midnight mb-2">Réseaux ferroviaires européens</h3>
+            <p class="text-slate-500 leading-relaxed">Intégration des grands opérateurs européens : Eurostar, ICE, Renfe, Trenitalia et bien d'autres, pour une couverture continentale complète.</p>
+          </div>
+        </div>
+        <!-- Étape 3 -->
+        <div class="bg-white rounded-[2rem] p-8 shadow-sm flex gap-6 items-start fade-up">
+          <div class="size-12 bg-midnight/5 rounded-xl flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-slate-400 text-xl">rocket_launch</span>
+          </div>
+          <div>
+            <div class="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-bold uppercase tracking-widest mb-3">Demain</div>
+            <h3 class="text-lg font-extrabold text-midnight mb-2">Correspondances intelligentes & personnalisation</h3>
+            <p class="text-slate-500 leading-relaxed">Suggestions intelligentes de correspondances multi-opérateurs, alertes de disponibilité, et personnalisation des voyages selon les préférences de chaque nomade du rail.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── CTA ───────────── -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="bg-midnight rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden fade-up">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/10 skew-x-[-20deg] translate-x-20"></div>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-8 relative z-10">Prêt pour votre prochaine aventure ?</h2>
+        <p class="text-slate-300 text-lg mb-12 max-w-2xl mx-auto relative z-10">Rejoignez des milliers de voyageurs et découvrez toutes les destinations TGVmax sur notre carte interactive.</p>
+        <div class="relative z-10">
+          <a class="inline-flex items-center gap-3 bg-primary hover:bg-[#3ecf71] text-midnight font-bold px-10 py-5 rounded-2xl transition-all hover:scale-105 shadow-xl shadow-primary/20" href="explorer.html">
+            <span class="material-symbols-outlined font-bold">explore</span>
+            Explorer la carte
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="bg-midnight text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16 mb-12">
+            <!-- Branding -->
+            <div class="col-span-1">
+                <a href="index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="assets/Logo/3x/Background_IndexFichier 2.png" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        TrainNomad<span class="text-primary">.eu</span>
+                    </span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+            <!-- Navigation -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-primary transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <!-- Engagement -->
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="text-slate-400 text-base leading-relaxed" style="font-style:italic">
+                    "Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."
+                </p>
+            </div>
+        </div>
+        <!-- Barre légale -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

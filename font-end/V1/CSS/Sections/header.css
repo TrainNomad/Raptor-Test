@@ -1,0 +1,543 @@
+/* -------------------------------------- */
+/* --- HEADER.CSS - Flux normal et Centrage --- */
+/* -------------------------------------- */
+
+.header{
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column; 
+    
+    justify-content: flex-start;
+    align-items: center;
+    
+    position: relative;
+    top:0;
+    left: 0;
+    
+    background-color: transparent; 
+    z-index: 10;
+}
+
+.header__nav{
+    width: 100%;
+    max-width: 1450px;
+    height: 76px; 
+    
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 auto; 
+    
+    z-index: 10;
+}
+
+.nav__logo{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav__logo-title{
+    font-size: var(--subheadline-font-size); 
+    color: rgb(var(--secondary-color));
+    padding: 30px;
+}
+
+.nav__right{
+    display: flex;
+    gap:30px;
+    padding: 30px
+}
+.nav__icon{
+    width: 18px;
+    height: 18px;
+}
+.nav__right-about_me{
+    font-size:var(--body-font-size);
+    cursor: pointer;
+    color: rgb(var(--secondary-color));
+}
+a {
+    text-decoration: none;
+    
+}
+.right__link{
+    display: flex;
+    gap: 10px;
+}
+/* ------------------------------------ */
+/* --- MAIN.CSS - Hero et Contenu --- */
+/* ------------------------------------ */
+
+.main__hero {
+    width: 100%; 
+    position: relative; 
+    background-color: transparent; 
+    z-index: 1;
+    top: -76px;
+}
+
+.main__hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    
+    background-color: rgba(78, 77, 77, 0.4); 
+    z-index: 2;
+}
+
+.hero__background{
+  width:100%;
+  height: 400px;
+  background-color: rgba(78, 77, 77, 0.5);
+}
+
+.hero__background-img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center; 
+  position: relative; 
+  z-index:1;
+}
+
+.hero__sections{
+  position: absolute;
+  z-index: 10;
+
+  top: 200px;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+
+  width: 80%;
+  text-align: center;
+
+  color: rgb(var(--secondary-color));
+
+
+}
+
+.hero__sections h3{
+  font-size:45px;
+  color: rgb(var(--secondary-color));
+  margin-bottom: 25px;
+}
+
+.hero__sections p{
+  font-size:var(--subheadline-font-size);
+  color: rgb(var(--secondary-color));
+}
+
+/* ------------------------------------ */
+/* --- SEARCH.CSS - Barre de Recherche avec Cadre Blanc Global --- */
+/* ------------------------------------ */
+
+.search__main{
+  max-width: 800px; 
+  margin: 0 auto;
+  margin-top: -40px; 
+
+  position: relative;
+  z-index: 20; 
+  
+  /* Cadre blanc qui englobe tout */
+  background-color: rgb(var(--secondary-color));
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+}
+
+/* ------------------------------------ */
+/* --- SEARCH__MAIN-TOP (Dropdown) --- */
+/* ------------------------------------ */
+
+.search__main-top {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 0 16px;
+}
+
+.trip-type-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.trip-type-button {
+    height: 32px;
+    padding: 0 10px;
+    
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    background-color: rgba(var(--secondary-color));
+    border: 1px solid rgb(var(--secondary-color));
+    /* border-radius: 6px 6px 0 0;
+    border-bottom: none; */
+    
+    cursor: pointer;
+    font-size: 12px;
+    /* color: #333; */
+    font-weight: 500;
+    
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.trip-type-button:hover {
+    background-color: #ebebeb;
+}
+
+.arrow-icon {
+    flex-shrink: 0;
+}
+
+.dropdown-arrow {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    margin-left: 2px;
+}
+
+.trip-type-button.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.trip-type-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    
+    background-color: white;
+    /* border: 1px solid #ddd; */
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    min-width: 160px;
+    z-index: 1000;
+    
+    overflow: hidden;
+}
+
+.trip-type-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    /* color: #333; */
+    transition: background-color 0.2s ease;
+    
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* .trip-type-option:hover {
+    background-color: #f0f0f0;
+} */
+
+.trip-type-option.selected {
+    background-color: #e8f4fd;
+    color: #0066FF;
+    font-weight: 500;
+}
+
+.option-icon {
+    flex-shrink: 0;
+}
+
+/* ------------------------------------ */
+/* --- SEARCH__MAIN-BOTTOM (Inputs) --- */
+/* ------------------------------------ */
+
+.search__main-bottom {
+  height: 50px;
+  
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+
+  padding: 8px 16px;
+}
+
+.search__inputs {
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+    gap: 5px;
+    position: relative;
+}
+
+/* Wrapper pour chaque input + ses suggestions */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+}
+
+/* Style de base pour tous les inputs */
+.search__inputs input{
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+  
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: rgba(241,242,246,1); 
+}
+
+.search__depart-input{
+    border-radius: 5px 0 0 5px;
+}
+
+/* Style spécifique pour les inputs de date */
+.search__date-input {
+    cursor: pointer;
+}
+
+/* Quand le calendrier de retour est masqué, ajuster les bordures */
+#return-date-wrapper.hidden ~ * .search__date-input,
+.search__inputs .input-wrapper:nth-child(3) .search__date-input {
+    border-radius: 0;
+}
+
+/* Si c'est le dernier input visible (en mode aller simple) */
+.search__inputs .input-wrapper:nth-child(3):last-of-type .search__date-input {
+    border-radius: 0;
+}
+
+.search__inputs input:focus {
+    outline: none;
+}
+
+/* Styles pour les placeholders */
+.search__inputs input::placeholder {
+    color: black;
+}
+
+.search__bouton-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search__bouton{
+  height: 100%;
+  padding: 0 15px;
+  background-color: rgb(236,134,66);
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 0 5px 5px 0;
+  margin-left: 5px;
+}
+
+/* Animation de transition pour l'apparition/disparition du calendrier retour */
+#return-date-wrapper {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+#return-date-wrapper.hidden {
+    flex-grow: 0;
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+/* ================================================= */
+/* --- SUGGESTIONS D'AUTOCOMPLÉTION --- */
+/* ================================================= */
+
+/* Conteneur global des suggestions */
+.suggestions-container{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 5px 5px;
+    
+    max-height: 200px;
+    overflow-y: auto;
+    
+    z-index: 1000;
+    
+    margin-top: 2px;
+}
+
+/* Style de chaque élément de suggestion */
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+/* Surlignage au survol */
+.suggestion-item:hover {
+    background-color: #fce6e6;
+    color: #a00;
+}
+
+/* Supprime la bordure du dernier élément */
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+/* Classe pour masquer le conteneur */
+.hidden {
+    display: none !important;
+}
+
+/* Style spécial pour l'option "N'importe où" */
+.everywhere-option {
+    background-color: #f1f8e9 !important;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.everywhere-option:hover {
+    background-color: #c8e6c9 !important;
+}
+
+/* -------------------------------------------------- */
+/* --- SEARCH__EXTRAS (Heure de départ + Carte)  --- */
+/* -------------------------------------------------- */
+
+.search__extras {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0 16px 10px;
+    flex-wrap: wrap;
+}
+
+.search__extras .field-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.search__extras label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a7265;
+    font-family: var(--mono, monospace);
+}
+
+.search__extras select,
+.search__extras input[type="time"] {
+    background: rgba(241, 242, 246, 1);
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 13px;
+    color: #1a1814;
+    outline: none;
+    cursor: pointer;
+    height: 34px;
+}
+
+.search__extras select      { min-width: 220px; }
+.search__extras input[type="time"] { min-width: 100px; }
+
+/* -------------------------------------------------- */
+/* --- STATUS BAR (Moteur RAPTOR)               --- */
+/* -------------------------------------------------- */
+
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 16px 4px;
+    font-size: 11px;
+    color: #7a7265;
+    font-family: var(--mono, monospace);
+    min-height: 18px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7a7265;
+    flex-shrink: 0;
+}
+
+.status-dot.loading {
+    background: #c8962e;
+    animation: statusPulse 0.8s infinite alternate;
+}
+
+.status-dot.ok  { background: #4a6741; }
+.status-dot.err { background: #8b3a2a; }
+
+@keyframes statusPulse {
+    from { opacity: 1; }
+    to   { opacity: 0.3; }
+}
+
+/* -------------------------------------------------- */
+/* --- RESPONSIVE SEARCH                        --- */
+/* -------------------------------------------------- */
+
+@media (max-width: 680px) {
+    .search__extras {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search__extras select {
+        min-width: 100%;
+    }
+}
+
+.status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 16px 4px;
+    font-size: 11px;
+    color: #7a7265;
+    font-family: var(--mono, monospace);
+    min-height: 18px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7a7265;
+    flex-shrink: 0;
+}
+
+.status-dot.loading {
+    background: #c8962e;
+    animation: statusPulse 0.8s infinite alternate;
+}
+
+.status-dot.ok  { background: #4a6741; }
+.status-dot.err { background: #8b3a2a; }
+
+@keyframes statusPulse {
+    from { opacity: 1; }
+    to   { opacity: 0.3; }
+}

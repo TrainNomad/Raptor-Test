@@ -1,0 +1,154 @@
+{
+  "id": "turin",
+  "slug": "turin",
+  "country": "IT",
+  "country_name": "Italie",
+  "city": "Turin",
+  "tagline": "La capitale discrète qui cache l'Italie la plus secrète",
+  "description": "Baroque, chocolat, Savoia et mystère — Turin mérite bien plus qu'un arrêt.",
+  "hero_image": "https://images.unsplash.com/photo-1610016302534-6f67f1c968d8?w=1600&q=85",
+  "categories": ["city-break", "culture", "gastronomie"],
+  "train": {
+    "duration": "5h 40min",
+    "price_from": 35,
+    "co2_saving": 89,
+    "stop_area_id": "stop_area:OCE87594006",
+    "stop_name": "Torino Porta Nuova"
+  },
+  "plane": {
+    "duration": "~5h 00min",
+    "co2_kg": 210
+  },
+  "editorial": {
+    "intro": "Turin est une énigme italienne. Ici, pas de dolce vita méditerranéenne ni de chaos romain — mais une élégance nordique, des portiques à perte de vue, un chocolat à faire pâlir les Belges et une collection égyptologique qui n'a d'égal qu'au Caire. L'ancienne capitale du Royaume de Sardaigne, puis d'Italie, s'est réinventée en métropole culturelle sans renoncer à son mystère.",
+    "sections": [
+      {
+        "id": "histoire",
+        "icon": "history_edu",
+        "title": "La capitale oubliée de l'Italie",
+        "image": "https://images.unsplash.com/photo-1580541631971-9b01d4e4f9af?w=900&q=80",
+        "body": "Turin fut la première capitale du Royaume d'Italie unifié entre 1861 et 1865, avant que Rome ne reprenne ce rôle. Cette parenthèse a laissé une empreinte indélébile : une architecture royale impeccable, des places à la française, des palais Savoia dont la magnificence rivalise avec Versailles. Le Palazzo Reale, la Reggia di Venaria Reale — inscrite à l'UNESCO — et le Castello di Rivoli témoignent d'une cour qui voulait s'imposer parmi les grandes monarchies européennes.\n\nLa ville possède aussi une réputation mystérieuse, alimentée par des sociétés secrètes, des reliques sacrées et une tradition alchimique. La Sindone — le Saint-Suaire — est conservée dans la chapelle Guarini du Duomo depuis 1578, attirant des millions de pèlerins lors de ses rares ostensions. Et puis il y a cette légende tenace : Turin serait l'un des trois sommets du triangle magique européen, avec Prague et Lyon."
+      },
+      {
+        "id": "musees",
+        "icon": "museum",
+        "title": "L'Égypte à Turin — et l'Italie aussi",
+        "image": "https://images.unsplash.com/photo-1564399580075-5dfe19c205f3?w=900&q=80",
+        "body": "Le Museo Egizio de Turin est le plus important au monde après celui du Caire — et le plus ancien, fondé en 1824. Ses 40 000 artefacts incluent des momies royales, des sarcophages dorés, le Papyrus royal de Turin (la liste la plus complète des pharaons jamais trouvée) et la reconstitution complète de la tombe de l'architecte Kha. Comprendre comment une telle collection se retrouve en Piémont, c'est déjà une histoire passionnante que les guides racontent avec passion.\n\nLe Palazzo Reale et son Armeria Reale — l'une des plus grandes collections d'armes historiques au monde — offrent un portrait fascinant de la dynastique Savoia. La Mole Antonelliana, symbole de la ville, abrite le Musée National du Cinéma : 5 étages dans un bâtiment qui devait être une synagogue et qui est devenu un temple du 7e art."
+      },
+      {
+        "id": "gastronomie",
+        "icon": "restaurant",
+        "title": "Chocolat, Barolo et tajarin",
+        "image": "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=900&q=80",
+        "body": "Le Piémont est peut-être la région gastronomique la plus secrète d'Italie. Turin est la capitale européenne du chocolat — le premier chocolat solide de l'histoire y a été inventé au XVIIe siècle, et le gianduiotto (noisette + cacao) reste une fierté locale. Le bicerin, ce mélange d'espresso, de chocolat chaud et de crème dont Cavour et Nietzsche étaient amateurs, ne se trouve authentiquement que dans quelques cafés historiques de la Via Po.\n\nLa cuisine est celle du nord : tajarin (tagliatelles aux œufs aux 30 jaunes), vitello tonnato, bagna caôda (anchois et ail fondus dans l'huile, pour tremper les légumes crus), agnolotti del plin farcis à la viande. Le Barolo et le Barbaresco, vins rouges de la région des Langhe accessibles en journée depuis Turin, sont parmi les plus grandes appellations d'Italie.",
+        "tips": [
+          { "icon": "local_cafe", "text": "Bicerin chez Caffè Al Bicerin (1763) — la norme historique, Via della Consolata" },
+          { "icon": "wine_bar", "text": "Barolo au verre chez Eataly ou dans les enoteche de la Piazza Vittorio Veneto" },
+          { "icon": "chocolate_bar", "text": "Gianduiotti chez Guido Gobino ou Caffarel — pas les boutiques touristiques" },
+          { "icon": "restaurant", "text": "Tajarin au ragù truffé chez Trattoria Valenza ou Da Cianci" }
+        ]
+      },
+      {
+        "id": "promenades",
+        "icon": "nature_people",
+        "title": "Les portiques et le Pô",
+        "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=900&q=80",
+        "body": "Turin possède 18 kilomètres de portiques continus — un des réseaux les plus longs d'Europe après Bologne. Se promener sous ces galeries couvertes, entre les cafés historiques, les librairies et les boutiques de luxe, est une expérience unique par tout temps. La via Po, l'axe principal qui relie la Piazza Castello au grand Pô, concentre l'essentiel de cette atmosphère.\n\nLe long des berges du Pô, le Parco del Valentino et son château médiéval (un décor de cinéma reconstruit pour l'Exposition de 1884) offrent une promenade paisible. Sur les collines en face, la Basilica di Superga — accessible en tramway historique — offre une vue panoramique sur la plaine du Pô et les Alpes qui reste gravée."
+      }
+    ]
+  },
+  "highlights": [
+    { "icon": "museum", "label": "Museo Egizio", "description": "2e collection égyptienne mondiale.", "url": "https://museoegizio.it" },
+    { "icon": "castle", "label": "Palazzo Reale", "description": "Palais Savoia et armurerie royale.", "url": "https://museireali.beniculturali.it" },
+    { "icon": "architecture", "label": "Mole Antonelliana", "description": "Musée du Cinéma dans un édifice unique.", "url": "https://www.museocinema.it" },
+    { "icon": "church", "label": "Saint-Suaire", "description": "Relique dans la chapelle du Duomo.", "url": "https://www.sindone.it" },
+    { "icon": "park", "label": "Parco Valentino", "description": "Château néo-médiéval au bord du Pô.", "url": "https://turismo.comune.torino.it" },
+    { "icon": "terrain", "label": "Basilica di Superga", "description": "Vue sur les Alpes en tramway historique.", "url": "https://www.basilicadisuperga.com" }
+  ],
+  "gyg_partner_id": "URMJDFO",
+  "gyg_location_id": "390",
+  "gyg_cmp": "turin-guide",
+  "gyg_location_url": "https://www.getyourguide.com/turin-l390/",
+  "gyg_tours": [
+    {
+      "tour_id": "381499",
+      "icon": "museum",
+      "category": "Incontournable",
+      "title": "Musée Égyptien — Coupe-file & visite guidée",
+      "description": "Entrez sans attendre dans la 2e plus grande collection égyptienne au monde. Le guide dévoile les secrets du tombeau de Kha, la momie de Ramsès II et le mystère du Papyrus royal.",
+      "image": "https://images.unsplash.com/photo-1564399580075-5dfe19c205f3?w=700&q=80"
+    },
+    {
+      "tour_id": "381954",
+      "icon": "castle",
+      "category": "Combo Royal",
+      "title": "Palazzo Reale + Musée Égyptien — Tour guidé",
+      "description": "La double expérience idéale : l'ancienne résidence des Savoia le matin, avec son armurerie et sa Chapelle du Saint-Suaire, puis le Musée Égyptien l'après-midi.",
+      "image": "https://images.unsplash.com/photo-1580541631971-9b01d4e4f9af?w=700&q=80"
+    },
+    {
+      "tour_id": "381959",
+      "icon": "directions_walk",
+      "category": "Visite complète",
+      "title": "Tour à pied du centre + Palazzo Reale + Égyptien",
+      "description": "Journée complète : balade dans les portiques et la Piazza Castello, puis entrées coupe-file pour les deux grands musées de Turin avec guide expert.",
+      "image": "https://images.unsplash.com/photo-1610016302534-6f67f1c968d8?w=700&q=80"
+    },
+    {
+      "tour_id": "212799",
+      "icon": "auto_stories",
+      "category": "Mystères & Histoire",
+      "title": "Musée Égyptien — Tour des mystères & légendes",
+      "description": "Une approche différente du Museo Egizio : les énigmes non résolues, les malédictions, les rituels funéraires et les croyances de l'Égypte ancienne.",
+      "image": "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=700&q=80"
+    },
+    {
+      "tour_id": "75598",
+      "icon": "star",
+      "category": "Tour privé",
+      "title": "Turin & Musée Égyptien — Tour privé sur mesure",
+      "description": "Découvrez Turin en privé avec un guide dédié : le centre baroque, les caffè storici, le Palazzo Reale et le Musée Égyptien à votre rythme.",
+      "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=700&q=80"
+    },
+    {
+      "tour_id": "67208",
+      "icon": "local_cafe",
+      "category": "Art de vivre",
+      "title": "Dégustation chocolat & cafés historiques de Turin",
+      "description": "Le tour des caffè storici sous les portiques — Caffè Al Bicerin, Caffè Baratti & Milano, Caffè Fiorio — avec dégustation de gianduiotti et bicerin.",
+      "image": "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=700&q=80"
+    }
+  ],
+  "restaurants": [
+    { "icon": "local_cafe", "name": "Caffè Al Bicerin", "note": "Le bicerin originel depuis 1763 — chocolat, espresso, crème. Via della Consolata." },
+    { "icon": "restaurant", "name": "Trattoria Valenza", "note": "Tajarin à la truffe et agnolotti del plin — trattoria familiale authentique." },
+    { "icon": "wine_bar", "name": "Eataly Torino", "note": "Temple piémontais : Barolo, Barbaresco, fromages et charcuteries du terroir." },
+    { "icon": "storefront", "name": "Guido Gobino", "note": "Le meilleur chocolatier de Turin — gianduiotti, cremini, pralines maison." }
+  ],
+  "hotels": [
+    { "name": "NH Collection Torino Piazza Carlina", "walk_min": 12, "eco": true, "image": "" },
+    { "name": "Hotel Boston Torino", "walk_min": 5, "eco": false, "image": "" },
+    { "name": "Ostello Torino", "walk_min": 3, "eco": true, "image": "" }
+  ],
+  "escapades": [
+    {
+      "title": "Les Langhe & le Barolo",
+      "tag": "1h30 de Turin",
+      "desc": "Vignobles UNESCO, villages médiévaux perchés et caves de Barolo. Train jusqu'à Alba, puis excursion.",
+      "image": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?w=600&q=80"
+    },
+    {
+      "title": "Reggia di Venaria Reale",
+      "tag": "20min de Turin",
+      "desc": "La Versailles italienne — palais Savoia classé UNESCO, jardins à la française et galeries baroques spectaculaires.",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=80"
+    },
+    {
+      "title": "Lac Majeur",
+      "tag": "1h30 de Turin",
+      "desc": "Stresa et les Îles Borromées en train direct. Palais baroques sur des îles privées et vue sur les Alpes.",
+      "image": "https://images.unsplash.com/photo-1586899028174-e7098604235b?w=600&q=80"
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Guides de voyage — TrainNomad.eu</title>
+    <meta name="description" content="Guides de voyage par train en Europe. Itinéraires, conseils et bons plans pour voyager en train vers les plus belles villes européennes.">
+    <link rel="icon" type="image/svg+xml" href="../assets/Logo/SVG/Background_IndexFichier 2.svg">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../script/tailwind.config.js"></script>
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --midnight: #1A2B3C;
+            --primary:  #4ade80;
+            --bg:       #f8f7f5;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--midnight); }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        /* ── Nav mobile ── */
+        #mobile-menu-btn { display: none; }
+        #mobile-nav      { display: none; }
+        @media (max-width: 767px) {
+            #mobile-menu-btn { display: flex !important; }
+            nav .desktop-links { display: none !important; }
+            #mobile-nav {
+                display: none; position: fixed;
+                top: 80px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+                border-bottom: 1px solid #f1f5f9; z-index: 60;
+                padding: 1rem 1.5rem 1.5rem;
+                box-shadow: 0 8px 24px rgba(26,43,60,0.08);
+                flex-direction: column; gap: 0.25rem;
+            }
+            #mobile-nav.open { display: flex; }
+            #mobile-nav a {
+                display: flex; align-items: center; gap: 0.75rem;
+                padding: 0.75rem 0.5rem; font-size: 0.95rem; font-weight: 700;
+                color: var(--midnight); border-radius: 0.75rem; text-decoration: none;
+            }
+            #mobile-nav a.nav-cta { background: var(--midnight); color: #fff; padding: 0.75rem 1rem; margin-top: 0.5rem; border-radius: 0.75rem; }
+        }
+
+        /* ── Hero section ── */
+        .guides-hero {
+            background: linear-gradient(135deg, var(--midnight) 0%, #2d4a63 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .guides-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(74,222,128,0.12) 0%, transparent 60%);
+        }
+        .guides-hero-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.3);
+            color: var(--primary); border-radius: 999px;
+            padding: 6px 16px; font-size: 12px; font-weight: 800;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        /* ── Filtres ── */
+        .filter-pill {
+            padding: 8px 20px; border-radius: 999px;
+            border: 1.5px solid #e2e8f0; background: white;
+            font-size: 13px; font-weight: 700; color: #64748b;
+            cursor: pointer; transition: all .15s; white-space: nowrap;
+        }
+        .filter-pill:hover { border-color: var(--midnight); color: var(--midnight); }
+        .filter-pill.active { background: var(--midnight); color: white; border-color: var(--midnight); }
+
+        /* ── Cards ── */
+        .guide-card {
+            background: white; border-radius: 20px;
+            overflow: hidden; transition: transform .2s ease, box-shadow .2s ease;
+            cursor: pointer; text-decoration: none; display: block; color: inherit;
+            box-shadow: 0 2px 12px rgba(26,43,60,0.06);
+        }
+        .guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(26,43,60,0.14);
+        }
+        .guide-card-img {
+            position: relative; aspect-ratio: 4/3; overflow: hidden; background: #e2e8f0;
+        }
+        .guide-card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform .4s ease;
+        }
+        .guide-card:hover .guide-card-img img { transform: scale(1.04); }
+
+        /* Placeholder image si pas de photo */
+        .guide-card-img-placeholder {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 48px;
+        }
+
+        .guide-card-badges {
+            position: absolute; top: 14px; left: 14px;
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .badge {
+            padding: 4px 10px; border-radius: 999px;
+            font-size: 11px; font-weight: 800;
+            letter-spacing: 0.04em;
+        }
+        .badge-direct { background: var(--primary); color: var(--midnight); }
+        .badge-budget { background: #1A2B3C; color: white; }
+        .badge-nuit   { background: #1e1b4b; color: #a5b4fc; }
+        .badge-default { background: white; color: var(--midnight); }
+
+        .guide-card-travel {
+            position: absolute; bottom: 14px; right: 14px;
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+            border-radius: 10px; padding: 6px 12px;
+            display: flex; align-items: center; gap: 6px;
+            font-size: 12px; font-weight: 700; color: var(--midnight);
+        }
+        .guide-card-body { padding: 20px 22px 24px; }
+        .guide-card-meta { font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .guide-card-title { font-size: 20px; font-weight: 800; color: var(--midnight); margin-bottom: 6px; line-height: 1.2; }
+        .guide-card-excerpt { font-size: 13px; color: #64748b; margin-bottom: 16px; line-height: 1.5; }
+        .guide-card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .guide-card-link {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 13px; font-weight: 800; color: var(--midnight);
+            text-decoration: none; transition: gap .15s;
+        }
+        .guide-card:hover .guide-card-link { gap: 8px; }
+
+        /* ── Featured card (grande, en avant) ── */
+        .guide-card-featured .guide-card-img { aspect-ratio: 16/9; }
+        .guide-card-featured .guide-card-title { font-size: 24px; }
+
+        /* ── Newsletter strip ── */
+        .newsletter-strip {
+            background: var(--midnight);
+            border-radius: 24px;
+            padding: 48px 56px;
+        }
+
+        /* ── Entrée en fade ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp .5s ease both; }
+        .fade-up-1 { animation-delay: .05s; }
+        .fade-up-2 { animation-delay: .12s; }
+        .fade-up-3 { animation-delay: .19s; }
+        .fade-up-4 { animation-delay: .26s; }
+        .fade-up-5 { animation-delay: .33s; }
+        .fade-up-6 { animation-delay: .40s; }
+
+        /* ── Footer quote ── */
+        .footer-quote { color: #a0aec0; line-height: 1.6; font-style: italic; }
+    </style>
+</head>
+
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="../index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+            <img src="../assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight" style="color:#1A2B3C">
+                TrainNomad<span style="color:#4ade80">.eu</span>
+            </span>
+        </a>
+        <div class="desktop-links hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold hover:text-green-400 transition-colors flex items-center gap-2" href="../trajets.html" style="color:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">train</span> Voyager
+            </a>
+            <a class="text-sm font-bold hover:text-green-400 transition-colors flex items-center gap-2" href="../explorer.html" style="color:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">explore</span> Explorer
+            </a>
+            <a class="text-sm font-bold flex items-center gap-2 px-4 py-2 rounded-xl shadow-sm transition-all"
+               href="index.html"
+               style="background:#4ade80; color:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">menu_book</span> Guides
+            </a>
+            <a class="text-sm font-bold text-white px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-sm"
+               href="../outilstgvmax.html" style="background:#1A2B3C">
+                <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+            </a>
+        </div>
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+            class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors" aria-label="Menu">
+            <span id="mobile-menu-icon" class="material-symbols-outlined text-2xl" style="color:#1A2B3C">menu</span>
+        </button>
+    </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+    <a href="../trajets.html"><span class="material-symbols-outlined text-xl">train</span> Voyager</a>
+    <a href="../explorer.html"><span class="material-symbols-outlined text-xl">explore</span> Explorer</a>
+    <a href="index.html"><span class="material-symbols-outlined text-xl">menu_book</span> Guides</a>
+    <a href="../outilstgvmax.html" class="nav-cta"><span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="guides-hero py-20 px-6">
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="guides-hero-label">
+            <span class="material-symbols-outlined text-sm">menu_book</span>
+            Guides de voyage
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+            L'Europe<br><span style="color:#4ade80">en train.</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-xl leading-relaxed mb-10">
+            Itinéraires soignés, adresses locales, conseils de réservation. Tout ce qu'il faut pour voyager mieux, plus loin et plus librement.
+        </p>
+        <!-- Barre de recherche -->
+        <div class="flex items-center gap-3 bg-white rounded-2xl px-5 py-3 max-w-md shadow-lg">
+            <span class="material-symbols-outlined text-slate-400">search</span>
+            <input id="search-guides" type="text" placeholder="Rechercher une ville…"
+                   class="flex-1 border-none outline-none text-sm font-semibold bg-transparent placeholder-slate-300"
+                   style="color:#1A2B3C"
+                   oninput="filterGuides()"/>
+        </div>
+    </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="bg-white border-b border-slate-100 py-5 px-6">
+    <div class="max-w-7xl mx-auto flex flex-wrap gap-8 md:gap-16">
+        <div class="flex items-center gap-3">
+            <span class="text-2xl font-extrabold" style="color:#1A2B3C" id="stat-guides">24</span>
+            <span class="text-sm font-semibold text-slate-400">guides disponibles</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-2xl font-extrabold" style="color:#4ade80">12</span>
+            <span class="text-sm font-semibold text-slate-400">pays couverts</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-2xl font-extrabold" style="color:#1A2B3C">100%</span>
+            <span class="text-sm font-semibold text-slate-400">en train</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ FILTRES ══ -->
+<div class="sticky top-20 z-30 bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex gap-3 overflow-x-auto pb-1" style="-webkit-overflow-scrolling:touch;scrollbar-width:none">
+        <button class="filter-pill active" data-filter="tous" onclick="setFilter(this)">Tous</button>
+        <button class="filter-pill" data-filter="direct" onclick="setFilter(this)">🚄 Train direct</button>
+        <button class="filter-pill" data-filter="budget" onclick="setFilter(this)">💶 Budget</button>
+        <button class="filter-pill" data-filter="nuit" onclick="setFilter(this)">🌙 Train de nuit</button>
+        <button class="filter-pill" data-filter="italie" onclick="setFilter(this)">🇮🇹 Italie</button>
+        <button class="filter-pill" data-filter="espagne" onclick="setFilter(this)">🇪🇸 Espagne</button>
+        <button class="filter-pill" data-filter="allemagne" onclick="setFilter(this)">🇩🇪 Allemagne</button>
+        <button class="filter-pill" data-filter="suisse" onclick="setFilter(this)">🇨🇭 Suisse</button>
+    </div>
+</div>
+
+<!-- ══ GRILLE GUIDES ══ -->
+<main class="max-w-7xl mx-auto px-6 py-14">
+
+    <!-- Guide mis en avant -->
+    <div class="mb-12 fade-up fade-up-1" id="featured-section">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-extrabold" style="color:#1A2B3C">
+                <span class="inline-block w-1 h-5 rounded-full mr-3 align-middle" style="background:#4ade80"></span>
+                À la une
+            </h2>
+        </div>
+        <a href="milan.html" class="guide-card guide-card-featured" data-tags="direct,italie,frecciarossa">
+            <div class="guide-card-img">
+                <img src="../assets/guides/milan-hero.jpg" alt="Milan"
+                     onerror="this.style.display='none';this.parentElement.querySelector('.guide-card-img-placeholder').style.display='flex'"/>
+                <div class="guide-card-img-placeholder" style="display:none;background:linear-gradient(135deg,#1A2B3C,#2d4a63)">🏛️</div>
+                <div class="guide-card-badges">
+                    <span class="badge badge-direct">Train direct</span>
+                    <span class="badge badge-default">Frecciarossa</span>
+                </div>
+                <div class="guide-card-travel">
+                    <span class="material-symbols-outlined text-sm" style="color:#4ade80">schedule</span>
+                    3h 45min
+                </div>
+            </div>
+            <div class="guide-card-body">
+                <div class="guide-card-meta">Italie · Milan</div>
+                <div class="guide-card-title">La capitale du style, à 3h de Paris</div>
+                <div class="guide-card-excerpt">Duomo, Navigli, Brera — un guide complet pour trois jours à Milan sans se noyer dans les boutiques.</div>
+                <div class="guide-card-footer">
+                    <span class="guide-card-link">
+                        Lire le guide <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </span>
+                    <span class="text-xs font-semibold text-slate-400">3 jours · 49€ depuis Paris</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Grille principale -->
+    <div class="mb-6 flex items-center justify-between fade-up fade-up-2">
+        <h2 class="text-xl font-extrabold" style="color:#1A2B3C">
+            <span class="inline-block w-1 h-5 rounded-full mr-3 align-middle" style="background:#1A2B3C"></span>
+            Toutes les destinations
+        </h2>
+        <span id="results-count" class="text-sm font-semibold text-slate-400"></span>
+    </div>
+
+    <div id="guides-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Les cards sont générées par JS depuis GUIDES_DATA -->
+    </div>
+
+    <!-- État vide -->
+    <div id="empty-state" class="hidden text-center py-20">
+        <div class="text-5xl mb-4">🔍</div>
+        <p class="text-slate-400 font-semibold">Aucun guide ne correspond à cette recherche.</p>
+    </div>
+
+</main>
+
+<!-- ══ NEWSLETTER ══ -->
+<section class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="newsletter-strip">
+        <div class="max-w-2xl">
+            <div class="text-xs font-bold tracking-widest uppercase mb-4" style="color:#4ade80">Newsletter</div>
+            <h3 class="text-3xl font-extrabold text-white mb-4 leading-tight">
+                Un nouveau guide chaque semaine.
+            </h3>
+            <p class="text-slate-400 mb-8">Itinéraires inédits, bons plans de réservation, destinations oubliées — directement dans votre boîte mail.</p>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="votre@email.com"
+                       class="flex-1 px-5 py-3.5 rounded-xl border-none outline-none text-sm font-semibold"
+                       style="color:#1A2B3C"/>
+                <button class="px-8 py-3.5 rounded-xl font-bold text-sm transition-all hover:opacity-90"
+                        style="background:#4ade80; color:#1A2B3C">
+                    S'abonner
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="text-white py-20" style="background:#1A2B3C">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 mb-12" style="border-bottom:1px solid rgba(255,255,255,0.1)">
+            <div class="col-span-1">
+                <a href="../index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="../assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">TrainNomad<span style="color:#4ade80">.eu</span></span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.</p>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-green-400 transition-colors" href="../A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="index.html">Guides</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="footer-quote text-base">"Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."</p>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="../mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="../confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="../conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ── Données des guides (à alimenter depuis votre CMS / JSON) ──────────────────
+const GUIDES_DATA = [
+    {
+        id: 'barcelone',
+        city: 'Barcelone',
+        country: 'Espagne',
+        excerpt: '2 jours à Barcelone',
+        tagline: 'Gaudí, tapas et soleil catalan',
+        cover: null,
+        emoji: '🏖️',
+        duration: '6h 30min',
+        price: '39€',
+        tags: ['direct', 'espagne'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'AVE', cls: 'badge-default' }],
+    },
+    {
+        id: 'zurich',
+        city: 'Zurich',
+        country: 'Suisse',
+        excerpt: '2 jours à Zurich',
+        tagline: 'Lac, montagne et chocolat',
+        cover: null,
+        emoji: '🏔️',
+        duration: '4h',
+        price: '59€',
+        tags: ['direct', 'suisse'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'Lyria', cls: 'badge-default' }],
+    },
+    {
+        id: 'bruxelles',
+        city: 'Bruxelles',
+        country: 'Belgique',
+        excerpt: '1 jour à Bruxelles',
+        tagline: 'Bières, BD et Grand-Place',
+        cover: null,
+        emoji: '🍺',
+        duration: '1h 22min',
+        price: '29€',
+        tags: ['direct', 'budget'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'Budget', cls: 'badge-budget' }],
+    },
+    {
+        id: 'amsterdam',
+        city: 'Amsterdam',
+        country: 'Pays-Bas',
+        excerpt: '3 jours à Amsterdam',
+        tagline: 'Canaux, musées et vélos',
+        cover: null,
+        emoji: '🚲',
+        duration: '3h 30min',
+        price: '49€',
+        tags: ['direct'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'Thalys', cls: 'badge-default' }],
+    },
+    {
+        id: 'berlin',
+        city: 'Berlin',
+        country: 'Allemagne',
+        excerpt: '4 jours à Berlin',
+        tagline: 'Histoire, street art et culture',
+        cover: null,
+        emoji: '🎨',
+        duration: '8h',
+        price: '79€',
+        tags: ['nuit', 'allemagne'],
+        badges: [{ label: 'Train de nuit', cls: 'badge-nuit' }, { label: 'Nightjet', cls: 'badge-default' }],
+    },
+    {
+        id: 'venise',
+        city: 'Venise',
+        country: 'Italie',
+        excerpt: '2 jours à Venise',
+        tagline: 'La sérénissime sans les foules',
+        cover: null,
+        emoji: '🚤',
+        duration: '4h 45min',
+        price: '49€',
+        tags: ['direct', 'italie'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'Frecciarossa', cls: 'badge-default' }],
+    },
+    {
+        id: 'madrid',
+        city: 'Madrid',
+        country: 'Espagne',
+        excerpt: '3 jours à Madrid',
+        tagline: 'Prado, tapas et nuits infinies',
+        cover: null,
+        emoji: '🎭',
+        duration: '9h 30min',
+        price: '59€',
+        tags: ['nuit', 'espagne'],
+        badges: [{ label: 'Train de nuit', cls: 'badge-nuit' }, { label: 'Trenhotel', cls: 'badge-default' }],
+    },
+    {
+        id: 'geneve',
+        city: 'Genève',
+        country: 'Suisse',
+        excerpt: '1 jour à Genève',
+        tagline: 'Jet d\'eau, ONU et horlogerie',
+        cover: null,
+        emoji: '⌚',
+        duration: '3h 05min',
+        price: '39€',
+        tags: ['direct', 'suisse', 'budget'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'Budget', cls: 'badge-budget' }],
+    },
+    {
+        id: 'munich',
+        city: 'Munich',
+        country: 'Allemagne',
+        excerpt: '3 jours à Munich',
+        tagline: 'Bière, baroque et Alpes',
+        cover: null,
+        emoji: '🍻',
+        duration: '5h 45min',
+        price: '69€',
+        tags: ['direct', 'allemagne'],
+        badges: [{ label: 'Train direct', cls: 'badge-direct' }, { label: 'ICE', cls: 'badge-default' }],
+    },
+];
+
+// ── Rendu des cartes ──────────────────────────────────────────────────────────
+function renderCard(g, delay) {
+    const badgesHtml = g.badges.map(b => `<span class="badge ${b.cls}">${b.label}</span>`).join('');
+    const imgContent = g.cover
+        ? `<img src="../assets/guides/${g.cover}" alt="${g.city}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+        : '';
+    const placeholder = `<div class="guide-card-img-placeholder" style="display:${g.cover ? 'none' : 'flex'};background:linear-gradient(135deg,#1A2B3C,#2d4a63)">${g.emoji}</div>`;
+
+    return `
+    <a href="${g.id}.html" class="guide-card fade-up" style="animation-delay:${delay}s" data-tags="${g.tags.join(',')}">
+        <div class="guide-card-img">
+            ${imgContent}${placeholder}
+            <div class="guide-card-badges">${badgesHtml}</div>
+            <div class="guide-card-travel">
+                <span class="material-symbols-outlined text-sm" style="color:#4ade80">schedule</span>
+                ${g.duration}
+            </div>
+        </div>
+        <div class="guide-card-body">
+            <div class="guide-card-meta">${g.country} · ${g.city}</div>
+            <div class="guide-card-title">${g.tagline}</div>
+            <div class="guide-card-excerpt">${g.excerpt}</div>
+            <div class="guide-card-footer">
+                <span class="guide-card-link">
+                    Lire le guide <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </span>
+                <span class="text-xs font-semibold text-slate-400">dès ${g.price}</span>
+            </div>
+        </div>
+    </a>`;
+}
+
+// ── Filtrage ──────────────────────────────────────────────────────────────────
+let currentFilter = 'tous';
+let currentSearch = '';
+
+function setFilter(btn) {
+    document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    applyFilters();
+}
+
+function filterGuides() {
+    currentSearch = document.getElementById('search-guides').value.toLowerCase();
+    applyFilters();
+}
+
+function applyFilters() {
+    let filtered = GUIDES_DATA.filter(g => {
+        const matchFilter = currentFilter === 'tous' || g.tags.includes(currentFilter);
+        const matchSearch = !currentSearch ||
+            g.city.toLowerCase().includes(currentSearch) ||
+            g.country.toLowerCase().includes(currentSearch) ||
+            g.tagline.toLowerCase().includes(currentSearch);
+        return matchFilter && matchSearch;
+    });
+
+    const grid = document.getElementById('guides-grid');
+    const empty = document.getElementById('empty-state');
+    const count = document.getElementById('results-count');
+
+    count.textContent = filtered.length + ' guide' + (filtered.length > 1 ? 's' : '');
+
+    if (!filtered.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+    } else {
+        empty.classList.add('hidden');
+        grid.innerHTML = filtered.map((g, i) => renderCard(g, i * 0.06)).join('');
+    }
+}
+
+// ── Menu mobile ───────────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+    const nav = document.getElementById('mobile-nav');
+    const icon = document.getElementById('mobile-menu-icon');
+    const open = nav.classList.toggle('open');
+    icon.textContent = open ? 'close' : 'menu';
+}
+
+// Init
+applyFilters();
+</script>
+
+</body>
+</html>

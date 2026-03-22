@@ -1,0 +1,40 @@
+/* ============================================================
+   TrainNomad.eu — css/trajets-desktop.css
+   Grands écrans  ·  min-width: 1440px
+   ============================================================ */
+
+@media (min-width: 1440px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 80px; max-width: 1400px; padding-left: 3rem; padding-right: 3rem; }
+  nav .hidden.md\:flex { gap: 3rem; }
+
+  /* ── Search bar ── */
+  .bg-white.border-b.border-slate-100.py-6.px-6.sticky { top: 80px !important; padding: 1rem 3rem !important; }
+  .bg-white.border-b.border-slate-100.py-6.px-6.sticky .max-w-7xl { max-width: 1400px; }
+  .flex.flex-wrap.lg\:flex-nowrap { flex-wrap: nowrap; }
+
+  /* ── Main ── */
+  .results__main { max-width: 1400px; padding: 2.5rem 3rem; }
+
+  /* Journey card */
+  .card-summary { padding: 28px; gap: 40px; }
+  .card-time { font-size: 20px; }
+  .card-track { width: 110px; }
+  .price-val { font-size: 26px; }
+
+  /* ── Footer ── */
+  footer .max-w-7xl { max-width: 1400px; padding-left: 3rem; padding-right: 3rem; }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+  }
+  footer h5 { font-size: 1.1rem; margin-bottom: 2rem; }
+}
+
+/* ── Ultra-large 2K/4K ── */
+@media (min-width: 1920px) {
+  nav .max-w-7xl,
+  .results__main,
+  footer .max-w-7xl { max-width: 1600px; }
+}

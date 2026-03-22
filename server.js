@@ -1,968 +1,1230 @@
 /**
- * GTFS Multi-Opérateurs → RAPTOR
- *
- * Usage :
- *   node gtfs-ingest.js                            ← lit operators.json
- *   node gtfs-ingest.js ./operators.json ./engine_data
- *
- * Filtres appliqués par opérateur (trains longue distance uniquement) :
- *   SNCF    : exclut CAR, NAVETTE, TRAMTRAIN et route_type 3 (bus)
- *   SNCB    : garde uniquement IC, EC, NJ, OTC
- *   TI      : tout (déjà uniquement Frecciarossa)
- *   ES      : tout (Eurostar)
- *   RENFE   : exclut PROXIMDAD, FEVE et bus (TRENCELTA gardé — liaison ES↔PT)
- *   OUIGO_ES: tout sauf bus
- *   CP      : garde uniquement AP (Alfa Pendular), IC (Intercidades), IR (Inter-regional)
- *
- * OPTIMISATION MÉMOIRE :
- *   Les stop_id strings sont encodés en entiers via un dictionnaire global.
- *   Format route_trips.json : stop_times contient des indices entiers (sid_idx)
- *   au lieu de strings répétées → ~60% de réduction RAM sur server.js
- *   Le fichier stop_id_dict.json contient le tableau [stopId0, stopId1, ...] (idx → string)
+ * Serveur RAPTOR — SNCF + Trenitalia France
+ * Optimisations : buildStopToTrips une seule fois, RAPTOR multi-origines, lookup Map
  */
 
-const fs       = require('fs');
-const path     = require('path');
-const readline = require('readline');
+const http = require('http');
+const fs   = require('fs');
+const path = require('path');
+const url  = require('url');
 
-const OPS_FILE = process.argv[2] || './operators.json';
-const OUT_DIR  = process.argv[3] || './engine_data';
+const DATA_DIR    = process.env.DATA_DIR || './engine_data';
+const PORT        = process.env.PORT     || 3000;
+const MAX_ROUNDS  = 5;
+const MAX_RESULTS = 8;
 
-if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
+const MIN_TRANSFER_SAME  = 3  * 60;  // 3 min  — même opérateur / même gare
+const MIN_TRANSFER_CROSS = 10 * 60;  // 10 min — inter-opérateurs (SNCF ↔ TI)
+const MIN_TRANSFER_CITY  = 45 * 60;  // 45 min — inter-gares même ville (métro)
 
-// ─── Utilitaires ──────────────────────────────────────────────────────────────
+// ─── Données en RAM ───────────────────────────────────────────────────────────
+let stops, routesInfo, routesByStop, routeStops, routeTrips, calendarIndex, meta;
+let transferIndex  = {};
+let stopsIndex     = [];
+let stopNameMap    = new Map();   // stopId → nom affiché, O(1)
+let stopStationMap = new Map();   // stopId → station name groupée, O(1)
+let stopCityKeyMap  = new Map();   // stopId → 'city:country' key, O(1)
+let globalCoordsMap = new Map();   // stopId → {lat, lon} précompilé au démarrage
+let tarifIndex      = {};
+let cityIndex      = new Map();   // ville groupée → { city, country, stopIds, stations }
 
-function timeToSeconds(t) {
-  if (!t || !t.includes(':')) return null;
-  const [h, m, s] = t.trim().split(':').map(Number);
-  if (isNaN(h) || isNaN(m)) return null;
-  return h * 3600 + m * 60 + (s || 0);
+// Dictionnaire stop_id (encodage compact)
+// stopIdDict[idx] → string stop_id
+// stopIdDictMap : string → idx (inverse, pour les lookups)
+let stopIdDict    = null;   // Array<string> | null — null = ancien format sans encodage
+let stopIdDictMap = null;   // Map<string, number> | null
+
+const COUNTRY_NAMES = {
+  FR:'France', IT:'Italie', BE:'Belgique', DE:'Allemagne',
+  NL:'Pays-Bas', GB:'Royaume-Uni', ES:'Espagne', PT:'Portugal',
+  CH:'Suisse', AT:'Autriche', PL:'Pologne', CZ:'Tchéquie', SK:'Slovaquie',
+};
+
+// Index RAPTOR global — construit UNE SEULE FOIS au démarrage
+let globalStopToTrips = null;
+
+function loadJSON(filename) {
+  const p = path.join(DATA_DIR, filename);
+  if (!fs.existsSync(p)) throw new Error('Fichier manquant : ' + p);
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
 }
 
-function parseGTFSDate(d) {
-  const s = String(d).trim();
-  const date = new Date(parseInt(s.slice(0,4)), parseInt(s.slice(4,6)) - 1, parseInt(s.slice(6,8)));
-  return { date, dow: date.getDay() };
-}
+// ─── État du moteur ───────────────────────────────────────────────────────────
+let engineReady    = false;
+let engineError    = null;
+let engineLoadedAt = null;
+let engineLoadMs   = null;
 
-const DOW_KEYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+function initEngine() {
+  console.log('\n🚂 Chargement moteur RAPTOR...');
+  const t = Date.now();
 
-// ── Fenêtre 92 jours ──────────────────────────────────────────────────────────
-const WINDOW_DAYS  = 90;
-const WINDOW_START = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
-const WINDOW_END   = (() => { const d = new Date(WINDOW_START); d.setDate(d.getDate() + WINDOW_DAYS - 1); return d; })();
-function gtfsDateInWindow(g) {
-  const d = new Date(g.slice(0,4)+'-'+g.slice(4,6)+'-'+g.slice(6,8)+'T00:00:00');
-  return d >= WINDOW_START && d <= WINDOW_END;
-}
-console.log('  Fenetre : ' + WINDOW_START.toISOString().slice(0,10)
-  + ' -> ' + WINDOW_END.toISOString().slice(0,10));
+  stops         = loadJSON('stops.json');
+  routesInfo    = loadJSON('routes_info.json');
+  routesByStop  = loadJSON('routes_by_stop.json');
+  calendarIndex = loadJSON('calendar_index.json');
+  meta          = loadJSON('meta.json');
 
-function streamCSV(filePath, onRow) {
-  return new Promise((resolve, reject) => {
-    if (!require('fs').existsSync(filePath)) {
-      console.warn('    ⚠  Manquant : ' + require('path').basename(filePath));
-      return resolve([]);
+  // ── Décodage dictionnaire stop_id (format optimisé) ──────────────────────
+  // Si stop_id_dict.json existe, route_trips et route_stops utilisent des indices
+  // entiers au lieu de strings → ~60% de RAM en moins
+  const dictFile = path.join(DATA_DIR, 'stop_id_dict.json');
+  if (fs.existsSync(dictFile)) {
+    console.log('  Format optimisé (dictionnaire stop_id détecté)');
+    stopIdDict    = loadJSON('stop_id_dict.json');
+    stopIdDictMap = new Map(stopIdDict.map((s, i) => [s, i]));
+    console.log('  Dictionnaire : ' + stopIdDict.length.toLocaleString() + ' stop_ids');
+
+    // Décoder route_trips : [sidIdx, dep, arr?] → { stop_id, dep_time, arr_time }
+    const encodedTrips = loadJSON('route_trips.json');
+    routeTrips = {};
+    for (const [routeId, trips] of Object.entries(encodedTrips)) {
+      routeTrips[routeId] = trips.map(trip => ({
+        trip_id:        trip.trip_id,
+        service_id:     trip.service_id,
+        dep_time_first: trip.dep_time_first,
+        train_type:     trip.train_type,
+        operator:       trip.operator,
+        agency_code:    trip.agency_code,
+        stop_times:     trip.st.map(s => ({
+          stop_id:  stopIdDict[s[0]],
+          dep_time: s[1],
+          arr_time: s.length > 2 ? s[2] : s[1],
+        })),
+      }));
     }
-    const rows = []; let headers = null;
-    const rl = require('readline').createInterface({
-      input: require('fs').createReadStream(filePath, { encoding: 'utf8', highWaterMark: 256*1024 }),
-      crlfDelay: Infinity,
-    });
-    rl.on('line', (raw) => {
-      const line = raw.replace(/^﻿/,'').trim();
-      if (!line) return;
-      const cols = parseCSVLine(line);
-      if (!headers) { headers = cols; return; }
-      const row = {};
-      headers.forEach((h,i) => { row[h] = (cols[i]||'').trim(); });
-      if (onRow(row)) rows.push(row);
-    });
-    rl.on('close', () => resolve(rows));
-    rl.on('error', reject);
+
+    // Décoder route_stops : [idx, ...] → [stopId, ...]
+    const encodedRouteStops = loadJSON('route_stops.json');
+    routeStops = {};
+    for (const [routeId, idxArr] of Object.entries(encodedRouteStops)) {
+      routeStops[routeId] = idxArr.map(idx => stopIdDict[idx]);
+    }
+    console.log('  Décodage terminé : ' + Object.keys(routeTrips).length.toLocaleString() + ' routes');
+  } else {
+    // Ancien format — compatibilité ascendante
+    console.log('  Format classique (pas de stop_id_dict.json)');
+    routeTrips = loadJSON('route_trips.json');
+    routeStops = loadJSON('route_stops.json');
+  }
+
+  // Correspondances inter-quais + inter-opérateurs
+  const tFile = path.join(DATA_DIR, 'transfer_index.json');
+  if (fs.existsSync(tFile)) {
+    const rawTransfer = loadJSON('transfer_index.json');
+    // ── Pré-normalisation transferIndex : tous les éléments deviennent {id, interCity}
+    // Évite le typeof check dans transferEntries() appelé des millions de fois par RAPTOR
+    transferIndex = {};
+    for (const [sid, entries] of Object.entries(rawTransfer)) {
+      transferIndex[sid] = entries.map(e =>
+        typeof e === 'string' ? { id: e, interCity: false } : e
+      );
+    }
+    console.log('  Correspondances : ' + Object.keys(transferIndex).length + ' arrêts (pré-normalisées)');
+  } else {
+    // Fallback UIC pour les stops SNCF
+    const uicMap = {};
+    for (const sid of Object.keys(stops)) {
+      const m = sid.match(/-(\d{8})$/);
+      if (!m) continue;
+      if (!uicMap[m[1]]) uicMap[m[1]] = [];
+      uicMap[m[1]].push(sid);
+    }
+    for (const sids of Object.values(uicMap)) {
+      for (const sid of sids) {
+        transferIndex[sid] = sids
+          .filter(s => s !== sid)
+          .map(s => ({ id: s, interCity: false }));
+      }
+    }
+    console.log('  Correspondances (fallback UIC) : ' + Object.keys(uicMap).length + ' gares');
+  }
+
+  // Liaison inter-opérateurs SNCF ↔ TI par nom de gare normalisé
+  (function linkSncfTI() {
+    const norm = s => (s || '').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    const nameToSncf = new Map();
+    for (const [sid, s] of Object.entries(stops)) {
+      if (sid.startsWith('TI:')) continue;
+      const n = norm(s.name);
+      if (!n) continue;
+      if (!nameToSncf.has(n)) nameToSncf.set(n, []);
+      nameToSncf.get(n).push(sid);
+    }
+
+    let crossCount = 0;
+    for (const [sid, s] of Object.entries(stops)) {
+      if (!sid.startsWith('TI:')) continue;
+      const n = norm(s.name);
+      const sncfSids = nameToSncf.get(n) || [];
+      if (!sncfSids.length) continue;
+      if (!transferIndex[sid]) transferIndex[sid] = [];
+      for (const ss of sncfSids) {
+        if (!transferIndex[sid].some(e => e.id === ss)) {
+          transferIndex[sid].push({ id: ss, interCity: false });
+          crossCount++;
+        }
+      }
+      for (const ss of sncfSids) {
+        if (!transferIndex[ss]) transferIndex[ss] = [];
+        if (!transferIndex[ss].some(e => e.id === sid)) {
+          transferIndex[ss].push({ id: sid, interCity: false });
+        }
+      }
+    }
+    console.log('  Correspondances inter-opérateurs SNCF\u2194TI : ' + crossCount + ' liaisons');
+  })();
+
+  // Index stop→trips (une seule fois)
+  console.log('  Construction index stop→trips...');
+  globalStopToTrips = buildStopToTrips(routeTrips);
+  console.log('  Index : ' + Object.keys(globalStopToTrips).length + ' stops couverts');
+
+  // Map stopId→nom en O(1)
+  buildStopNameMap();
+  buildStopsIndex();
+
+  // Map coordonnées globale — construite une seule fois, réutilisée par /api/explore
+  globalCoordsMap = new Map();
+  for (const st of stopsIndex) {
+    for (const sid of (st.stopIds||[])) {
+      if (!globalCoordsMap.has(sid) && st.lat && st.lon) {
+        globalCoordsMap.set(sid, { lat: st.lat, lon: st.lon, name: st.name });
+      }
+    }
+  }
+  console.log('  Coords map : ' + globalCoordsMap.size + ' stops géolocalisés');
+
+  // Tarifs
+  const tarifsFile = path.join(__dirname, 'tarifs-tgv-inoui-ouigo.json');
+  if (fs.existsSync(tarifsFile)) {
+    const raw = JSON.parse(fs.readFileSync(tarifsFile, 'utf8'));
+    for (const row of raw) {
+      const trans = normTransporteur(row.transporteur);
+      const key   = row.gare_origine_code_uic+':'+row.gare_destination_code_uic+':'+trans+':'+row.classe+':'+row.profil_tarifaire;
+      if (!tarifIndex[key]) tarifIndex[key] = { min: row.prix_minimum, max: row.prix_maximum };
+      else {
+        tarifIndex[key].min = Math.min(tarifIndex[key].min, row.prix_minimum);
+        tarifIndex[key].max = Math.max(tarifIndex[key].max, row.prix_maximum);
+      }
+    }
+    console.log('  Tarifs : ' + Object.keys(tarifIndex).length + ' entrées');
+  }
+
+  const totalTrips = Object.values(routeTrips).reduce((s, t) => s + t.length, 0);
+  engineLoadMs   = Date.now() - t;
+  engineLoadedAt = new Date().toISOString();
+  engineReady    = true;
+  console.log('✅ Prêt en ' + engineLoadMs + 'ms — ' + totalTrips.toLocaleString() + ' trips chargés\n');
+}
+
+// ─── Noms des gares ───────────────────────────────────────────────────────────
+
+function buildStopNameMap() {
+  for (const [sid, s] of Object.entries(stops)) stopNameMap.set(sid, s.name || sid);
+
+  const garesFile = path.join(__dirname, 'gares-de-voyageurs.json');
+  if (fs.existsSync(garesFile)) {
+    const garesRaw = JSON.parse(fs.readFileSync(garesFile, 'utf8'));
+    for (const gare of garesRaw) {
+      if (!gare.codes_uic || !gare.nom) continue;
+      const uics = gare.codes_uic.split(';').map(u => u.trim());
+      for (const [sid] of Object.entries(stops)) {
+        if (uics.some(uic => sid.endsWith('-'+uic))) stopNameMap.set(sid, gare.nom);
+      }
+    }
+  }
+
+  const stFile = path.join(__dirname, 'stations.json');
+  if (fs.existsSync(stFile)) {
+    const stations = JSON.parse(fs.readFileSync(stFile, 'utf8'));
+    for (const s of stations) {
+      for (const sid of (s.stopIds || [])) stopNameMap.set(sid, s.name);
+    }
+  }
+}
+
+function cleanStopName(stopId) {
+  return stopNameMap.get(stopId) || (stops[stopId]?.name) || stopId;
+}
+
+// ─── Utilitaires transferIndex ────────────────────────────────────────────────
+// Le transferIndex est pré-normalisé au démarrage : tous les éléments sont
+// déjà des objets { id, interCity }. Plus besoin de typeof check à chaque appel.
+
+function transferEntries(stopId) {
+  return transferIndex[stopId] || [];
+}
+
+function transferTime(fromId, toEntry) {
+  if (toEntry.interCity) return MIN_TRANSFER_CITY;
+  const sameOp = extractOperator(fromId) === extractOperator(toEntry.id);
+  return sameOp ? MIN_TRANSFER_SAME : MIN_TRANSFER_CROSS;
+}
+
+// ─── Autocomplete ─────────────────────────────────────────────────────────────
+
+function buildStopsIndex() {
+  cityIndex = new Map();
+
+  const stFile = path.join(__dirname, 'stations.json');
+  if (fs.existsSync(stFile)) {
+    const raw = JSON.parse(fs.readFileSync(stFile, 'utf8'));
+    for (const s of raw) {
+      const city    = s.city    || s.name;
+      const country = s.country || 'FR';
+      stopsIndex.push({ name:s.name, city, country, stopIds:s.stopIds||[], operators:s.operators||[], lat:s.lat||0, lon:s.lon||0 });
+      const _ck = city.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'') + ':' + country;
+      for (const _sid of (s.stopIds||[])) {
+        stopStationMap.set(_sid, s.name);
+        stopCityKeyMap.set(_sid, _ck);
+      }
+
+      const key = city.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'') + ':' + country;
+      if (!cityIndex.has(key)) {
+        cityIndex.set(key, {
+          city, country, countryName: COUNTRY_NAMES[country] || country,
+          stopIds: new Set(s.stopIds||[]), ops: new Set(s.operators||[]),
+          stations: [], lat: s.lat||0, lon: s.lon||0,
+        });
+      }
+      const ce = cityIndex.get(key);
+      for (const sid of (s.stopIds||[])) ce.stopIds.add(sid);
+      for (const op  of (s.operators||[])) ce.ops.add(op);
+      ce.stations.push({ name: s.name, stopIds: s.stopIds||[] });
+    }
+    for (const [key, ce] of cityIndex) {
+      if (ce.stations.length < 2) cityIndex.delete(key);
+    }
+    console.log('  Autocomplete (stations.json) : ' + stopsIndex.length + ' gares');
+    console.log('  Villes multi-gares           : ' + cityIndex.size);
+    return;
+  }
+  const garesFile = path.join(__dirname, 'gares-de-voyageurs.json');
+  if (fs.existsSync(garesFile)) {
+    const garesRaw = JSON.parse(fs.readFileSync(garesFile, 'utf8'));
+    for (const gare of garesRaw) {
+      if (!gare.codes_uic || !gare.nom) continue;
+      const uics = gare.codes_uic.split(';').map(u => u.trim());
+      const sids = Object.keys(stops).filter(sid => uics.some(uic => sid.endsWith('-'+uic)));
+      const extra = new Set(sids);
+      for (const sid of sids) for (const s of (transferIndex[sid]||[])) extra.add(s);
+      if (!extra.size) continue;
+      const ops = [...new Set([...extra].map(sid => sid.split(':')[0]))];
+      stopsIndex.push({ name:gare.nom, city:gare.nom, country:'FR', stopIds:[...extra], operators:ops,
+        lat:gare.position_geographique?.lat||0, lon:gare.position_geographique?.lon||0 });
+    }
+    const assigned = new Set(stopsIndex.flatMap(s => s.stopIds));
+    const tiGroups = new Map();
+    for (const [sid, s] of Object.entries(stops)) {
+      if (assigned.has(sid) || !sid.startsWith('TI:')) continue;
+      const key = (s.name||'').toLowerCase();
+      if (!tiGroups.has(key)) tiGroups.set(key, { name:s.name, stopIds:[sid], lat:s.lat||0, lon:s.lon||0 });
+      else tiGroups.get(key).stopIds.push(sid);
+    }
+    for (const e of tiGroups.values()) stopsIndex.push({ ...e, operators:['TI'], country:'IT' });
+    console.log('  Autocomplete (fallback) : ' + stopsIndex.length + ' gares');
+  }
+}
+
+function searchStops(query, limit=10) {
+  const q = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const res = [];
+  for (const e of stopsIndex) {
+    const nom = e.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (nom.includes(q)) { res.push({ type:'station', ...e }); if (res.length >= limit) break; }
+  }
+  // Trier par ville pour que le groupement côté client fonctionne correctement
+  res.sort((a, b) => {
+    const cityA = (a.city || a.name).toLowerCase();
+    const cityB = (b.city || b.name).toLowerCase();
+    if (cityA !== cityB) return cityA.localeCompare(cityB, 'fr');
+    return (a.name || '').localeCompare(b.name || '', 'fr');
   });
+  return res;
 }
 
-function activeServiceIdsInWindow(calendarRows, calendarDatesRows) {
-  const active = new Set();
-  const calByService = new Map();
-  for (const row of calendarRows) {
-    calByService.set(row.service_id, {
-      start: parseGTFSDate(row.start_date).date,
-      end:   parseGTFSDate(row.end_date).date,
-      dow:   DOW_KEYS.map(k => row[k] === '1'),
+function searchCities(query) {
+  const q = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const res = [];
+  for (const [, ce] of cityIndex) {
+    const cityNorm = ce.city.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (!cityNorm.startsWith(q) && !cityNorm.includes(q)) continue;
+    res.push({
+      type: 'city', name: ce.city, country: ce.country, countryName: ce.countryName,
+      stopIds: [...ce.stopIds], operators: [...ce.ops].sort(),
+      stations: ce.stations, lat: ce.lat, lon: ce.lon,
     });
   }
-  const cdByDate = new Map();
-  for (const row of calendarDatesRows) {
-    if (!gtfsDateInWindow(row.date.trim())) continue;
-    if (!cdByDate.has(row.date)) cdByDate.set(row.date, []);
-    cdByDate.get(row.date).push({ sid: row.service_id, type: row.exception_type });
-  }
-  const cur = new Date(WINDOW_START);
-  while (cur <= WINDOW_END) {
-    const g = cur.getFullYear()+String(cur.getMonth()+1).padStart(2,'0')+String(cur.getDate()).padStart(2,'0');
-    const { date, dow } = parseGTFSDate(g);
-    for (const [sid, cal] of calByService) {
-      if (date >= cal.start && date <= cal.end && cal.dow[dow]) active.add(sid);
-    }
-    for (const { sid, type } of (cdByDate.get(g) || [])) {
-      if (type === '1') active.add(sid);
-    }
-    cur.setDate(cur.getDate()+1);
-  }
-  for (const [, overrides] of cdByDate) {
-    for (const { sid, type } of overrides) {
-      if (type === '1') active.add(sid);
-    }
-  }
-  return active;
-}
-
-async function readCSV(filePath) {
-  return new Promise((resolve) => {
-    if (!fs.existsSync(filePath)) {
-      console.warn('    ⚠  Manquant : ' + path.basename(filePath));
-      return resolve([]);
-    }
-    const rows = []; let headers = null;
-    const rl = readline.createInterface({
-      input: fs.createReadStream(filePath, { encoding: 'utf8' }),
-      crlfDelay: Infinity,
-    });
-    rl.on('line', (line) => {
-      const clean = line.replace(/^\uFEFF/, '').trim();
-      if (!clean) return;
-      const cols = parseCSVLine(clean);
-      if (!headers) { headers = cols; return; }
-      const obj = {};
-      headers.forEach((h, i) => { obj[h] = (cols[i] !== undefined ? cols[i] : '').trim(); });
-      rows.push(obj);
-    });
-    rl.on('close', () => resolve(rows));
-    rl.on('error', () => resolve([]));
+  res.sort((a, b) => {
+    const aN = a.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const bN = b.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return (aN.startsWith(q) ? 0 : 1) - (bN.startsWith(q) ? 0 : 1) || a.name.localeCompare(b.name,'fr');
   });
+  return res;
 }
 
-function parseCSVLine(line) {
-  const result = []; let cur = ''; let inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { inQ = !inQ; }
-    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
-    else { cur += c; }
-  }
-  result.push(cur);
-  return result;
+// ─── Utilitaires ─────────────────────────────────────────────────────────────
+
+function secondsToHHMM(s) {
+  if (s == null || s === Infinity) return '--:--';
+  const totalMin = Math.floor(s / 60);
+  return String(Math.floor(totalMin / 60) % 24).padStart(2,'0') + ':' + String(totalMin % 60).padStart(2,'0');
 }
+function timeToSeconds(t) { const [h,m] = t.split(':').map(Number); return h*3600+m*60; }
+function extractOperator(sid) { const m=(sid||'').match(/^([A-Z]+):/); return m?m[1]:'SNCF'; }
 
-// ─── Filtres par opérateur ────────────────────────────────────────────────────
+function resolveStopIds(ids, mode = 'origin') {
+  const out      = new Set(ids);
+  const inputSet = new Set(ids);
 
-const SNCF_EXCLUDE_SHORT = new Set(['CAR', 'NAVETTE', 'TRAMTRAIN']);
-const SNCB_KEEP_SHORT    = new Set(['IC', 'EC', 'NJ', 'OTC', 'L', 'P']);
-
-function shouldKeepRoute(operatorId, r) {
-  const short = (r.route_short_name || '').trim();
-  const rtype = parseInt(r.route_type) || 0;
-
-  switch (operatorId) {
-    case 'SNCF':
-      if (rtype === 3) return false;
-      if (SNCF_EXCLUDE_SHORT.has(short)) return false;
-      return true;
-
-    case 'SNCB':
-      if (rtype === 3) return false;
-      if (short === 'S') return false;
-      return SNCB_KEEP_SHORT.has(short) || rtype === 2 || (rtype >= 100 && rtype <= 199);
-
-    case 'RENFE': {
-      const s = (r.route_short_name || '').trim().toUpperCase();
-      const RENFE_EXCLUDE = new Set(['PROXIMDAD', 'FEVE']);
-      if (RENFE_EXCLUDE.has(s)) return false;
-      return rtype !== 3;
+  for (const id of ids) {
+    const areaMatch = id.match(/StopArea:OCE(\d{8})$/);
+    if (areaMatch) {
+      const uic = areaMatch[1];
+      for (const sid of Object.keys(stops)) {
+        if (sid.endsWith('-' + uic)) out.add(sid);
+      }
     }
-
-    case 'OUIGO_ES':
-      return rtype !== 3;
-
-    case 'CP': {
-      const s = (r.route_short_name || '').trim().toUpperCase();
-      const CP_URBAN_EXCLUDE = new Set(['U']);
-      if (CP_URBAN_EXCLUDE.has(s)) return false;
-      return rtype !== 3;
+    for (const entry of transferEntries(id)) {
+      const sister = entry.id;
+      if (mode === 'dest') {
+        if (inputSet.has(sister)) continue;          // déjà dans la liste groupée
+        if (entry.interCity) continue;               // pas d'expansion inter-gares en dest
+        const sameOp = extractOperator(id) === extractOperator(sister);
+        if (!sameOp) continue;
+      }
+      out.add(sister);
     }
-
-    case 'UK':
-      return rtype === 2 || (rtype >= 100 && rtype <= 199);
-
-    case 'EU_SLEEPER':
-      return rtype !== 3;
-
-    case 'NL':
-      return rtype === 2 || (rtype >= 100 && rtype <= 106);
-
-    default:
-      return rtype !== 3;
   }
+  return [...out];
 }
 
 // ─── Calendrier ───────────────────────────────────────────────────────────────
 
-function computeActiveServices(calendarRows, calendarDatesRows, gtfsDate) {
-  const { date, dow } = parseGTFSDate(gtfsDate);
-  const dowKey = DOW_KEYS[dow];
-  const active = new Set();
-  for (const row of calendarRows) {
-    const start = parseGTFSDate(row.start_date).date;
-    const end   = parseGTFSDate(row.end_date).date;
-    if (date >= start && date <= end && row[dowKey] === '1') active.add(row.service_id);
-  }
-  for (const row of calendarDatesRows) {
-    if (row.date.trim() === gtfsDate) {
-      if (row.exception_type === '1')      active.add(row.service_id);
-      else if (row.exception_type === '2') active.delete(row.service_id);
-    }
-  }
-  return active;
+function getActiveServices(dateISO) {
+  if (!dateISO) return null;
+  const s = calendarIndex[dateISO];
+  return s ? new Set(s) : null;
 }
 
-function buildCalendarIndex(calendarRows, calendarDatesRows, prefix) {
-  const calByService = new Map();
-  for (const row of calendarRows) {
-    calByService.set(row.service_id, {
-      start: parseGTFSDate(row.start_date).date,
-      end:   parseGTFSDate(row.end_date).date,
-      dow:   DOW_KEYS.map(k => row[k] === '1'),
-    });
-  }
-  const cdByDate = new Map();
-  for (const row of calendarDatesRows) {
-    const d = row.date.trim();
-    if (!gtfsDateInWindow(d)) continue;
-    if (!cdByDate.has(d)) cdByDate.set(d, []);
-    cdByDate.get(d).push({ sid: row.service_id, type: row.exception_type });
-  }
-  const allDates = new Set();
-  for (const { start, end } of calByService.values()) {
-    const cur  = new Date(Math.max(start.getTime(), WINDOW_START.getTime()));
-    const stop = new Date(Math.min(end.getTime(),   WINDOW_END.getTime()));
-    while (cur <= stop) {
-      allDates.add(cur.getFullYear()+String(cur.getMonth()+1).padStart(2,'0')+String(cur.getDate()).padStart(2,'0'));
-      cur.setDate(cur.getDate()+1);
-    }
-  }
-  for (const d of cdByDate.keys()) allDates.add(d);
+const dateCache = new Map();
 
+function getFilteredData(dateISO) {
+  if (!dateISO) return { stopToTrips: globalStopToTrips };
+  if (dateCache.has(dateISO)) return dateCache.get(dateISO);
+
+  const active = getActiveServices(dateISO);
+  if (!active) return { stopToTrips: globalStopToTrips };
+
+  const filteredTrips = {};
+  for (const [rid, trips] of Object.entries(routeTrips)) {
+    const valid = trips.filter(t => active.has(t.service_id));
+    if (valid.length) filteredTrips[rid] = valid;
+  }
+  const result = { stopToTrips: buildStopToTrips(filteredTrips) };
+  if (dateCache.size >= 7) dateCache.delete(dateCache.keys().next().value);
+  dateCache.set(dateISO, result);
+  return result;
+}
+
+// ─── Détection type de train ──────────────────────────────────────────────────
+
+function detectTrainTypeTI(tripId, routeId) {
+  const route   = routesInfo[routeId] || {};
+  const combined = ((route.long||'') + ' ' + (route.short||'')).toUpperCase();
+  if (combined.includes('FRECCIAROSSA'))  return 'FRECCIAROSSA';
+  if (combined.includes('EURONIGHT') || combined.includes('NOTTE')) return 'EURONIGHT';
+  if (combined.includes('INTERCITY') || combined.includes('INTERCITES')) return 'IC_IT';
+  if (combined.includes('REGIONALE')) return 'REGIONALE_IT';
+
+  const raw = (tripId||'').replace(/^TI:/i,'').toUpperCase();
+  if (raw.includes('FRECCIAROSSA') || /^FR\d/.test(raw) || /^9\d{3}/.test(raw)) return 'FRECCIAROSSA';
+  if (raw.includes('EURONIGHT') || /^(EN|ICN)\d/.test(raw)) return 'EURONIGHT';
+  if (/^IC\d/.test(raw)) return 'IC_IT';
+  if (/^RV?\d/.test(raw)) return 'REGIONALE_IT';
+
+  return 'FRECCIAROSSA';
+}
+
+function tiRouteName(trainType) {
+  return { FRECCIAROSSA:'Frecciarossa', EURONIGHT:'Euronight',
+           IC_IT:'Intercity', REGIONALE_IT:'Regionale' }[trainType] || 'Frecciarossa';
+}
+
+function tiAdjust(seconds, dateISO) {
+  if (seconds == null) return seconds;
+  if (dateISO) {
+    const month = new Date(dateISO + 'T12:00:00Z').getUTCMonth() + 1;
+    return seconds + (month >= 4 && month <= 9 ? 7200 : 3600);
+  }
+  return seconds + 3600;
+}
+
+function detectTrainType(fromStopId, tripId, stored, op, routeId) {
+  if (stored) return stored;
+  const operator = op || extractOperator(fromStopId);
+
+  if (operator === 'TI') return detectTrainTypeTI(tripId, routeId);
+
+  const tid  = (tripId || '').toUpperCase();
+  const m    = (fromStopId || '').match(/StopPoint:OCE(.+)-\d{8}$/);
+  const quai = m ? m[1].trim() : '';
+  if (quai==='OUIGO' || tid.includes('OUIGO')) {
+    const n   = (tripId || '').match(/^OCESN([47]\d{3})/);
+    const num = n ? parseInt(n[1]) : null;
+    if (num !== null) return Math.floor(num/1000)===7 ? 'OUIGO' : 'OUIGO_CLASSIQUE';
+    return 'OUIGO';
+  }
+  if (quai==='TGV INOUI'         || tid.includes('INOUI'))      return 'INOUI';
+  if (quai==='INTERCITES de nuit')                               return 'IC_NUIT';
+  if (quai==='INTERCITES'        || tid.includes('INTERCITES'))  return 'IC';
+  if (quai==='Lyria'             || tid.includes('LYRIA'))       return 'LYRIA';
+  if (quai==='ICE')                                              return 'ICE';
+  if (quai==='TramTrain')                                        return 'TRAMTRAIN';
+  if (quai==='Car TER')                                          return 'CAR';
+  if (quai==='Train TER')                                        return 'TER';
+  if (quai==='Navette')                                          return 'NAVETTE';
+  return 'TRAIN';
+}
+
+// ─── RAPTOR ───────────────────────────────────────────────────────────────────
+
+function buildStopToTrips(tripsData) {
   const index = {};
-  for (const gtfsDate of allDates) {
-    const { date, dow } = parseGTFSDate(gtfsDate);
-    const active = new Set();
-    for (const [sid, cal] of calByService) {
-      if (date >= cal.start && date <= cal.end && cal.dow[dow]) active.add(sid);
+  for (const [routeId, trips] of Object.entries(tripsData)) {
+    for (const trip of trips) {
+      for (let i = 0; i < trip.stop_times.length; i++) {
+        const sid = trip.stop_times[i].stop_id;
+        if (!index[sid]) index[sid] = [];
+        index[sid].push({ routeId, trip, idx: i });
+      }
     }
-    for (const { sid, type } of (cdByDate.get(gtfsDate) || [])) {
-      if (type === '1') active.add(sid); else if (type === '2') active.delete(sid);
-    }
-    if (!active.size) continue;
-    const iso = gtfsDate.slice(0,4)+'-'+gtfsDate.slice(4,6)+'-'+gtfsDate.slice(6,8);
-    index[iso] = [...active].map(s => prefix + ':' + s);
   }
   return index;
 }
 
-// ─── Détection du type de train ───────────────────────────────────────────────
+function scanTrip(trip, fromIdx, tauBest, tau_cur, parent, routeId, dateISO, originSet) {
+  let boarded   = false;
+  let boardStop = null;
+  let boardDep  = null;
 
-function detectTrainType(operatorId, stopId, tripId, routeShort, agencyCode) {
-  const tid = (tripId || '').toUpperCase();
+  const isTI      = trip.operator === 'TI';
+  const tripOp    = trip.operator || 'SNCF';
 
-  switch (operatorId) {
-    case 'SNCF': {
-      const m    = (stopId || '').match(/StopPoint:OCE(.+)-\d{8}$/);
-      const quai = m ? m[1].trim() : '';
-      if (quai === 'OUIGO' || tid.includes('OUIGO')) {
-        const numM = tripId.match(/^OCESN([47]\d{3})/);
-        const num  = numM ? parseInt(numM[1]) : null;
-        if (num !== null) return num >= 7000 ? 'OUIGO' : 'OUIGO_CLASSIQUE';
-        return 'OUIGO';
+  for (let i = fromIdx; i < trip.stop_times.length; i++) {
+    const st  = trip.stop_times[i];
+    const sid = st.stop_id;
+
+    if (!boarded) {
+      const tau = tauBest[sid];
+      if (tau !== undefined) {
+        const rawDep = st.dep_time ?? st.arr_time;
+        const dep = (isTI && rawDep != null) ? tiAdjust(rawDep, dateISO) : rawDep;
+        if (dep != null) {
+          // Temps minimum avant d'embarquer :
+          // - 0 si c'est une origine de départ (pas une correspondance)
+          // - MIN_TRANSFER_SAME si même opérateur
+          // - MIN_TRANSFER_CROSS si inter-opérateurs
+          const isOrigin   = originSet ? originSet.has(sid) : false;
+          const prevOp     = parent[sid]?.operator || extractOperator(sid);
+          const sameOp     = prevOp === tripOp;
+          const minWait    = isOrigin ? 0
+                           : sameOp  ? MIN_TRANSFER_SAME
+                           :           MIN_TRANSFER_CROSS;
+
+          if (dep >= tau + minWait) {
+            boarded   = true;
+            boardStop = sid;
+            boardDep  = dep;
+          }
+        }
       }
-      if (quai === 'TGV INOUI'           || tid.includes('INOUI'))      return 'INOUI';
-      if (quai === 'INTERCITES de nuit')                                 return 'IC_NUIT';
-      if (quai === 'INTERCITES'          || tid.includes('INTERCITES'))  return 'IC';
-      if (quai === 'Lyria'               || tid.includes('LYRIA'))       return 'LYRIA';
-      if (quai === 'ICE')                                                return 'ICE';
-      if (quai === 'Train TER')                                          return 'TER';
-      return 'TRAIN';
+      continue;
     }
 
-    case 'TI':
-      return 'FRECCIAROSSA';
+    const rawArr = st.arr_time ?? st.dep_time;
+    const arr = (isTI && rawArr != null) ? tiAdjust(rawArr, dateISO) : rawArr;
+    if (arr == null) continue;
 
-    case 'ES':
-      return 'EUROSTAR';
-
-    case 'SNCB': {
-      const s = (routeShort || '').toUpperCase();
-      if (s === 'NJ')  return 'NIGHTJET';
-      if (s === 'EC')  return 'EC';
-      if (s === 'OTC') return 'THALYS_CORRIDOR';
-      if (s === 'IC')  return 'IC_SNCB';
-      return 'IC_SNCB';
+    if (arr < (tauBest[sid] ?? Infinity)) {
+      tauBest[sid]  = arr;
+      tau_cur[sid]  = arr;
+      parent[sid]   = {
+        from_stop:  boardStop,
+        trip_id:    trip.trip_id,
+        route_id:   routeId,
+        dep_time:   boardDep,
+        arr_time:   arr,
+        train_type: trip.train_type || null,
+        operator:   tripOp,
+      };
     }
-
-    case 'DB_FV':
-    case 'DB': {
-      const rs = (routeShort || '').trim().toUpperCase();
-      if (rs === 'ICE' || rs.startsWith('ICE'))            return 'ICE';
-      if (rs === 'IC'  || rs === 'ICN')                    return 'IC_DB';
-      if (rs === 'EC'  || rs === 'ECE')                    return 'EC';
-      if (rs === 'NJ'  || rs === 'EN')                     return 'NIGHTJET';
-      if (rs === 'FLX' || rs.startsWith('FLIXTRAIN'))      return 'FLIXTRAIN';
-      if (tid.includes('ICE'))                             return 'ICE';
-      if (tid.includes('_IC_') || tid.includes('-IC-'))    return 'IC_DB';
-      if (tid.includes('EC'))                              return 'EC';
-      if (tid.includes('NJ') || tid.includes('NIGHT'))     return 'NIGHTJET';
-      if (tid.includes('FLX') || tid.includes('FLIXTRAIN')) return 'FLIXTRAIN';
-      return 'TRAIN_DB';
-    }
-
-    case 'RENFE': {
-      const rs = (routeShort || '').trim().toUpperCase();
-      if (rs === 'AVE INT')   return 'AVE_INT';
-      if (rs === 'AVE')       return 'AVE';
-      if (rs === 'AVLO')      return 'AVLO';
-      if (rs === 'ALVIA')     return 'ALVIA';
-      if (rs === 'AVANT EXP') return 'AVANT';
-      if (rs === 'AVANT')     return 'AVANT';
-      if (rs === 'EUROMED')   return 'EUROMED';
-      if (rs === 'INTERCITY') return 'INTERCITY_ES';
-      if (rs === 'MD')        return 'MD';
-      if (rs === 'REG.EXP.')  return 'REG_EXP';
-      if (rs === 'REGIONAL')  return 'REGIONAL_ES';
-      if (rs === 'TRENCELTA') return 'REGIONAL_ES';
-      if (rs === 'PROXIMDAD') return 'MD';
-      return 'RENFE';
-    }
-
-    case 'OUIGO_ES':
-      return 'OUIGO_ES';
-
-    case 'CP': {
-      const rs = (routeShort || '').trim().toUpperCase();
-      if (rs === 'AP') return 'ALFA_PENDULAR';
-      if (rs === 'IC') return 'IC_CP';
-      if (rs === 'IR') return 'IR_CP';
-      return 'CP';
-    }
-
-    case 'UK': {
-      const agency = (agencyCode || (tripId || '').substring(0, 2)).toUpperCase();
-      switch (agency) {
-        case 'VT': return 'AVANTI';
-        case 'GR': return 'LNER';
-        case 'CS': return 'CALEDONIAN_SLEEPER';
-        case 'XC': return 'CROSSCOUNTRY';
-        case 'TP': return 'TRANSPENNINE';
-        case 'EM': return 'EMR';
-        case 'GW': return 'GWR';
-        case 'SW': return 'SWR';
-        case 'HT': return 'HULL_TRAINS';
-        case 'GC': return 'GRAND_CENTRAL';
-        case 'LD': return 'LUMO';
-        case 'SR': return 'SCOTRAIL';
-        case 'NT': return 'NORTHERN';
-        case 'AW':
-        case 'TW': return 'TRANSPORT_WALES';
-        default:   return 'UK_RAIL';
-      }
-    }
-
-    case 'EU_SLEEPER':
-      return 'EUROPEAN_SLEEPER';
-
-    case 'NL': {
-      const agency = (agencyCode || '').toUpperCase();
-      const rs     = (routeShort || '').trim().toUpperCase();
-      if (agency === 'IFF:NS_INT') {
-        if (rs.includes('ICE') || tid.includes('ICE'))       return 'ICE';
-        if (rs.includes('THA') || tid.includes('THALYS'))    return 'THALYS_CORRIDOR';
-        return 'IC_NS_INT';
-      }
-      if (agency === 'IFF:EUROBAHN') return 'IC_DB';
-      if (agency === 'IFF:VIAS')     return 'IC_DB';
-      if (rs === 'IC' || rs === 'ICD' || rs === 'INTERCITY-DIRECT') return 'IC_NS';
-      if (rs === 'SPR' || rs === 'SPRINTER') return 'IC_NS';
-      if (agency === 'IFF:ARRIVA' || agency === 'IFF:BLAUWNET_A' ||
-          agency === 'IFF:BLAUWNET_K' || agency === 'IFF:GV' ||
-          agency === 'IFF:R-NET_NS') return 'IC_NS';
-      return 'IC_NS';
-    }
-
-    default:
-      return 'TRAIN';
   }
 }
 
-// ─── Haversine ────────────────────────────────────────────────────────────────
+function raptorCore(originIds, destIds, startTime, stopToTripsData, dateISO, extraOrigins = null) {
+  const tau_best  = {};
+  const parent    = {};
+  const originSet = new Set();
+  let   marked    = new Set();
 
-function haversine(lat1, lon1, lat2, lon2) {
-  const R    = 6371000;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a    = Math.sin(dLat/2)**2 +
-               Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-}
-
-// ─── Index de transfert inter-opérateurs ─────────────────────────────────────
-
-function buildTransferIndex(stopsDict) {
-  console.log('\n🔗 Construction de l\'index de transfert...');
-  const transferIndex = {};
-  const ids = Object.keys(stopsDict);
-
-  {
-    const parentToChildren = new Map();
-    for (const id of ids) {
-      const parent = stopsDict[id].parent_station;
-      if (!parent) continue;
-      if (!parentToChildren.has(parent)) parentToChildren.set(parent, []);
-      parentToChildren.get(parent).push(id);
+  for (const oid of originIds) {
+    if ((tau_best[oid] ?? Infinity) > startTime) {
+      tau_best[oid] = startTime;
+      marked.add(oid);
     }
-    let parentLinks = 0;
-    for (const [, children] of parentToChildren) {
-      for (let ci = 0; ci < children.length; ci++) {
-        for (let cj = ci + 1; cj < children.length; cj++) {
-          const a = children[ci], b = children[cj];
-          if (!transferIndex[a]) transferIndex[a] = [];
-          if (!transferIndex[b]) transferIndex[b] = [];
-          if (!transferIndex[a].includes(b)) { transferIndex[a].push(b); parentLinks++; }
-          if (!transferIndex[b].includes(a)) { transferIndex[b].push(a); parentLinks++; }
+    originSet.add(oid);
+
+    for (const entry of transferEntries(oid)) {
+      const sister = entry.id;
+      const t = startTime + transferTime(oid, entry);
+      if (t < (tau_best[sister] ?? Infinity)) {
+        tau_best[sister] = t;
+        marked.add(sister);
+        parent[sister] = { from_stop:oid, trip_id:null, route_id:null,
+                           dep_time:startTime, arr_time:t, is_transfer:true };
+      }
+      // Les sisters interCity (autre gare de la même ville) ne sont PAS des origines
+      // par défaut (un trajet qui repart d'une gare interCity compte une correspondance).
+      // Exception : si extraOrigins contient cette gare (sélection ville explicite),
+      // elle est une vraie origine — l'utilisateur veut partir de n'importe quelle gare.
+      if (!entry.interCity || (extraOrigins && extraOrigins.has(sister))) originSet.add(sister);
+    }
+  }
+
+  const results   = [];
+  const destSet   = destIds ? new Set(destIds) : null;
+  const collected = new Set();
+
+  for (let round = 1; round <= MAX_ROUNDS; round++) {
+    const tau_prev_round = { ...tau_best };
+    const tau_cur        = {};
+    const newMarked      = new Set();
+
+    for (const stop of marked) {
+      for (const { routeId, trip, idx } of (stopToTripsData[stop] || [])) {
+        scanTrip(trip, idx, tau_best, tau_cur, parent, routeId, dateISO, originSet);
+      }
+    }
+
+    for (const [sid, arr] of Object.entries(tau_cur)) {
+      if (arr < (tau_prev_round[sid] ?? Infinity)) newMarked.add(sid);
+
+      for (const entry of transferEntries(sid)) {
+        const sister = entry.id;
+        const t = arr + transferTime(sid, entry);
+        if (t < (tau_best[sister] ?? Infinity)) {
+          tau_best[sister] = t;
+          tau_cur[sister]  = t;
+          parent[sister]   = { from_stop:sid, trip_id:null, route_id:null,
+                                dep_time:arr, arr_time:t, is_transfer:true };
+          newMarked.add(sister);
         }
       }
     }
-    console.log(`  parent_station  : ${parentLinks} liens quai<->quai (${parentToChildren.size} gares)`);
-  }
+    marked = newMarked;
 
-  for (let i = 0; i < ids.length; i++) {
-    const s1 = stopsDict[ids[i]];
-    for (let j = i + 1; j < ids.length; j++) {
-      const s2   = stopsDict[ids[j]];
-      const dist = haversine(s1.lat, s1.lon, s2.lat, s2.lon);
-      if (dist < 300) {
-        if (!transferIndex[ids[i]]) transferIndex[ids[i]] = [];
-        if (!transferIndex[ids[j]]) transferIndex[ids[j]] = [];
-        if (!transferIndex[ids[i]].includes(ids[j])) transferIndex[ids[i]].push(ids[j]);
-        if (!transferIndex[ids[j]].includes(ids[i])) transferIndex[ids[j]].push(ids[i]);
+    if (destSet) {
+      for (const did of destSet) {
+        if (tau_cur[did] !== undefined && tau_cur[did] < (tau_prev_round[did] ?? Infinity)) {
+          const j = reconstructJourney(parent, originSet, did, dateISO);
+          if (j) {
+            const key = j.legs.map(l => l.trip_id).join('|');
+            if (!results.some(r => r.legs.map(l => l.trip_id).join('|') === key)) {
+              results.push(j);
+            }
+          }
+        }
       }
-    }
-  }
-
-  const stationsPath = path.join(__dirname, 'stations.json');
-  if (fs.existsSync(stationsPath)) {
-    console.log('  📖 Enrichissement via stations.json...');
-    const stations = JSON.parse(fs.readFileSync(stationsPath, 'utf8'));
-    let manualLinks = 0;
-    for (const station of stations) {
-      if (!station.stopIds || station.stopIds.length < 2) continue;
-      for (const idA of station.stopIds) {
-        if (!stopsDict[idA]) continue;
-        if (!transferIndex[idA]) transferIndex[idA] = [];
-        for (const idB of station.stopIds) {
-          if (idA !== idB && stopsDict[idB] && !transferIndex[idA].includes(idB)) {
-            transferIndex[idA].push(idB);
-            manualLinks++;
+    } else {
+      for (const sid of Object.keys(tau_cur)) {
+        if (originSet.has(sid) || collected.has(sid)) continue;
+        if (tau_cur[sid] < (tau_prev_round[sid] ?? Infinity)) {
+          const j = reconstructJourney(parent, originSet, sid, dateISO);
+          if (j) {
+            collected.add(sid);
+            results.push(j);
           }
         }
       }
     }
-    console.log(`  ✅ ${manualLinks} liaisons inter-opérateurs depuis stations.json`);
+
+    if (marked.size === 0) break;
   }
 
-  {
-    const IBERIAN_BRIDGES = [
-      { a: 'RENFE:22402',   b: 'CP:94_7005',   interCity: false },
-      { a: 'RENFE:94033',   b: 'CP:94_18002',  interCity: false },
-      { a: 'RENFE:96122',   b: 'CP:94_6122',   interCity: false },
-      { a: 'RENFE:94021',   b: 'CP:94_6007',   interCity: false },
-      { a: 'RENFE:94346',   b: 'CP:94_2006',   interCity: false },
-      { a: 'CP:94_57497',   b: 'RENFE:37606',  interCity: true  },
-    ];
-
-    let iberianLinks = 0;
-    for (const bridge of IBERIAN_BRIDGES) {
-      const { a, b, interCity } = bridge;
-      if (!stopsDict[a] || !stopsDict[b]) continue;
-      if (!transferIndex[a]) transferIndex[a] = [];
-      if (!transferIndex[b]) transferIndex[b] = [];
-      const linkAB = interCity ? { id: b, interCity: true } : b;
-      const linkBA = interCity ? { id: a, interCity: true } : a;
-      if (!transferIndex[a].some(x => (x.id || x) === b)) { transferIndex[a].push(linkAB); iberianLinks++; }
-      if (!transferIndex[b].some(x => (x.id || x) === a)) { transferIndex[b].push(linkBA); iberianLinks++; }
-    }
-    console.log(`  🇵🇹🇪🇸 ${iberianLinks} ponts ibériques Renfe ↔ CP (Tren Celta + Badajoz)`);
-  }
-
-  console.log(`  Total : ${Object.keys(transferIndex).length} arrêts avec correspondances`);
-  return transferIndex;
+  return results;
 }
 
-// ─── Ingestion d'un opérateur ─────────────────────────────────────────────────
+// ─── RAPTOR allégé pour /api/explore ─────────────────────────────────────────
+// Version mémoire-minimale : pas de parent[], pas de legs[], pas de reconstruct.
+// Retourne uniquement { stop_id, dep_time, arr_time, duration, transfers }.
+// Sur Render free (512 MB) : ~10× moins de mémoire que raptorCore en mode explore.
 
-async function ingestOperator(op) {
-  const { id: operatorId, name, gtfs_dir } = op;
-  const P = (rawId) => operatorId + ':' + rawId;
+function raptorExplore(originIds, startTime, stopToTripsData, dateISO, extraOrigins = null) {
+  // tau[sid] = earliest arrival in seconds
+  const tau      = {};
+  // dep[sid] = departure time from origin (pour calculer la durée totale)
+  const dep      = {};
+  // xfr[sid] = nombre de correspondances (trains, pas transfers quai)
+  const xfr      = {};
+  const originSet = new Set();
+  let   marked    = new Set();
 
-  console.log(`\n  📂 ${name} (${operatorId}) — ${gtfs_dir}`);
+  for (const oid of originIds) {
+    tau[oid] = startTime;
+    dep[oid] = startTime;
+    xfr[oid] = 0;
+    marked.add(oid);
+    originSet.add(oid);
 
-  if (!fs.existsSync(gtfs_dir)) {
-    console.warn(`    ❌ Dossier introuvable : ${gtfs_dir}`);
-    return null;
-  }
-
-  const routesRawAll = await readCSV(path.join(gtfs_dir, 'routes.txt'));
-  console.log(`    routes brut     : ${routesRawAll.length.toLocaleString()}`);
-  const routesRaw    = routesRawAll.filter(r => shouldKeepRoute(operatorId, r));
-  console.log(`    routes gardées  : ${routesRaw.length.toLocaleString()} (filtre longue distance)`);
-  const keptRouteIds = new Set(routesRaw.map(r => r.route_id));
-  const routeInfo    = {};
-  const routeTypeMap = {};
-  const routeAgency  = {};
-  for (const r of routesRaw) {
-    const agencyCode = r.agency_id ? r.agency_id.trim() : operatorId;
-    routeInfo[P(r.route_id)] = {
-      short:       r.route_short_name || '',
-      long:        r.route_long_name  || '',
-      type:        parseInt(r.route_type) || 0,
-      operator:    operatorId,
-      agency_code: agencyCode,
-    };
-    routeTypeMap[r.route_id] = r.route_short_name || '';
-    routeAgency[r.route_id]  = agencyCode;
-  }
-
-  const calendarRaw      = await readCSV(path.join(gtfs_dir, 'calendar.txt'));
-  const calendarDatesRaw = await readCSV(path.join(gtfs_dir, 'calendar_dates.txt'));
-  const windowServiceIds = activeServiceIdsInWindow(calendarRaw, calendarDatesRaw);
-  const calendarIndex    = buildCalendarIndex(calendarRaw, calendarDatesRaw, operatorId);
-  console.log(`    dates GTFS      : ${Object.keys(calendarIndex).length}`);
-
-  const tripToService  = {};
-  const tripToRoute    = {};
-  const tripToHeadsign = {};
-  await streamCSV(path.join(gtfs_dir, 'trips.txt'), (row) => {
-    if (!keptRouteIds.has(row.route_id)) return false;
-    if (!windowServiceIds.has(row.service_id)) return false;
-    tripToService[row.trip_id]  = P(row.service_id);
-    tripToRoute[row.trip_id]    = P(row.route_id);
-    tripToHeadsign[row.trip_id] = row.trip_headsign || '';
-    return false;
-  });
-  const validTripIds = new Set(Object.keys(tripToRoute));
-  console.log(`    trips gardés    : ${validTripIds.size.toLocaleString()}`);
-
-  if (!validTripIds.size) {
-    console.warn(`    ⚠  Aucun trip actif dans la fenêtre`);
-    return null;
-  }
-
-  const usedStopIds = new Set();
-  const tripStops   = {};
-  await new Promise((resolve, reject) => {
-    const stFile = path.join(gtfs_dir, 'stop_times.txt');
-    if (!fs.existsSync(stFile)) { console.warn('    ⚠  Manquant : stop_times.txt'); return resolve(); }
-    let headers = null; let totalLines = 0;
-    let iTrip = -1, iStop = -1, iSeq = -1, iDep = -1, iArr = -1;
-    const rl = readline.createInterface({
-      input: fs.createReadStream(stFile, { encoding: 'utf8', highWaterMark: 512*1024 }),
-      crlfDelay: Infinity,
-    });
-    rl.on('line', (raw) => {
-      const line = raw.replace(/^\uFEFF/,'').trim();
-      if (!line) return;
-      totalLines++;
-      const cols = parseCSVLine(line);
-      if (!headers) {
-        headers = cols;
-        iTrip = cols.indexOf('trip_id');
-        iStop = cols.indexOf('stop_id');
-        iSeq  = cols.indexOf('stop_sequence');
-        iDep  = cols.indexOf('departure_time');
-        iArr  = cols.indexOf('arrival_time');
-        return;
+    for (const entry of transferEntries(oid)) {
+      const sister = entry.id;
+      const t = startTime + transferTime(oid, entry);
+      if (t < (tau[sister] ?? Infinity)) {
+        tau[sister] = t;
+        dep[sister] = startTime;
+        xfr[sister] = 0;
+        marked.add(sister);
       }
-      const trip_id = cols[iTrip]?.trim();
-      if (!trip_id || !validTripIds.has(trip_id)) return;
-      const stop_id = cols[iStop]?.trim();
-      usedStopIds.add(stop_id);
-      if (!tripStops[trip_id]) tripStops[trip_id] = [];
-      tripStops[trip_id].push({
-        seq:      parseInt(cols[iSeq]) || 0,
-        stop_id:  P(stop_id),
-        dep_time: timeToSeconds(cols[iDep]?.trim()),
-        arr_time: timeToSeconds(cols[iArr]?.trim()),
-      });
-    });
-    rl.on('close', () => { console.log(`    stop_times lus  : ${totalLines.toLocaleString()}`); resolve(); });
-    rl.on('error', reject);
-  });
-
-  const stopsDict = {};
-  await streamCSV(path.join(gtfs_dir, 'stops.txt'), (row) => {
-    if (!usedStopIds.has(row.stop_id) && row.location_type !== '1') return false;
-    stopsDict[P(row.stop_id)] = {
-      name:           row.stop_name || row.stop_id,
-      lat:            parseFloat(row.stop_lat)  || 0,
-      lon:            parseFloat(row.stop_lon)  || 0,
-      operator:       operatorId,
-      code:           row.stop_code ? row.stop_code.trim().toUpperCase() : undefined,
-      parent_station: row.parent_station ? P(row.parent_station) : null,
-    };
-    return false;
-  });
-  console.log(`    stops gardés    : ${Object.keys(stopsDict).length.toLocaleString()}`)
-
-  for (const [trip_id, stops] of Object.entries(tripStops)) {
-    stops.sort((a, b) => a.seq - b.seq);
-
-    const segments = [];
-    let segStart = 0;
-    for (let i = 1; i < stops.length; i++) {
-      const prevTime = stops[i-1].dep_time ?? stops[i-1].arr_time ?? -1;
-      const currTime = stops[i].arr_time   ?? stops[i].dep_time   ?? prevTime + 1;
-      if (prevTime >= 0 && currTime < prevTime - 600) {
-        segments.push({ stops: stops.slice(segStart, i) });
-        segStart = i;
-      }
+      if (!entry.interCity || (extraOrigins && extraOrigins.has(sister))) originSet.add(sister);
     }
-    segments.push({ stops: stops.slice(segStart) });
+  }
 
-    if (segments.length > 1) {
-      segments.sort((a, b) => {
-        const ta = a.stops[0].dep_time ?? a.stops[0].arr_time ?? 0;
-        const tb = b.stops[0].dep_time ?? b.stops[0].arr_time ?? 0;
-        return ta - tb;
-      });
-      const mergedSegs = [segments[0].stops];
-      for (let k = 1; k < segments.length; k++) {
-        const lastStop  = mergedSegs[mergedSegs.length-1].slice(-1)[0];
-        const firstStop = segments[k].stops[0];
-        const lastTime  = lastStop.arr_time  ?? lastStop.dep_time  ?? -1;
-        const firstTime = firstStop.dep_time ?? firstStop.arr_time ?? lastTime + 1;
-        if (firstTime >= lastTime - 600) {
-          mergedSegs[mergedSegs.length-1] = mergedSegs[mergedSegs.length-1].concat(segments[k].stops);
-        } else {
-          mergedSegs.push(segments[k].stops);
+  const isTI = (sid) => (sid||'').startsWith('TI:');
+
+  for (let round = 1; round <= MAX_ROUNDS; round++) {
+    const tau_cur  = {};
+    const newMarked = new Set();
+
+    // ── Scan des trips ──
+    for (const stop of marked) {
+      for (const { routeId, trip, idx } of (stopToTripsData[stop] || [])) {
+        let boarded = false, boardDep = null, boardTau = null;
+        const tripIsTI = trip.operator === 'TI';
+
+        for (let i = idx; i < trip.stop_times.length; i++) {
+          const st  = trip.stop_times[i];
+          const sid = st.stop_id;
+
+          if (!boarded) {
+            const t = tau[sid];
+            if (t !== undefined) {
+              let rawDep = st.dep_time ?? st.arr_time;
+              if (rawDep == null) continue;
+              if (tripIsTI) rawDep = tiAdjust(rawDep, dateISO);
+              // Temps minimum de correspondance avant embarquement
+          const isOrig  = originSet.has(sid);
+          const prevOp2 = (sid||'').startsWith('TI:') ? 'TI' : 'SNCF';
+          const tripOp2 = tripIsTI ? 'TI' : 'SNCF';
+          const minW    = isOrig ? 0
+                        : prevOp2 === tripOp2 ? MIN_TRANSFER_SAME
+                        :                       MIN_TRANSFER_CROSS;
+          if (rawDep >= t + minW) {
+                boarded  = true;
+                boardDep = rawDep;
+                boardTau = t;
+              }
+            }
+            continue;
+          }
+
+          let rawArr = st.arr_time ?? st.dep_time;
+          if (rawArr == null) continue;
+          if (tripIsTI) rawArr = tiAdjust(rawArr, dateISO);
+
+          if (rawArr < (tau[sid] ?? Infinity)) {
+            tau[sid]     = rawArr;
+            tau_cur[sid] = rawArr;
+            // Le dep_time de l'origine du voyage entier
+            dep[sid] = dep[stop] ?? startTime;
+            // Transferts = round - 1 (chaque round = 1 train supplémentaire)
+            xfr[sid] = round - 1;
+          }
         }
       }
-      mergedSegs.sort((a, b) => b.length - a.length);
-      mergedSegs[0].sort((a, b) => (a.dep_time ?? a.arr_time ?? 0) - (b.dep_time ?? b.arr_time ?? 0));
-      tripStops[trip_id] = mergedSegs[0];
-    } else {
-      stops.sort((a, b) => (a.dep_time ?? a.arr_time ?? 0) - (b.dep_time ?? b.arr_time ?? 0));
     }
+
+    // ── Propagation des transferts ──
+    for (const [sid, arr] of Object.entries(tau_cur)) {
+      if (arr < (tau[sid] ?? Infinity)) newMarked.add(sid);  // déjà mis à jour ci-dessus
+
+      for (const entry of transferEntries(sid)) {
+        const sister = entry.id;
+        const t = arr + transferTime(sid, entry);
+        if (t < (tau[sister] ?? Infinity)) {
+          tau[sister]     = t;
+          tau_cur[sister] = t;
+          dep[sister]     = dep[sid] ?? startTime;
+          xfr[sister]     = xfr[sid] ?? 0;
+          newMarked.add(sister);
+        }
+      }
+    }
+
+    marked = newMarked;
+    if (marked.size === 0) break;
   }
 
-  const routesByStop = {};
-  const routeStops   = {};
-  const routeTrips   = {};
-
-  for (const [trip_id, stops] of Object.entries(tripStops)) {
-    const route_id   = tripToRoute[trip_id]   || P('unknown');
-    const service_id = tripToService[trip_id] || '';
-    const rawRouteId = route_id.replace(operatorId + ':', '');
-    const routeShort = routeTypeMap[rawRouteId] || '';
-
-    if (!routeStops[route_id] || stops.length > routeStops[route_id].length) {
-      routeStops[route_id] = stops.map(s => s.stop_id);
-    }
-    if (!routeTrips[route_id]) routeTrips[route_id] = [];
-
-    const rawRoute   = route_id.replace(operatorId + ':', '');
-    const agencyCode = routeAgency[rawRoute] || operatorId;
-    const trainType  = detectTrainType(operatorId, stops[0]?.stop_id || '', trip_id, routeShort, agencyCode);
-    const firstDep   = stops.find(s => s.dep_time !== null)?.dep_time ?? Infinity;
-    routeTrips[route_id].push({
-      trip_id:        P(trip_id),
-      service_id,
-      dep_time_first: firstDep,
-      train_type:     trainType,
-      operator:       operatorId,
-      agency_code:    agencyCode,
-      stop_times:     stops,
+  // ── Résultats minimalistes (pas de legs) ──
+  const out = [];
+  for (const sid of Object.keys(tau)) {
+    if (originSet.has(sid)) continue;
+    const arrTime = tau[sid];
+    const depTime = dep[sid] ?? startTime;
+    out.push({
+      stop_id:   sid,
+      dep_time:  depTime,
+      arr_time:  arrTime,
+      dep_str:   secondsToHHMM(depTime),
+      arr_str:   secondsToHHMM(arrTime),
+      duration:  Math.round((arrTime - depTime) / 60),
+      transfers: xfr[sid] ?? 0,
     });
-
-    for (const s of stops) {
-      if (!routesByStop[s.stop_id]) routesByStop[s.stop_id] = new Set();
-      routesByStop[s.stop_id].add(route_id);
-    }
   }
-
-  for (const rid of Object.keys(routeTrips)) {
-    routeTrips[rid].sort((a, b) => a.dep_time_first - b.dep_time_first);
-  }
-
-  if (operatorId === 'UK') {
-    let prunedRoutes = 0;
-    for (const rid of Object.keys(routeTrips)) {
-      const nStops = (routeStops[rid] || []).length;
-      if (nStops < 4) {
-        delete routeTrips[rid];
-        delete routeStops[rid];
-        delete routeInfo[rid];
-        prunedRoutes++;
-      }
-    }
-    if (prunedRoutes) console.log(`    routes <4 stops pruned : ${prunedRoutes}`);
-
-    let prunedTrips = 0;
-    const MAX_TRIPS_PER_ROUTE = 80;
-    for (const rid of Object.keys(routeTrips)) {
-      if (routeTrips[rid].length > MAX_TRIPS_PER_ROUTE) {
-        const all = routeTrips[rid];
-        const step = all.length / MAX_TRIPS_PER_ROUTE;
-        const kept = Array.from({length: MAX_TRIPS_PER_ROUTE}, (_, i) => all[Math.round(i * step)]);
-        prunedTrips += all.length - MAX_TRIPS_PER_ROUTE;
-        routeTrips[rid] = kept;
-      }
-    }
-    if (prunedTrips) console.log(`    trips capped (>${MAX_TRIPS_PER_ROUTE}/route) : ${prunedTrips}`);
-  }
-
-  const routesByStopSerial = {};
-  for (const [stop, routes] of Object.entries(routesByStop)) {
-    routesByStopSerial[stop] = [...routes];
-  }
-
-  const totalTrips = Object.values(routeTrips).reduce((s, t) => s + t.length, 0);
-  console.log(`    trips RAPTOR    : ${totalTrips.toLocaleString()}`);
-  console.log(`    routes RAPTOR   : ${Object.keys(routeInfo).length.toLocaleString()}`);
-
-  return { stopsDict, routeInfo, routesByStopSerial, routeStops, routeTrips, calendarIndex };
+  return out;
+}
+function resolveStopName(stopId) {
+  return stopStationMap.get(stopId) || cleanStopName(stopId);
 }
 
-// ─── Fusion multi-opérateurs ──────────────────────────────────────────────────
-
-function mergeResults(results) {
-  const merged = {
-    stopsDict:     {},
-    routeInfo:     {},
-    routesByStop:  {},
-    routeStops:    {},
-    routeTrips:    {},
-    calendarIndex: {},
-  };
-
-  for (const r of results) {
-    if (!r) continue;
-    Object.assign(merged.stopsDict,  r.stopsDict);
-    Object.assign(merged.routeInfo,  r.routeInfo);
-    Object.assign(merged.routeStops, r.routeStops);
-    Object.assign(merged.routeTrips, r.routeTrips);
-
-    for (const [stop, routes] of Object.entries(r.routesByStopSerial)) {
-      if (!merged.routesByStop[stop]) merged.routesByStop[stop] = new Set();
-      for (const rid of routes) merged.routesByStop[stop].add(rid);
-    }
-
-    for (const [date, services] of Object.entries(r.calendarIndex)) {
-      if (!merged.calendarIndex[date]) {
-        merged.calendarIndex[date] = services.slice();
-      } else {
-        for (const s of services) merged.calendarIndex[date].push(s);
-      }
-    }
-  }
-
-  const routesByStopSerial = {};
-  for (const [stop, routes] of Object.entries(merged.routesByStop)) {
-    routesByStopSerial[stop] = [...routes];
-  }
-  merged.routesByStop = routesByStopSerial;
-
-  return merged;
+// Retourne la clé ville d'un stopId — O(1)
+function cityKeyOfStop(stopId) {
+  return stopCityKeyMap.get(stopId) || stopId;
 }
 
-// ─── Encodage dictionnaire stop_id → entier ───────────────────────────────────
-// Réduit drastiquement la taille de route_trips.json en remplaçant les strings
-// stop_id répétées (ex: "SNCF:StopPoint:OCETGV INOUI-87212027") par des entiers.
-// Le fichier stop_id_dict.json contient le tableau inverse (idx → string).
-//
-// Impact mémoire sur server.js :
-//   Avant : chaque stop_time = objet { stop_id: string, dep_time, arr_time }
-//           overhead JS ~200 bytes/objet × millions de stop_times
-//   Après : chaque stop_time = [sidIdx, depTime, arrTime] (tableau compact)
-//           + un seul tableau de strings (le dictionnaire), lu une fois
-
-function buildStopIdDict(merged) {
-  // Collecter tous les stop_ids uniques utilisés dans route_trips
-  const allStopIds = new Set();
-  for (const trips of Object.values(merged.routeTrips)) {
-    for (const trip of trips) {
-      for (const st of trip.stop_times) {
-        allStopIds.add(st.stop_id);
-      }
-    }
-  }
-  // Aussi les stop_ids dans routeStops
-  for (const stops of Object.values(merged.routeStops)) {
-    for (const sid of stops) allStopIds.add(sid);
-  }
-
-  // Tableau idx → string (le dictionnaire)
-  const dict = [...allStopIds].sort();
-  // Map string → idx pour l'encodage
-  const dictMap = new Map(dict.map((s, i) => [s, i]));
-
-  console.log(`  Dictionnaire stop_id : ${dict.length.toLocaleString()} entrées uniques`);
-  return { dict, dictMap };
-}
-
-function encodeRouteTrips(routeTrips, dictMap) {
-  // Convertit stop_times de { stop_id, dep_time, arr_time } vers [sidIdx, dep, arr]
-  // arr omis si identique à dep (économie supplémentaire)
-  const encoded = {};
-  for (const [routeId, trips] of Object.entries(routeTrips)) {
-    encoded[routeId] = trips.map(trip => ({
-      trip_id:        trip.trip_id,
-      service_id:     trip.service_id,
-      dep_time_first: trip.dep_time_first,
-      train_type:     trip.train_type,
-      operator:       trip.operator,
-      agency_code:    trip.agency_code,
-      // stop_times encodés : [sidIdx, dep_time, arr_time?]
-      // arr_time omis si null ou égal à dep_time
-      st: trip.stop_times.map(s => {
-        const idx = dictMap.get(s.stop_id);
-        const dep = s.dep_time;
-        const arr = (s.arr_time !== null && s.arr_time !== dep) ? s.arr_time : null;
-        return arr !== null ? [idx, dep, arr] : [idx, dep];
-      }),
-    }));
-  }
-  return encoded;
-}
-
-function encodeRouteStops(routeStops, dictMap) {
-  // Convertit routeStops de { routeId: [stopId, ...] } vers { routeId: [idx, ...] }
-  const encoded = {};
-  for (const [routeId, stops] of Object.entries(routeStops)) {
-    encoded[routeId] = stops.map(sid => dictMap.get(sid) ?? -1);
-  }
-  return encoded;
-}
-
-// ─── Main ─────────────────────────────────────────────────────────────────────
-
-async function main() {
-  console.log('╔══════════════════════════════════════════════════════╗');
-  console.log('║  GTFS Multi-Opérateurs → RAPTOR Ingestion            ║');
-  console.log('╚══════════════════════════════════════════════════════╝');
-  console.time('Total');
-
-  if (!fs.existsSync(OPS_FILE)) {
-    const example = [
-      { "id": "SNCF",     "name": "SNCF",             "gtfs_dir": "./gtfs/sncf" },
-      { "id": "TI",       "name": "Trenitalia France", "gtfs_dir": "./gtfs/trenitalia" },
-      { "id": "ES",       "name": "Eurostar",          "gtfs_dir": "./gtfs/eurostar" },
-      { "id": "SNCB",     "name": "SNCB Belgique",     "gtfs_dir": "./gtfs/sncb" },
-      { "id": "RENFE",    "name": "Renfe Espagne",      "gtfs_dir": "./gtfs/renfe" },
-      { "id": "OUIGO_ES", "name": "OUIGO España",       "gtfs_dir": "./gtfs/ouigo_es" },
-      { "id": "CP",       "name": "CP Portugal",        "gtfs_dir": "./gtfs/cp" },
-    ];
-    fs.writeFileSync(OPS_FILE, JSON.stringify(example, null, 2));
-    console.log(`\n⚠  operators.json créé. Editez-le puis relancez.`);
-    process.exit(0);
-  }
-
-  const operators = JSON.parse(fs.readFileSync(OPS_FILE, 'utf8'));
-  console.log(`\n${operators.length} opérateur(s) : ${operators.map(o => o.id).join(', ')}`);
-
-  console.log('\n── Ingestion ─────────────────────────────────────────');
+function searchJourneys(originIds, destIds, startTime, stopToTripsData, limit, dateISO, allowedTypes = null, extraOrigins = null) {
+  const seen    = new Set();
   const results = [];
-  for (const op of operators) {
-    const r = await ingestOperator(op);
-    results.push(r);
-  }
+  let t       = startTime;
+  const maxT  = startTime + 14 * 3600;
+  let noNewCount = 0;
+  let iterations = 0;
+  const MAX_ITERATIONS = 12; // limite dure : jamais plus de 12 appels raptorCore
 
-  console.log('\n── Fusion ────────────────────────────────────────────');
-  const merged = mergeResults(results.filter(Boolean));
+  while (results.length < limit && t <= maxT && iterations < MAX_ITERATIONS) {
+    iterations++;
+    const batch = raptorCore(originIds, destIds, t, stopToTripsData, dateISO, extraOrigins);
 
-  console.log('\n── Transferts ────────────────────────────────────────');
-  const transferIndex = buildTransferIndex(merged.stopsDict);
+    let maxDepThis = -1;
+    for (const j of batch) {
+      if (j.dep_time < startTime) continue;
+      if (allowedTypes && !j.train_types.some(tt => allowedTypes.has(tt))) continue;
+      const key = j.legs.map(l => l.trip_id).join('|');
+      if (!seen.has(key)) {
+        seen.add(key);
+        results.push(j);
+        if (j.dep_time > maxDepThis) maxDepThis = j.dep_time;
+      }
+    }
 
-  console.log('\n── Encodage dictionnaire ─────────────────────────────');
-  const { dict, dictMap } = buildStopIdDict(merged);
-  const encodedRouteTrips = encodeRouteTrips(merged.routeTrips, dictMap);
-  const encodedRouteStops = encodeRouteStops(merged.routeStops, dictMap);
-
-  console.log('\n── Écriture ──────────────────────────────────────────');
-  const writeJSON = (filename, data) => {
-    const p = path.join(OUT_DIR, filename);
-    fs.writeFileSync(p, JSON.stringify(data));
-    const size = (fs.statSync(p).size / 1024 / 1024).toFixed(2);
-    console.log(`  ✓ ${filename.padEnd(30)} ${size} MB`);
-  };
-
-  const metaSrc = path.join(__dirname, 'operators_meta.json');
-  const metaDst = path.join(OUT_DIR, 'operators_meta.json');
-  if (fs.existsSync(metaSrc)) {
-    fs.copyFileSync(metaSrc, metaDst);
-    console.log('  ✓ operators_meta.json copié');
-  } else {
-    console.warn('  ⚠  operators_meta.json introuvable à la racine');
-  }
-
-  writeJSON('stops.json',          merged.stopsDict);
-  writeJSON('routes_info.json',    merged.routeInfo);
-  writeJSON('routes_by_stop.json', merged.routesByStop);
-  writeJSON('calendar_index.json', merged.calendarIndex);
-  writeJSON('transfer_index.json', transferIndex);
-
-  // ── Nouveaux fichiers optimisés ────────────────────────────────────────────
-  // stop_id_dict.json   : tableau [stopId0, stopId1, ...] (idx → string)
-  // route_trips.json    : stop_times encodés [sidIdx, dep, arr?] au lieu d'objets
-  // route_stops.json    : tableaux d'indices entiers au lieu de strings
-  writeJSON('stop_id_dict.json',   dict);
-  writeJSON('route_trips.json',    encodedRouteTrips);
-  writeJSON('route_stops.json',    encodedRouteStops);
-
-  // ── Comparaison tailles ────────────────────────────────────────────────────
-  for (const f of ['route_trips.json','stop_id_dict.json','route_stops.json',
-                    'calendar_index.json','stops.json','transfer_index.json']) {
-    const fp = path.join(OUT_DIR, f);
-    if (fs.existsSync(fp)) {
-      const kb = Math.round(fs.statSync(fp).size / 1024);
-      console.log('  ' + f.padEnd(32) + kb.toLocaleString() + ' KB');
+    if (maxDepThis >= 0) {
+      t = maxDepThis + 1;
+      noNewCount = 0;
+    } else {
+      t += 1800;
+      noNewCount++;
+      // Stopper tôt si on a déjà des résultats et plus rien ne sort
+      if (noNewCount >= 2 && results.length > 0) break;
+      // Stopper si aucun résultat du tout après 4 tentatives
+      if (noNewCount >= 4 && results.length === 0) break;
     }
   }
 
-  const sortedDates = Object.keys(merged.calendarIndex).sort();
-  const meta = {
-    generated_at:    new Date().toISOString(),
-    operators:       operators.map(o => o.id),
-    total_stops:     Object.keys(merged.stopsDict).length,
-    total_routes:    Object.keys(merged.routeInfo).length,
-    total_trips:     Object.values(merged.routeTrips).reduce((s, t) => s + t.length, 0),
-    total_transfers: Object.keys(transferIndex).length,
-    stop_id_dict_size: dict.length,
-    date_range: {
-      first: sortedDates[0] || null,
-      last:  sortedDates[sortedDates.length-1] || null,
-      count: sortedDates.length,
-    },
-  };
-  writeJSON('meta.json', meta);
+  results.sort((a, b) =>
+    a.transfers - b.transfers ||
+    a.duration  - b.duration  ||
+    a.dep_time  - b.dep_time
+  );
 
-  console.log('\n══ Résumé ════════════════════════════════════════════');
-  console.log(`  Opérateurs    : ${meta.operators.join(', ')}`);
-  console.log(`  Arrêts        : ${meta.total_stops.toLocaleString()}`);
-  console.log(`  Routes        : ${meta.total_routes.toLocaleString()}`);
-  console.log(`  Trips         : ${meta.total_trips.toLocaleString()}`);
-  console.log(`  Transferts    : ${meta.total_transfers.toLocaleString()} arrêts`);
-  console.log(`  Dict stop_id  : ${meta.stop_id_dict_size.toLocaleString()} entrées`);
-  console.log(`  Dates         : ${meta.date_range.first} → ${meta.date_range.last}`);
-  console.timeEnd('Total');
+  // Dédupliquer par ville d'arrivée + heure de départ :
+  // pour un même départ ET une même ville d'arrivée, ne garder que le plus rapide.
+  // Cela évite d'avoir "arriver Montparnasse" ET "arriver Saint-Lazare" pour le même train.
+  const dedupedByArrCity = new Map(); // "depTime:cityKey" → journey
+  for (const j of results) {
+    const lastStop  = j.legs[j.legs.length - 1].to_id;
+    const cityKey   = cityKeyOfStop(lastStop);
+    const dedupeKey = j.dep_time + ':' + cityKey;
+    const existing  = dedupedByArrCity.get(dedupeKey);
+    if (!existing || j.duration < existing.duration) {
+      dedupedByArrCity.set(dedupeKey, j);
+    }
+  }
+
+  return [...dedupedByArrCity.values()]
+    .sort((a, b) => a.transfers - b.transfers || a.duration - b.duration || a.dep_time - b.dep_time)
+    .slice(0, limit);
 }
 
-main().catch(err => { console.error('Erreur :', err); process.exit(1); });
+// ─── Reconstruction du journey ────────────────────────────────────────────────
+
+function reconstructJourney(parent, originSet, destId, dateISO) {
+  const legs    = [];
+  let   current = destId;
+  const visited = new Set();
+
+  while (!originSet.has(current)) {
+    if (visited.has(current)) return null;
+    visited.add(current);
+
+    const p = parent[current];
+    if (!p) return null;
+
+    if (p.is_transfer) {
+      // Transfert inter-gares (interCity) en fin de trajet = inutile, on remonte
+      // jusqu'au vrai arrêt de train
+      current = p.from_stop;
+      continue;
+    }
+
+    const op      = p.operator || extractOperator(p.from_stop);
+    const isTI    = op === 'TI';
+    const route   = routesInfo[p.route_id] || {};
+
+    const depTime = p.dep_time;
+    const arrTime = p.arr_time;
+
+    const trainType = detectTrainType(p.from_stop, p.trip_id, p.train_type, op, p.route_id);
+
+    const routeName = isTI
+      ? tiRouteName(trainType)
+      : (route.short || route.long || p.route_id);
+
+    legs.unshift({
+      from_id:    p.from_stop,
+      to_id:      current,
+      from_name:  resolveStopName(p.from_stop),
+      to_name:    resolveStopName(current),
+      dep_time:   depTime,
+      arr_time:   arrTime,
+      dep_str:    secondsToHHMM(depTime),
+      arr_str:    secondsToHHMM(arrTime),
+      trip_id:    p.trip_id,
+      route_id:   p.route_id,
+      route_name: routeName,
+      operator:   op,
+      train_type: trainType,
+      duration:   Math.round((arrTime - depTime) / 60),
+    });
+    current = p.from_stop;
+  }
+
+  if (!legs.length) return null;
+  const dep = legs[0].dep_time;
+  const arr = legs[legs.length - 1].arr_time;
+  return {
+    dep_time:    dep,
+    arr_time:    arr,
+    dep_str:     secondsToHHMM(dep),
+    arr_str:     secondsToHHMM(arr),
+    duration:    Math.round((arr - dep) / 60),
+    transfers:   legs.length - 1,
+    train_types: [...new Set(legs.map(l => l.train_type).filter(Boolean))],
+    legs,
+  };
+}
+
+// ─── Tarifs ───────────────────────────────────────────────────────────────────
+
+function normTransporteur(t) {
+  const u = (t||'').toUpperCase();
+  if (u.includes('CLASSIQUE')) return 'OUIGO_CLASSIQUE';
+  if (u.includes('OUIGO'))     return 'OUIGO';
+  if (u.includes('INOUI'))     return 'INOUI';
+  return u;
+}
+function uicFromStopId(sid) {
+  const m = (sid||'').match(/(\d{8})(?:[^0-9]|$)/); return m ? m[1] : null;
+}
+const TRAIN_TYPE_TO_TRANS = {
+  'INOUI':['INOUI'], 'OUIGO':['OUIGO'], 'OUIGO_CLASSIQUE':['OUIGO_CLASSIQUE'],
+};
+function getTarifLeg(leg, profil='Tarif Normal', classe='2') {
+  const uO = uicFromStopId(leg.from_id), uD = uicFromStopId(leg.to_id);
+  if (!uO || !uD) return null;
+  for (const tr of (TRAIN_TYPE_TO_TRANS[leg.train_type] || [])) {
+    const k1 = uO+':'+uD+':'+tr+':'+classe+':'+profil;
+    if (tarifIndex[k1]) return { ...tarifIndex[k1], transporteur:tr };
+    const k2 = uD+':'+uO+':'+tr+':'+classe+':'+profil;
+    if (tarifIndex[k2]) return { ...tarifIndex[k2], transporteur:tr };
+  }
+  return null;
+}
+function getTarifJourney(journey, profil='Tarif Normal', classe='2') {
+  let min=0, max=0, hasTer=false, allFound=true;
+  for (const leg of journey.legs) {
+    const t = getTarifLeg(leg, profil, classe);
+    if (!t) {
+      if (!['OUIGO','OUIGO_CLASSIQUE','INOUI'].includes(leg.train_type)) hasTer = true;
+      else allFound = false;
+    } else { min += t.min; max += t.max; }
+  }
+  return { totalMin:min, totalMax:max, hasTer, allFound };
+}
+
+// ─── HTTP ─────────────────────────────────────────────────────────────────────
+
+function cors(res) {
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers','Content-Type');
+}
+function jsonResp(res, data, status=200) {
+  cors(res);
+  res.writeHead(status, {'Content-Type':'application/json'});
+  res.end(JSON.stringify(data));
+}
+function serveFile(res, fp) {
+  if (!fs.existsSync(fp)) { res.writeHead(404); res.end('Not found'); return; }
+  const mime = {'.html':'text/html','.js':'application/javascript','.css':'text/css','.svg':'image/svg+xml'};
+  cors(res);
+  res.writeHead(200, {'Content-Type': mime[path.extname(fp)] || 'text/plain'});
+  fs.createReadStream(fp).pipe(res);
+}
+function getBody(req) {
+  return new Promise(r => {
+    let b = '';
+    req.on('data', c => b += c);
+    req.on('end', () => { try { r(JSON.parse(b)); } catch { r({}); } });
+  });
+}
+
+const PROFILS = ['Tarif Normal','Tarif Avantage','Tarif Elève - Etudiant - Apprenti','Tarif Réglementé'];
+
+const server = http.createServer(async (req, res) => {
+  const parsed = url.parse(req.url, true);
+  const p = parsed.pathname, q = parsed.query;
+
+  if (req.method === 'OPTIONS') { cors(res); res.writeHead(204); res.end(); return; }
+
+  // Répondre immédiatement aux pings keep-alive, même si l'engine charge encore
+  if (p === '/eveille') {
+    return jsonResp(res, {
+      ok:        true,
+      ready:     engineReady,
+      uptime_s:  Math.floor(process.uptime()),
+      loaded_at: engineLoadedAt,
+      load_ms:   engineLoadMs,
+      message:   engineReady ? '✅ Moteur opérationnel' : '⏳ Chargement en cours…',
+    });
+  }
+
+  // Bloquer les routes API tant que l'engine n'est pas prêt
+  if (p.startsWith('/api/') && !engineReady) {
+    return jsonResp(res, {
+      error:   'Serveur en cours de démarrage, réessayez dans quelques secondes.',
+      ready:   false,
+      load_ms: engineLoadMs,
+    }, 503);
+  }
+
+  if (p === '/api/meta') {
+    if (!engineReady) return jsonResp(res, { warming: true }, 503);
+    return jsonResp(res, { ...meta, operators: meta.operators || ['SNCF','TI'] });
+  }
+
+  if (p === '/api/stops') {
+    const qs = (q.q||'').trim();
+    return jsonResp(res, qs ? searchStops(qs, 10) : []);
+  }
+
+  if (p === '/api/cities') {
+    const qs = (q.q || '').trim();
+    if (!qs || qs.length < 2) return jsonResp(res, []);
+    return jsonResp(res, searchCities(qs));
+  }
+
+  if (p === '/api/search') {
+    const t0 = Date.now();
+    const fromIds = (q.from||'').split(',').filter(Boolean);
+    const toIds   = (q.to||'').split(',').filter(Boolean);
+    if (!fromIds.length || !toIds.length) return jsonResp(res, {error:'from et to requis'}, 400);
+
+    const timeStr = q.time || '08:00';
+    const dateStr = q.date || '';
+    const profil  = PROFILS.includes(q.carte) ? q.carte : 'Tarif Normal';
+    const offset  = parseInt(q.offset||'0');
+    const afterDep= parseInt(q.after_dep||'0');
+    const limit   = Math.min(parseInt(q.limit||'8'), 32);
+    const startSec = Math.max(timeToSeconds(timeStr) + offset, afterDep || 0);
+
+    const allowedTypes = q.train_types
+      ? new Set(q.train_types.split(',').map(s => s.trim()).filter(Boolean))
+      : null;
+
+    const { stopToTrips: stt } = getFilteredData(dateStr);
+    const fromCity   = q.fromCity === '1';  // sélection ville côté client
+    const toCity     = q.toCity   === '1';
+    const uniqueFrom = resolveStopIds([...new Set(fromIds)], 'origin');
+    const uniqueTo   = resolveStopIds([...new Set(toIds)], 'dest');
+    // Si sélection ville : toutes les gares envoyées sont des origines réelles
+    const extraOrigins = fromCity ? new Set(fromIds) : null;
+
+    console.log('\n[SEARCH]', dateStr || 'sans date', timeStr);
+    console.log('  from IDs reçus   :', fromIds);
+    console.log('  from IDs résolus :', uniqueFrom);
+    console.log('  to   IDs reçus   :', toIds);
+    console.log('  to   IDs résolus :', uniqueTo);
+    console.log('  from dans stopToTrips :', uniqueFrom.filter(id => stt[id]).length, '/', uniqueFrom.length);
+    console.log('  to   dans stopToTrips :', uniqueTo.filter(id => stt[id]).length, '/', uniqueTo.length);
+
+    const journeys = searchJourneys(uniqueFrom, uniqueTo, startSec, stt, limit, dateStr, allowedTypes, extraOrigins);
+    console.log('  Résultats :', journeys.length, journeys.map(j => j.dep_str + '->' + j.arr_str + ' (' + j.transfers + ' corresp)'));
+
+    const lastDep   = journeys.length ? Math.max(...journeys.map(j => j.dep_time||0)) : startSec;
+    const nextOffset = lastDep - timeToSeconds(timeStr);
+
+    return jsonResp(res, {
+      journeys,
+      computed_ms:      Date.now()-t0,
+      next_offset:      nextOffset,
+      last_dep_time:    lastDep,
+      profil_tarifaire: profil,
+    });
+  }
+
+  if (p === '/api/tarifs' && req.method === 'POST') {
+    const body = await getBody(req);
+    const profil = PROFILS.includes(body.profil) ? body.profil : 'Tarif Normal';
+    const tarifs = (body.journeys||[]).map(j => getTarifJourney(j, profil, body.classe||'2'));
+    return jsonResp(res, { tarifs, profil });
+  }
+
+  if (p === '/api/explore') {
+    const t0      = Date.now();
+    const fromIds = (q.from||'').split(',').filter(Boolean);
+    const dateStr = q.date || '';
+
+    if (!fromIds.length) return jsonResp(res, { error: 'from requis' }, 400);
+
+    console.log('\n[EXPLORE]', dateStr || 'sans date', '| from:', fromIds.slice(0,3).join(','));
+
+    const { stopToTrips: stt } = getFilteredData(dateStr);
+    const fromCity     = q.fromCity === '1';
+    const uniqueFrom   = resolveStopIds([...new Set(fromIds)], 'origin');
+    const originSet    = new Set(uniqueFrom);
+    const extraOrigins = fromCity ? new Set(fromIds) : null;
+
+    // Slot unique 07h00 — couvre la majorité des départs utiles.
+    // Render free = 512 MB : on évite les 3 passes raptorCore + reconstruct complet.
+    const startSec = timeToSeconds(q.time || '07:00');
+    const reached  = raptorExplore(uniqueFrom, startSec, stt, dateStr, extraOrigins);
+
+    // ── Étape 1 : meilleur trajet par stop_id ──────────────────────────────
+    const bestByStop = {};
+    for (const r of reached) {
+      const sid = r.stop_id;
+      if (originSet.has(sid)) continue;
+      if (!bestByStop[sid] || r.duration < bestByStop[sid].duration) {
+        bestByStop[sid] = r;
+      }
+    }
+
+    // ── Étape 2 : consolider par coordonnées GPS arrondies ───────────────
+    // Plusieurs stop_ids peuvent pointer sur la même gare physique (quais, opérateurs).
+    // On arrondit lat/lon à 3 décimales (~100 m) et on ne garde que le trajet le plus court.
+    // Cela réduit drastiquement les doublons (ex: 6× St Pancras → 1 point).
+    const bestByGeo = {};
+    for (const [sid, r] of Object.entries(bestByStop)) {
+      const coords = globalCoordsMap.get(sid);
+      const lat = coords?.lat || null;
+      const lon = coords?.lon || null;
+      if (!lat || !lon) continue;
+
+      // Clé géographique arrondie à ~100 m
+      const geoKey = lat.toFixed(3) + ':' + lon.toFixed(3);
+
+      if (!bestByGeo[geoKey] || r.duration < bestByGeo[geoKey].duration) {
+        bestByGeo[geoKey] = { ...r, lat, lon, sid,
+          // Préférer le nom de station groupée (stopStationMap) plutôt que le stop brut
+          name: stopStationMap.get(sid) || cleanStopName(sid)
+        };
+      }
+    }
+
+    // ── Étape 3 : construire la réponse ──────────────────────────────────
+    const journeys = Object.values(bestByGeo).map(r => ({
+      dep_time:  r.dep_time,
+      arr_time:  r.arr_time,
+      dep_str:   r.dep_str,
+      arr_str:   r.arr_str,
+      duration:  r.duration,
+      transfers: r.transfers,
+      dest_lat:  r.lat,
+      dest_lon:  r.lon,
+      legs: [{ to_id: r.sid, to_name: r.name }],
+    }));
+
+    console.log(`  → ${journeys.length} destinations | ${Date.now()-t0}ms`);
+    return jsonResp(res, { journeys, computed_ms: Date.now()-t0 });
+  }
+
+  if (p === '/api/debug/trips') {
+    const routeId = q.route;
+    const stopId  = q.stop;
+    const dateISO = q.date || '';
+
+    if (routeId) {
+      const tripsForRoute = routeTrips[routeId] || [];
+      const active = dateISO ? getActiveServices(dateISO) : null;
+      const filtered = active ? tripsForRoute.filter(t => active.has(t.service_id)) : tripsForRoute;
+      const out = filtered.map(t => ({
+        trip_id:    t.trip_id,
+        service_id: t.service_id,
+        stop_times: t.stop_times.map(st => ({
+          stop_id:   st.stop_id,
+          stop_name: cleanStopName(st.stop_id),
+          dep:       secondsToHHMM(st.dep_time),
+          arr:       secondsToHHMM(st.arr_time),
+          dep_raw:   st.dep_time,
+        })),
+      }));
+      return jsonResp(res, { route: routeId, date: dateISO||'sans filtre', info: routesInfo[routeId], trips: out });
+    }
+
+    if (stopId) {
+      const { stopToTrips } = getFilteredData(dateISO);
+      const entries = stopToTrips[stopId] || [];
+      const out = entries.map(({ routeId, trip, idx }) => {
+        const st = trip.stop_times[idx];
+        return {
+          route_id:   routeId,
+          route_name: (routesInfo[routeId]?.long || routesInfo[routeId]?.short || '').slice(0, 60),
+          trip_id:    trip.trip_id,
+          service_id: trip.service_id,
+          dep:        secondsToHHMM(st.dep_time ?? st.arr_time),
+          dep_raw:    st.dep_time ?? st.arr_time,
+        };
+      }).sort((a, b) => (a.dep_raw ?? 0) - (b.dep_raw ?? 0));
+      return jsonResp(res, { stop: stopId, stop_name: cleanStopName(stopId), date: dateISO||'sans filtre', departures: out });
+    }
+
+    return jsonResp(res, { error: 'Param route= ou stop= requis. Ex: /api/debug/trips?stop=TI:10007&date=2026-03-01' }, 400);
+  }
+
+  const staticMap = {'/':'index.html','/index.html':'index.html','/trajets.html':'trajets.html'};
+  if (staticMap[p]) return serveFile(res, path.join(__dirname, staticMap[p]));
+
+  const assetPath = path.join(__dirname, p);
+  if (fs.existsSync(assetPath) && fs.statSync(assetPath).isFile()) return serveFile(res, assetPath);
+
+  res.writeHead(404); res.end('Not found');
+});
+
+// ─── Démarrage ────────────────────────────────────────────────────────────────
+// Le serveur écoute IMMÉDIATEMENT (Render considère le process prêt dès que
+// le port est ouvert). L'engine se charge en arrière-plan : /eveille répond
+// pendant ce temps, les autres routes retournent 503 jusqu'à engineReady=true.
+
+server.listen(PORT, () => {
+  console.log('🌐 http://localhost:' + PORT + '  (moteur en cours de chargement…)');
+  try {
+    initEngine();
+  } catch (err) {
+    engineError = err.message;
+    console.error('❌ Échec chargement moteur :', err);
+  }
+});

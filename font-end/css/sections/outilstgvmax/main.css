@@ -1,0 +1,161 @@
+/* ============================================================
+   TrainNomad.eu — css/outilstgvmax.css
+   Styles propres à la page Outils TGVmax
+   ============================================================ */
+
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* ── Gradient logo & texte ── */
+    .logo-gradient {
+      background: linear-gradient(135deg, #FF007A 0%, #7D2AE8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-icon-gradient {
+      background: linear-gradient(135deg, #FF007A 0%, #7D2AE8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .text-gradient-pink-purple {
+      background: linear-gradient(135deg, #FF007A 0%, #7D2AE8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bg-gradient-magenta { background: linear-gradient(135deg, #FF007A 0%, #D80073 100%); transition: opacity .3s; }
+    .bg-gradient-magenta:hover { opacity: .88; }
+
+    .hero-shadow { box-shadow: 0 25px 50px -12px rgba(26,43,60,.18); }
+
+    @keyframes ping { 75%,100%{ transform:scale(2); opacity:0; } }
+    .do-ping { animation: ping 1s cubic-bezier(0,0,.2,1) infinite; }
+
+    /* ── Tableau comparatif ── */
+    .offer-card {
+      background: #fff;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px 26px;
+      position: relative;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .offer-card:hover { border-color: #FF007A; box-shadow: 0 8px 32px rgba(255,0,122,.12); transform: translateY(-4px); }
+    .offer-card--hl   { border-color: #FF007A; box-shadow: 0 8px 32px rgba(255,0,122,.15); }
+    .offer-badge-top {
+      position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+      background: linear-gradient(135deg,#FF007A,#7D2AE8); color:#fff;
+      font-size:.68rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+      padding:4px 14px; border-radius:20px; white-space:nowrap;
+    }
+    .offer-label     { font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#FF007A; margin-bottom:4px; }
+    .offer-name      { font-size:1.35rem; font-weight:800; color:#1A2B3C; margin-bottom:2px; }
+    .offer-age       { font-size:.82rem; color:#94a3b8; margin-bottom:18px; }
+    .offer-price     { font-size:2.6rem; font-weight:800; color:#1A2B3C; line-height:1; margin-bottom:3px; }
+    .offer-price sup { font-size:1.1rem; vertical-align:super; }
+    .offer-pricenote { font-size:.78rem; color:#94a3b8; margin-bottom:22px; }
+    .offer-divider   { border:none; border-top:1px solid #f1f5f9; margin:0 0 18px; }
+    .offer-list      { list-style:none; padding:0; margin:0 0 26px; }
+    .offer-list li   { display:flex; align-items:flex-start; gap:8px; font-size:.84rem; color:#475569; padding:5px 0; border-bottom:1px solid #f8fafc; line-height:1.5; }
+    .offer-list li:last-child { border-bottom:none; }
+    .ck     { color:#4ade80; flex-shrink:0; margin-top:1px; font-size:.9rem; }
+    .ck-off { color:#e2e8f0; flex-shrink:0; margin-top:1px; font-size:.9rem; }
+    .offer-cta { display:block; text-align:center; font-size:.82rem; font-weight:700; color:#FF007A; text-decoration:none; border:1.5px solid #FF007A; border-radius:12px; padding:10px 18px; transition:background .2s,color .2s; }
+    .offer-cta:hover { background:#FF007A; color:#fff; }
+    .offer-card--hl .offer-cta { background:linear-gradient(135deg,#FF007A,#D80073); color:#fff; border-color:transparent; }
+    .offer-card--hl .offer-cta:hover { opacity:.88; }
+
+    /* ── Destinations ── */
+    .dest-card {
+      background:#fff; border:1.5px solid #e2e8f0; border-radius:18px;
+      padding:20px 18px; text-decoration:none; display:block; position:relative;
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+    }
+    .dest-card:hover { border-color:#1A2B3C; box-shadow:0 6px 24px rgba(26,43,60,.1); transform:translateY(-3px); }
+    .dest-icon  { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+    .dest-cities { display:flex; align-items:center; gap:6px; font-size:.95rem; font-weight:800; color:#1A2B3C; margin-bottom:4px; }
+    .dest-arrow  { color:#FF007A; }
+    .dest-time   { display:inline-block; font-size:.7rem; font-weight:700; color:#FF007A; background:#fff0f6; border:1px solid #ffd6e8; border-radius:6px; padding:2px 8px; margin-bottom:7px; }
+    .dest-desc   { font-size:.78rem; color:#94a3b8; line-height:1.5; }
+    .dest-inspo  { position:absolute; top:14px; right:14px; font-size:.63rem; font-weight:700; color:#7D2AE8; background:#f3e8ff; border-radius:6px; padding:2px 7px; text-transform:uppercase; letter-spacing:.05em; }
+
+    /* ── Autocomplete ── */
+    .input-ac-wrapper { position: relative; }
+    .suggestions-container {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 1000;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+      box-shadow: 0 8px 32px -4px rgba(26,43,60,.13); overflow: hidden; margin-top: 6px;
+    }
+    .ac-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; cursor: pointer; transition: background .1s; gap: 8px;
+    }
+    .ac-row:hover, .ac-row.ac-active { background: #f8fafc; }
+    .ac-row-name    { font-size: 13px; font-weight: 700; color: #1A2B3C; }
+    .ac-row-country { font-size: 11px; font-weight: 500; color: #94a3b8; white-space: nowrap; }
+
+    /* Masquer l'icône native du calendrier */
+    input[type="date"]::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
+
+    /* Champ de recherche style index */
+    .search-field {
+      display: flex; flex-direction: column;
+      padding: 14px 16px; border-radius: 16px;
+      transition: background .15s; cursor: pointer;
+    }
+    .search-field:hover { background: #f8fafc; }
+    .search-field__label {
+      font-size: 10px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: #94a3b8; margin-bottom: 6px;
+      transition: color .15s;
+    }
+    .search-field:hover .search-field__label { color: #FF007A; }
+    .search-field__row {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+    }
+    .search-field__icon { color: #cbd5e1; flex-shrink: 0; font-size: .95rem; transition: color .15s; }
+    .search-field:hover .search-field__icon { color: #FF007A; }
+    .search-field input {
+      width: 100%; background: transparent; border: none; padding: 0;
+      font-size: 1.05rem; font-weight: 700; color: #1A2B3C;
+      outline: none; box-shadow: none !important;
+    }
+    .search-field input::placeholder { color: #cbd5e1; font-weight: 600; }
+    .search-divider { border: none; border-top: 1px solid #f1f5f9; margin: 0 4px; }
+
+    /* ── Opendata banner ── */
+    .opendata-banner {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 20px 24px;
+    }
+    .opendata-banner__inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .opendata-banner__icon {
+      color: #94a3b8;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .opendata-banner__text {
+      font-size: .82rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+    .opendata-banner__text strong { color: #475569; }
+
+/* ── Menu mobile : masqué par défaut (visible uniquement via media queries) ── */
+#mobile-menu-btn { display: none; }
+#mobile-nav      { display: none; }

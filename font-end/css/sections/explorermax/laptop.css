@@ -1,0 +1,21 @@
+/* ============================================================
+   TrainNomad.eu — css/explorermax-laptop.css
+   Laptop  ·  1024px – 1279px
+   ============================================================ */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl, nav > div { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+
+  /* ── Search bar ── */
+  .searchbar-wrapper { padding: 12px 1.5rem; }
+  .searchbar-date { width: 160px; }
+
+  /* ── Explorer main ── */
+  #explorer-main { height: calc(100vh - 140px); }
+
+  /* ── Panneau ── */
+  #side-panel { width: 300px; }
+  #toggle-btn { left: 332px; }
+}

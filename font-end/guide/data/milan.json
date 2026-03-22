@@ -1,0 +1,198 @@
+{
+  "id": "milan",
+  "city": "Milan",
+  "country": "Italie",
+  "tagline": "La capitale du style, à moins de 7h de Paris",
+  "excerpt": "3 jours à Milan",
+  "cover": "assets/guides/milan-cover.jpg",
+  "hero": "assets/guides/milan-hero.jpg",
+  "badges": [
+    "Train direct",
+    "TGV Inoui / Frecciarossa"
+  ],
+  "travel": {
+    "duration": "~6h 45min",
+    "operator": "TGV Inoui / Frecciarossa",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Milano Centrale",
+    "price_from": "49€",
+    "best_season": "Avril · Octobre",
+    "co2_saved": "92%",
+    "note": "Direct Paris Gare de Lyon → Milano Centrale via Lyon et Turin. À partir de 49€ en réservant 30 jours à l'avance."
+  },
+  "intro": "Milan n'est pas seulement la capitale mondiale de la mode — c'est une ville dense, contradictoire et infiniment fascinante. Derrière les vitrines de la Via Montenapoleone se cache une cité médiévale aux ruelles ombrées, des osterias où le temps s'arrête, et une scène culturelle qui rivalise avec Rome. Trois jours suffisent pour en saisir l'âme, à condition de ne pas se noyer dans les boutiques.",
+  "essentials": {
+    "voir": [
+      {
+        "icon": "church",
+        "name": "Duomo di Milano",
+        "note": "Montez sur le toit au coucher du soleil"
+      },
+      {
+        "icon": "palette",
+        "name": "Pinacoteca di Brera",
+        "note": "La collection la plus intime de Lombardie"
+      },
+      {
+        "icon": "storefront",
+        "name": "Galleria Vittorio Emanuele II",
+        "note": "Le plus beau passage commercial d'Europe"
+      },
+      {
+        "icon": "park",
+        "name": "Parco Sempione",
+        "note": "Pique-nique sous les platanes le dimanche"
+      }
+    ],
+    "manger": [
+      {
+        "icon": "restaurant",
+        "name": "Navigli le soir",
+        "note": "Apéro milanais avec buffet gratuit"
+      },
+      {
+        "icon": "lunch_dining",
+        "name": "Mercato Centrale",
+        "note": "Toutes les spécialités sous un même toit"
+      },
+      {
+        "icon": "local_cafe",
+        "name": "Pasticceria Marchesi",
+        "note": "Panettone et caffè depuis 1824"
+      },
+      {
+        "icon": "sports_bar",
+        "name": "Bar Basso",
+        "note": "L'inventeur du Negroni Sbagliato"
+      }
+    ],
+    "transport": [
+      {
+        "icon": "subway",
+        "name": "Métro (MM)",
+        "note": "4 lignes — ticket journalier 5€"
+      },
+      {
+        "icon": "directions_bike",
+        "name": "BikeMi",
+        "note": "Vélos en libre-service partout en centre"
+      },
+      {
+        "icon": "tram",
+        "name": "Tram historiques",
+        "note": "Ligne 1 — balade panoramique gratuite"
+      },
+      {
+        "icon": "train",
+        "name": "Malpensa Express",
+        "note": "Aéroport ↔ Centrale en 40 min"
+      }
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "title": "Le cœur historique",
+      "color": "#4ade80",
+      "points": [
+        {
+          "time": "09:00",
+          "title": "Duomo & toit",
+          "desc": "Arrivez tôt, la lumière du matin est parfaite sur le marbre blanc. Réservez le toit en ligne."
+        },
+        {
+          "time": "11:00",
+          "title": "Galleria Vittorio Emanuele II",
+          "desc": "Tournez trois fois sur le taureau mosaïque pour porter bonheur."
+        },
+        {
+          "time": "13:00",
+          "title": "Déjeuner Luini",
+          "desc": "Les panzerotti frits de Luini font la queue depuis 1888."
+        },
+        {
+          "time": "15:00",
+          "title": "Brera & Pinacoteca",
+          "desc": "Le quartier le plus photogénique, puis la collection de maîtres italiens."
+        },
+        {
+          "time": "19:30",
+          "title": "Aperitivo aux Navigli",
+          "desc": "Negroni, Aperol Spritz et buffet. C'est l'heure milanaise."
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Design & modernité",
+      "color": "#1A2B3C",
+      "points": [
+        {
+          "time": "10:00",
+          "title": "Fondazione Prada",
+          "desc": "L'architecture de Rem Koolhaas vaut le déplacement en elle-même."
+        },
+        {
+          "time": "13:00",
+          "title": "Déjeuner Mercato Centrale",
+          "desc": "Le nouveau marché de la gare Centrale, incontournable."
+        },
+        {
+          "time": "15:30",
+          "title": "Porta Nuova",
+          "desc": "Le Milan du futur : Bosco Verticale, UniCredit Tower."
+        },
+        {
+          "time": "18:00",
+          "title": "Cimitero Monumentale",
+          "desc": "Un musée à ciel ouvert, étrangement beau."
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Lenteur & départ",
+      "color": "#94a3b8",
+      "points": [
+        {
+          "time": "09:00",
+          "title": "Marché de Porta Romana",
+          "desc": "Fromages, charcuteries et olives pour le train."
+        },
+        {
+          "time": "11:00",
+          "title": "Castello Sforzesco",
+          "desc": "La Pietà Rondanini de Michel-Ange, dernière œuvre, poignante."
+        },
+        {
+          "time": "14:00",
+          "title": "Parco Sempione",
+          "desc": "Sieste sous les arbres avant de reprendre le Frecciarossa."
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "icon": "savings",
+      "text": "Le ticket Giornaliero (5€) couvre métro + tram + bus à volonté pour la journée."
+    },
+    {
+      "icon": "schedule",
+      "text": "Réservez le toit du Duomo en ligne — la file d'attente physique est absurde."
+    },
+    {
+      "icon": "train",
+      "text": "TGV/Frecciarossa Paris–Milan : direct depuis la Gare de Lyon en ~6h45. À partir de 49€ en réservant 30 jours à l'avance."
+    },
+    {
+      "icon": "wb_sunny",
+      "text": "Évitez juillet–août : chaleur intense et Milan se vide de ses habitants."
+    }
+  ],
+  "related": [
+    "barcelone",
+    "zurich",
+    "venise"
+  ]
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrainNomad — Disponibilités TGVmax</title>
+    <link rel="icon" type="image/x-icon" href="assets/Train_Marker.svg">
+    
+    <link rel="stylesheet" href="CSS/Trajets.css">
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+    <meta name="description" content="Trouvez toutes les disponibilités TGVmax en temps réel. Recherchez par gare, date et heure. TrainNomad.">
+
+
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ HEADER -->
+<header class="header">
+    <nav class="header__nav">
+        <div class="nav__logo">
+            <a href="index.html"><h3 class="nav__logo-title">TrainNomad</h3></a>
+        </div>
+        <div class="nav__right">
+            <a class="right__link" href="explorer.html">
+                <p class="nav__right-about_me">TrainMax</p>
+            </a>
+            <a href="A_propos.html">
+                <p class="nav__right-about_me">À propos</p>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ── Barre de recherche ──────────────────────────────────────────── -->
+    <div class="search__main">
+
+        <!-- Ligne unique : tout en une rangée -->
+        <div class="search__unified">
+
+            <!-- Type de trajet (petit, discret) -->
+            <div class="trip-type-dropdown">
+                <button class="trip-type-button" id="tripTypeBtn">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <span id="selectedTripType">Aller simple</span>
+                    <svg class="dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="trip-type-menu hidden" id="tripTypeMenu">
+                    <div class="trip-type-option" data-value="roundtrip">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i> Aller-retour
+                    </div>
+                    <div class="trip-type-option selected" data-value="oneway">
+                        <i class="fa-solid fa-arrow-right"></i> Aller simple
+                    </div>
+                </div>
+            </div>
+
+            <div class="search__divider"></div>
+
+            <!-- Départ -->
+            <div class="input-wrapper search__field">
+                <!-- <span class="field-emoji">🏙</span> -->
+                <input type="text" placeholder="Départ" class="search__field-input" id="input-from" autocomplete="off">
+                <div id="ac-from" class="suggestions-container hidden"></div>
+                <input type="hidden" id="id-from">
+            </div>
+
+            <div class="search__arrow"><i class="fa-solid fa-arrow-right"></i> </div>
+
+            <!-- Arrivée -->
+            <div class="input-wrapper search__field">
+                <!-- <span class="field-emoji">🏙</span> -->
+                <input type="text" placeholder="Arrivée" class="search__field-input" id="input-to" autocomplete="off">
+                <div id="ac-to" class="suggestions-container hidden"></div>
+                <input type="hidden" id="id-to">
+            </div>
+
+            <!-- Date aller -->
+            <div class="input-wrapper search__field search__field--compact">
+                <!-- <span class="field-emoji">📅</span> -->
+                <input type="date" class="search__field-input" id="input-date">
+            </div>
+
+            <!-- Date retour -->
+            <div class="input-wrapper search__field search__field--compact" id="return-date-wrapper" style="display:none">
+                <span class="field-emoji">↩️</span>
+                <input type="date" class="search__field-input" id="return-date">
+            </div>
+
+            <!-- Heure -->
+            <div class="input-wrapper search__field search__field--compact">
+                <!-- <span class="field-emoji">🕐</span> -->
+                <input type="time" class="search__field-input" id="input-time" value="06:00">
+            </div>
+
+            <!-- Bouton rechercher -->
+            <button type="button" class="search__bouton" id="btn-search" disabled>RECHERCHER</button>
+        </div>
+
+        <!-- Filtre types de train + statut : barre fine sous la recherche -->
+        <div class="search__train-types-bar">
+            <span class="train-types-label"><i class="fa-solid fa-train"></i>
+              <span style="background:#e8007d;color:#fff;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;letter-spacing:.06em;margin-left:4px">TGVmax</span>
+              Places disponibles uniquement
+            </span>
+            <div class="status-bar" style="margin:0;padding:0;flex:1;justify-content:flex-end">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">Connexion au moteur...</span>
+            </div>
+        </div>
+    </div>
+            </div>
+            <!-- <div class="status-bar" style="margin:0;padding:0;flex:1;justify-content:flex-end">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">Connexion au moteur…</span>
+            </div> -->
+        </div>
+    </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════ MAIN -->
+<main class="results__main">
+    <div id="results">
+        <div class="state-empty">
+            <span class="icon">🚄</span>
+            <p>Sélectionnez une origine et une destination pour lancer la recherche</p>
+        </div>
+    </div>
+</main>
+
+<!-- ══════════════════════════════════════════════════════════ FOOTER -->
+<footer class="footer">
+    <div class="footer_nav">
+        <div class="footer_left">
+            <p>@TrainNomad - 2026</p>
+            <a href="mention legal.html"><p>Mentions légales</p></a>
+        </div>
+        <div class="footer_right">
+            <h3>TrainNomad</h3>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════ SCRIPTS -->
+<script src="Script/autocomplete.js"></script>
+<script src="Script/trajets.js"></script>
+
+</body>
+</html>

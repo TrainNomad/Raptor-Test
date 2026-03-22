@@ -1,0 +1,204 @@
+{
+  "id": "munich",
+  "city": "Munich",
+  "country": "Allemagne",
+  "tagline": "Bière, baroque et Alpes à moins de 6h de Paris",
+  "excerpt": "3 jours à Munich",
+  "cover": "munich-cover.jpg",
+  "hero": "munich-hero.jpg",
+  "badges": [
+    "1 correspondance",
+    "TGV + ICE"
+  ],
+  "travel": {
+    "duration": "~5h 48min (via Strasbourg)",
+    "operator": "TGV Inoui + ICE",
+    "from": "Paris Gare de l'Est",
+    "arrival_station": "München Hauptbahnhof",
+    "price_from": "59€",
+    "best_season": "Juin · Octobre",
+    "co2_saved": "89%",
+    "correspondance": "1 changement à Strasbourg ou Stuttgart",
+    "note": "Paris Gare de l'Est → Strasbourg (1h45 en TGV) puis ICE Strasbourg → Munich (3h30). Option alternative via Stuttgart."
+  },
+  "intro": "Munich est la capitale bavaroise qui ne ressemble à aucune autre ville allemande. Ici, on parle encore dialecte, on porte encore le Lederhosen à l'Oktoberfest, et on boit encore la bière par litres entiers dans des Biergärten centenaires sous les marronniers. Mais Munich est aussi une ville de musées de classe mondiale, de baroque exubérant et d'accès facile aux Alpes. Le tout à moins de 6h de Paris avec une correspondance.",
+  "essentials": {
+    "voir": [
+      {
+        "icon": "photo_camera",
+        "name": "Marienplatz",
+        "note": "La place centrale — Carillon à 11h et 12h"
+      },
+      {
+        "icon": "palette",
+        "name": "Deutsches Museum",
+        "note": "Le plus grand musée des sciences du monde"
+      },
+      {
+        "icon": "museum",
+        "name": "Pinakothek der Moderne",
+        "note": "Art moderne et design dans un bâtiment époustouflant"
+      },
+      {
+        "icon": "park",
+        "name": "Englischer Garten",
+        "note": "Plus grand que Central Park. Surf sur la rivière au centre-ville !"
+      }
+    ],
+    "manger": [
+      {
+        "icon": "sports_bar",
+        "name": "Hofbräuhaus",
+        "note": "Bière depuis 1589 — touristique mais obligatoire"
+      },
+      {
+        "icon": "restaurant",
+        "name": "Viktualienmarkt",
+        "note": "Le marché alimentaire de Munich. Saucisses blanches le matin."
+      },
+      {
+        "icon": "local_cafe",
+        "name": "Café Luitpold",
+        "note": "Kaffee und Kuchen dans un salon historique depuis 1888"
+      },
+      {
+        "icon": "park",
+        "name": "Biergärten",
+        "note": "Augustiner-Keller ou Chinesischer Turm dans l'Englischer Garten"
+      }
+    ],
+    "transport": [
+      {
+        "icon": "subway",
+        "name": "U-Bahn / S-Bahn",
+        "note": "Isarcard (1 jour : 9,20€) — illimité"
+      },
+      {
+        "icon": "tram",
+        "name": "Trams historiques",
+        "note": "Ligne 19 — belle balade panoramique"
+      },
+      {
+        "icon": "directions_bike",
+        "name": "MVG Rad",
+        "note": "Vélos connectés, 1€ pour débloquer"
+      },
+      {
+        "icon": "train",
+        "name": "Vers les Alpes",
+        "note": "Garmisch-Partenkirchen en 1h30 depuis HBF"
+      }
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "title": "Le centre historique",
+      "color": "#4ade80",
+      "points": [
+        {
+          "time": "09:00",
+          "title": "Marienplatz",
+          "desc": "La place centrale. Guettez le carillon à 11h ou 12h — impressionnant."
+        },
+        {
+          "time": "10:30",
+          "title": "Frauenkirche",
+          "desc": "Les deux tours symboliques de Munich. Montez pour la vue."
+        },
+        {
+          "time": "12:00",
+          "title": "Viktualienmarkt",
+          "desc": "Saucisses blanches, bretzels et un verre de Weißbier debout au marché."
+        },
+        {
+          "time": "14:00",
+          "title": "Résidence de Munich",
+          "desc": "Le palais des Wittelsbach — 10 cours intérieures à explorer."
+        },
+        {
+          "time": "18:00",
+          "title": "Hofbräuhaus",
+          "desc": "Un Mass (1 litre) incontournable dans la plus célèbre brasserie du monde."
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Musées et nature",
+      "color": "#1A2B3C",
+      "points": [
+        {
+          "time": "09:30",
+          "title": "Deutsches Museum",
+          "desc": "Demi-journée minimum. Aviation, physique, chimie — fascinant même sans être scientifique."
+        },
+        {
+          "time": "13:30",
+          "title": "Englischer Garten",
+          "desc": "Le plus grand parc urbain d'Europe. Regardez surfer sur l'Eisbach."
+        },
+        {
+          "time": "16:00",
+          "title": "Chinesischer Turm",
+          "desc": "Le Biergarten le plus emblématique de Munich, en plein parc."
+        },
+        {
+          "time": "19:00",
+          "title": "Schwabing",
+          "desc": "Le quartier étudiant. Bars calmes et restaurants internationaux."
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Pinacothèques et départ",
+      "color": "#94a3b8",
+      "points": [
+        {
+          "time": "10:00",
+          "title": "Pinakothek der Moderne",
+          "desc": "Architecture remarquable + collection design du 20e siècle."
+        },
+        {
+          "time": "12:30",
+          "title": "Nymphenburg",
+          "desc": "Le château baroque à 6km du centre. Jardins à la française."
+        },
+        {
+          "time": "15:00",
+          "title": "Retour centre",
+          "desc": "Emplettes bavaroises au Kaufhof ou aux boutiques de la Kaufingerstrasse."
+        },
+        {
+          "time": "17:30",
+          "title": "München Hauptbahnhof",
+          "desc": "ICE du retour vers Strasbourg, puis TGV vers Paris Gare de l'Est."
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "icon": "calendar_month",
+      "text": "L'Oktoberfest a lieu fin septembre–début octobre. Réservez hôtel et tente 6 mois à l'avance — tout est complet rapidement."
+    },
+    {
+      "icon": "savings",
+      "text": "Le Bayern Ticket (29€) permet de voyager toute la journée en train régional dans toute la Bavière — idéal pour une excursion aux Alpes."
+    },
+    {
+      "icon": "train",
+      "text": "TGV + ICE Paris–Munich : changement à Strasbourg ou Stuttgart. À partir de 59€. Trajet total ~5h48 sur les services les plus rapides. Réservez sur SNCF Connect."
+    },
+    {
+      "icon": "landscape",
+      "text": "Depuis Munich, Garmisch-Partenkirchen et le château de Neuschwanstein sont à moins de 2h — combinez si vous avez 4 jours."
+    }
+  ],
+  "related": [
+    "berlin",
+    "zurich",
+    "amsterdam"
+  ]
+}

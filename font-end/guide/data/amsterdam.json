@@ -1,0 +1,78 @@
+{
+  "id": "amsterdam",
+  "city": "Amsterdam",
+  "country": "Pays-Bas",
+  "tagline": "Canaux, musées et vélos à 3h20 de Paris",
+  "excerpt": "3 jours à Amsterdam",
+  "cover": "amsterdam-cover.jpg",
+  "hero": "amsterdam-hero.jpg",
+  "badges": ["Train direct", "Eurostar"],
+  "travel": {
+    "duration": "3h 20min",
+    "operator": "Eurostar",
+    "from": "Paris Gare du Nord",
+    "arrival_station": "Amsterdam Centraal",
+    "price_from": "35€",
+    "best_season": "Avril · Mai",
+    "co2_saved": "93%"
+  },
+  "intro": "Amsterdam est une ville qui se comprend à vélo. Ses 165 canaux, ses maisons à pignon incliné, ses musées au kilomètre carré — tout cela forme une cohérence rare dans une capitale. En avril, les tulipes explosent dans les parcs et aux marchés. En été, les terrasses des cafés bruns envahissent les ponts. En hiver, les lumières du Festival se reflètent sur l'eau noire. Il n'y a pas de mauvaise saison pour Amsterdam, seulement des humeurs différentes.",
+  "essentials": {
+    "voir": [
+      { "icon": "museum",       "name": "Rijksmuseum",         "note": "Rembrandt et Vermeer — réservez en ligne" },
+      { "icon": "history_edu",  "name": "Maison d'Anne Frank", "note": "Réservation obligatoire 2 mois à l'avance" },
+      { "icon": "water",        "name": "Croisière sur les canaux","note": "Le soir pour voir les façades illuminées" },
+      { "icon": "palette",      "name": "Stedelijk Museum",    "note": "Design et art contemporain de Mondrian à aujourd'hui" }
+    ],
+    "manger": [
+      { "icon": "restaurant",   "name": "Café 't Smalle",      "note": "Proeflokaal (cave à bières) depuis 1786 sur le Egelantiersgracht" },
+      { "icon": "lunch_dining", "name": "Stroopwafels",        "note": "Achetez-les fraîches au marché Albert Cuyp" },
+      { "icon": "local_cafe",   "name": "Winkel 43",           "note": "La meilleure tarte aux pommes d'Amsterdam — file d'attente normale" },
+      { "icon": "storefront",   "name": "Marché Albert Cuyp",  "note": "Le marché le plus animé de la ville, tous les jours" }
+    ],
+    "transport": [
+      { "icon": "directions_bike","name": "Vélos en location",  "note": "MacBike ou Starbike dès 10€/jour — indispensable" },
+      { "icon": "tram",          "name": "Trams GVB",           "note": "Lignes 1, 2, 5 couvrent l'essentiel" },
+      { "icon": "directions_boat","name": "Ferries gratuits",   "note": "Traversée derrière la gare Centraal, 24h/24" },
+      { "icon": "subway",        "name": "Metro",               "note": "Utile pour le Rijksmuseum (ligne 52)" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Les grands musées", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Rijksmuseum",     "desc": "Arrivez à l'ouverture. La Ronde de Nuit vaut le déplacement seule." },
+        { "time": "12:00", "title": "Museumplein",     "desc": "Pique-nique sur la pelouse devant l'I amsterdam — les lettres ont disparu mais l'endroit reste photogénique." },
+        { "time": "14:00", "title": "Van Gogh Museum", "desc": "Réservation recommandée. 2h pour bien voir la collection." },
+        { "time": "16:30", "title": "Vondelpark",      "desc": "Le Central Park d'Amsterdam. Détente et observation des locaux." },
+        { "time": "19:00", "title": "Leidseplein",     "desc": "Le quartier des bars. Bière Heineken ou Amstel bien fraîche." }
+      ]
+    },
+    {
+      "day": 2, "title": "Les canaux et le Jordaan", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:30", "title": "Maison d'Anne Frank","desc": "Émouvant. Comptez 1h30 minimum. Réservation obligatoire." },
+        { "time": "11:30", "title": "Jordaan",          "desc": "Le quartier le plus pittoresque. Galeries, boutiques vintage, cafés bruns." },
+        { "time": "13:00", "title": "Déjeuner canal",   "desc": "Café 't Smalle pour la bière et les bitterballen au bord du Prinsengracht." },
+        { "time": "15:00", "title": "Croisière canaux", "desc": "1h pour voir les façades de l'extérieur. Prendre le bateau à Centraal." },
+        { "time": "18:00", "title": "De Pijp",          "desc": "Marché Albert Cuyp pour goûter les stroopwafels chauds." }
+      ]
+    },
+    {
+      "day": 3, "title": "Nord alternatif", "color": "#94a3b8",
+      "points": [
+        { "time": "10:00", "title": "Amsterdam-Nord",  "desc": "Prenez le ferry gratuit derrière Centraal. Quartier créatif avec EYE (musée du cinéma) et A'DAM Tower." },
+        { "time": "12:30", "title": "NDSM Wharf",     "desc": "Anciens chantiers navals reconvertis en espace culturel. Déjeuner au café du bord de l'IJ." },
+        { "time": "15:00", "title": "Stedelijk Museum","desc": "L'art moderne en guise de conclusion." },
+        { "time": "17:30", "title": "Amsterdam Centraal","desc": "Eurostar du retour vers Paris — 3h20 depuis ton siège." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "directions_bike","text": "Amsterdam se fait absolument à vélo. Louez-en un le premier jour — ce sera votre meilleur investissement." },
+    { "icon": "schedule",  "text": "La Maison d'Anne Frank se réserve jusqu'à 2 mois à l'avance. Ne ratez pas ce délai." },
+    { "icon": "train",     "text": "Eurostar Paris–Amsterdam : jusqu'à 6 trains/jour depuis la Gare du Nord. Les billets les moins chers sont à partir de 35€, à réserver plusieurs semaines à l'avance." },
+    { "icon": "wb_sunny",  "text": "En avril, combinez avec les tulipes de Keukenhof (à 40 min en bus depuis la gare). Réservez les billets en ligne." }
+  ],
+  "related": ["bruxelles", "berlin", "zurich"]
+}

@@ -1,0 +1,88 @@
+{
+  "id": "berlin",
+  "city": "Berlin",
+  "country": "Allemagne",
+  "tagline": "Histoire, street art et culture à une nuit de Paris",
+  "excerpt": "4 jours à Berlin",
+  "cover": "berlin-cover.jpg",
+  "hero": "berlin-hero.jpg",
+  "badges": ["Train de nuit", "European Sleeper"],
+  "travel": {
+    "duration": "~16h (nuit)",
+    "operator": "European Sleeper",
+    "from": "Paris Gare du Nord",
+    "arrival_station": "Berlin Hauptbahnhof",
+    "price_from": "59€",
+    "best_season": "Mai · Septembre",
+    "co2_saved": "89%",
+    "note": "Départ Paris Gare du Nord ~17h45 via Bruxelles, arrivée Berlin ~09h55 le lendemain. 3 fois/semaine (mar, jeu, dim). Réservation sur europeansleeper.eu."
+  },
+  "intro": "Berlin est la ville la plus libre d'Europe. Aucune autre capitale n'a autant digéré ses blessures historiques pour en faire une culture : le Mémorial de l'Holocauste, les restes du Mur, l'East Side Gallery. Mais Berlin c'est aussi Berghain, les marchés de Mauerpark, les clubs dans d'anciennes centrales électriques, les bars dans des cours intérieures cachées. Partez en train de nuit le soir depuis Paris, réveillez-vous à Berlin — quatre jours ne suffiront pas.",
+  "essentials": {
+    "voir": [
+      { "icon": "history_edu",  "name": "Mémorial de l'Holocauste","note": "Émouvant et troublant. Prenez le temps." },
+      { "icon": "palette",      "name": "East Side Gallery",     "note": "1,3 km de Mur peint par des artistes du monde entier" },
+      { "icon": "museum",       "name": "Museumsinsel",          "note": "5 musées sur une île — le Pergamon surtout" },
+      { "icon": "photo_camera", "name": "Mauerpark",             "note": "Le dimanche : marché aux puces et karaoké géant" }
+    ],
+    "manger": [
+      { "icon": "lunch_dining", "name": "Currywurst Konnopke's", "note": "La saucisse curry légendaire sous le viaduc du métro" },
+      { "icon": "restaurant",   "name": "Markthalle Neun",       "note": "Street food du monde le jeudi soir" },
+      { "icon": "local_cafe",   "name": "Café Telegraf",         "note": "Brunch berlinois interminable le week-end" },
+      { "icon": "sports_bar",   "name": "Bars de Kreuzberg",     "note": "Les plus authentiques et les moins chers de la ville" }
+    ],
+    "transport": [
+      { "icon": "subway",        "name": "U-Bahn / S-Bahn",      "note": "Ticket AB 24h : 8,80€ — illimité" },
+      { "icon": "directions_bike","name": "Donkey Republic",      "note": "Vélos connectés, 1€ pour débloquer + 0,15€/min" },
+      { "icon": "tram",          "name": "Trams (ex-Berlin Est)",  "note": "Couvrent Prenzlauer Berg et Mitte" },
+      { "icon": "train",         "name": "S-Bahn Ring",           "note": "Contourne toute la ville — pratique pour changer de quartier" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Arrivée et quartier gouvernemental", "color": "#4ade80",
+      "points": [
+        { "time": "10:00", "title": "Arrivée Berlin HBF",    "desc": "Petit-déjeuner à la gare principale — les Bäcker allemands valent le coup." },
+        { "time": "11:00", "title": "Reichstag",           "desc": "Réservez le dôme en ligne 3 jours avant. Vue imprenable sur la Spree." },
+        { "time": "13:00", "title": "Mémorial de l'Holocauste","desc": "Prenez le temps. Le sous-sol (gratuit) est très documenté." },
+        { "time": "15:30", "title": "Checkpoint Charlie",  "desc": "Touriste mais incontournable. Musée ou juste les photos." },
+        { "time": "18:00", "title": "Kreuzberg",           "desc": "Le quartier alternatif. Graffitis, bars à jus, librairies d'occasion." }
+      ]
+    },
+    {
+      "day": 2, "title": "Histoire et street art", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:00", "title": "East Side Gallery",   "desc": "Marchez tout le long des 1,3 km. Les fresques changent chaque année." },
+        { "time": "11:30", "title": "Hackescher Markt",    "desc": "Le quartier le plus animé de Berlin-Est. Cafés et boutiques de créateurs." },
+        { "time": "13:00", "title": "Currywurst Konnopke's","desc": "La Currywurst légendaire sous le métro aérien. Queue normale." },
+        { "time": "15:00", "title": "Museumsinsel",        "desc": "Le Pergamon Museum pour la porte d'Ishtar. Réservez." },
+        { "time": "19:00", "title": "Markthalle Neun",     "desc": "Street food du jeudi soir — si vous êtes là un jeudi." }
+      ]
+    },
+    {
+      "day": 3, "title": "Prenzlauer Berg et marché", "color": "#94a3b8",
+      "points": [
+        { "time": "10:00", "title": "Mauerpark",           "desc": "Le dimanche : marché aux puces immense et karaoké géant. Incontournable." },
+        { "time": "13:00", "title": "Prenzlauer Berg",     "desc": "Le quartier des familles bobo berlinoises. Biergarten et cafés." },
+        { "time": "16:00", "title": "Boxhagener Platz",    "desc": "Petit marché alternatif chaque dimanche." },
+        { "time": "19:00", "title": "Bars de Friedrichshain","desc": "Les moins chers de la ville. RAW Gelände pour les clubs en plein air." }
+      ]
+    },
+    {
+      "day": 4, "title": "Musées et départ", "color": "#374151",
+      "points": [
+        { "time": "10:00", "title": "Topographie des Terrors","desc": "Le musée de la Gestapo. Gratuit et bouleversant." },
+        { "time": "12:30", "title": "Potsdamer Platz",     "desc": "L'hypermodernité berlinoise, là où le Mur passait." },
+        { "time": "15:00", "title": "Tiergarten",          "desc": "Le plus grand parc de Berlin. Promenade avant le train." },
+        { "time": "17:45", "title": "Berlin HBF",          "desc": "European Sleeper du retour vers Paris — réveil à la Gare du Nord." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "nightlight",  "text": "L'European Sleeper Paris–Berlin (depuis mars 2026) part vers 17h45 de la Gare du Nord et arrive à Berlin vers 10h — dormez dans le train, gagnez un hôtel. 3 départs/semaine (mar, jeu, dim). Réservez sur europeansleeper.eu." },
+    { "icon": "savings",     "text": "Berlin est l'une des capitales européennes les moins chères. Comptez 10-15€ pour un repas complet dans les quartiers alternatifs." },
+    { "icon": "museum",      "text": "Le Berlin Welcome Card (48h, 72h ou 5 jours) inclut transports + réductions musées. Rentable dès 3 musées." },
+    { "icon": "schedule",    "text": "Le Reichstag et le Pergamon se réservent obligatoirement en ligne. Faites-le 3 jours avant minimum." }
+  ],
+  "related": ["amsterdam", "munich", "bruxelles"]
+}

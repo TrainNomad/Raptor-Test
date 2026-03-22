@@ -1,0 +1,138 @@
+/* ============================================================
+   TrainNomad.eu — css/explorer-tablet.css
+   Tablettes  ·  640px – 1023px
+   ============================================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  /* ── Nav ────────────────────────────────────────────────── */
+  nav .max-w-7xl {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    height: 64px;
+  }
+
+  nav .hidden.md\:flex {
+    gap: 1.25rem;
+  }
+
+  nav .hidden.md\:flex a {
+    font-size: 0.8rem;
+  }
+
+  /* ── Search bar ─────────────────────────────────────────── */
+  .sticky.top-\[80px\] {
+    top: 64px;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Deux lignes : [départ | date] sur la première, bouton en dessous */
+  .flex.flex-wrap.lg\:flex-nowrap {
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 0.35rem;
+  }
+
+  .flex-1.min-w-\[220px\] {
+    flex: 1;
+    min-width: 200px;
+    border-right: 1px solid #f1f5f9;
+  }
+
+  .w-full.lg\:w-44 {
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  /* Séparateurs — masqués (gérés par borders) */
+  .w-px.bg-slate-100 { display: none !important; }
+
+  /* Bouton : pleine largeur en seconde ligne */
+  #search-btn {
+    width: 100%;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin-top: 0.25rem;
+  }
+
+  /* ── Hauteur zone carte ─────────────────────────────────── */
+  #explorer-main {
+    height: calc(100vh - 64px - 110px);
+  }
+
+  /* ── Panneau latéral : légèrement réduit ────────────────── */
+  #side-panel {
+    width: 280px;
+    top: 12px;
+    left: 12px;
+    bottom: 12px;
+    border-radius: 14px;
+  }
+
+  #side-panel.collapsed {
+    transform: translateX(calc(-100% - 16px));
+  }
+
+  /* ── Bouton toggle repositionné ─────────────────────────── */
+  #toggle-panel-btn {
+    left: 308px;
+    top: 12px;
+    transition: left .3s ease;
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+
+  #side-panel.collapsed ~ #toggle-panel-btn {
+    left: 12px;
+  }
+
+  /* ── Légende durée — compacte ───────────────────────────── */
+  #duration-legend {
+    bottom: 36px;
+    right: 10px;
+    min-width: 150px;
+    padding: 10px 12px;
+  }
+  .legend-title  { font-size: 9px; }
+  .legend-labels { font-size: 9px; }
+
+  /* ── Map hint ───────────────────────────────────────────── */
+  #map-hint {
+    padding: 24px 32px;
+    width: auto;
+    max-width: calc(100% - 340px); /* laisse la place au panneau */
+    left: calc(50% + 140px);       /* centré sur la partie carte */
+  }
+
+  /* ── Filtres ────────────────────────────────────────────── */
+  #filters-bar {
+    padding: 8px 14px;
+    gap: 5px;
+  }
+  .filter-chip {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  /* ── Carte résultat ─────────────────────────────────────── */
+  .result-card  { padding: 9px 16px; }
+  .result-city  { font-size: 12px; }
+  .result-time  { font-size: 12px; }
+
+  /* ── Popup ──────────────────────────────────────────────── */
+  .popup-card      { width: 260px; }
+  .popup-card-city { font-size: 15px; }
+
+  /* ── Footer : compact ───────────────────────────────────── */
+  footer {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem;
+  }
+  footer .col-span-1 {
+    grid-column: 1 / -1;
+  }
+}

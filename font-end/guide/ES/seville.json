@@ -1,0 +1,154 @@
+{
+  "id": "seville",
+  "slug": "seville",
+  "country": "ES",
+  "country_name": "Espagne",
+  "city": "Séville",
+  "tagline": "Flamenco, Alcázar et orangers en fleurs sous le soleil d'Andalousie",
+  "description": "La capitale de l'Andalousie concentre l'Espagne la plus profonde dans ses ruelles blanches et ses palais mauresques.",
+  "hero_image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1600&q=85",
+  "categories": ["city-break", "culture", "flamenco"],
+  "train": {
+    "duration": "11h 30min",
+    "price_from": 69,
+    "co2_saving": 84,
+    "stop_area_id": "stop_area:OCE87713040",
+    "stop_name": "Sevilla Santa Justa"
+  },
+  "plane": {
+    "duration": "~6h 30min",
+    "co2_kg": 285
+  },
+  "editorial": {
+    "intro": "Il y a des villes qui résument un pays. Séville résume une Espagne fantasmée — carmencitas, orangers, guitare flamenco dans la nuit chaude — et pourtant la réalité est encore plus belle que le mythe. Capitale d'un empire qui s'étendit sur les Amériques, héritière de 800 ans de présence maure, ville où le flamenco n'est pas un spectacle pour touristes mais une façon d'être au monde.",
+    "sections": [
+      {
+        "id": "histoire",
+        "icon": "history_edu",
+        "title": "Capitale d'un empire mondial",
+        "image": "https://images.unsplash.com/photo-1549144511-f099e773c147?w=900&q=80",
+        "body": "Au XVIe siècle, Séville était la ville la plus riche du monde occidental — monopole du commerce avec les Amériques, carrefour de toutes les richesses coloniales. L'Archive Générale des Indes, sur la Plaza del Triunfo, contient 80 millions de pages de documents sur la conquête et l'administration des colonies américaines. Christophe Colomb y est enterré dans la cathédrale — ou du moins ses restes, le sujet est encore débattu par les historiens.\n\nMais avant les Espagnols, les Maures. L'Alcázar de Séville est le plus ancien palais royal encore en usage en Europe (il accueille toujours la famille royale en déplacement) et le chef-d'œuvre de l'architecture mudéjar — ce style hybride né de l'interpénétration des cultures arabe et chrétienne en Andalousie. Le roi Pierre Ier de Castille le fit construire au XIVe siècle en faisant appel aux meilleurs artisans de Grenade et de Tolède. Le résultat : des salles à couper le souffle, des patios ornés d'azulejos et des jardins dans lesquels on reconnaît les décors de Game of Thrones (Dorne)."
+      },
+      {
+        "id": "monuments",
+        "icon": "architecture",
+        "title": "La cathédrale, la Giralda et l'Alcázar",
+        "image": "https://images.unsplash.com/photo-1536364127590-1594e3161294?w=900&q=80",
+        "body": "La cathédrale de Séville est la plus grande cathédrale gothique du monde — les chanoines médiévaux qui l'ont commandée auraient dit : «Construisons une cathédrale si grande que ceux qui la verront nous prendront pour des fous.» Le résultat, commencé en 1401 sur les fondations d'une grande mosquée almohade, est effectivement démesuré : 135 mètres de long, 76 de large, la tour Giralda à 97 mètres et le tombeau de Colomb dans la nef principale.\n\nLa Giralda, ancienne minaret de la mosquée transformé en clocher, se monte à pied sur une rampe (pas d'escaliers — prévue pour les cavaliers) en 35 étapes. La vue depuis le sommet embrasse toute la ville, le Guadalquivir et par temps clair la campagne andalouse. L'ensemble cathédrale-Giralda-Alcázar, classé UNESCO, se visite idéalement le matin tôt ou en fin d'après-midi."
+      },
+      {
+        "id": "flamenco",
+        "icon": "music_note",
+        "title": "Le flamenco, plus qu'un spectacle",
+        "image": "https://images.unsplash.com/photo-1485872299829-c673f5194813?w=900&q=80",
+        "body": "Le flamenco est né en Andalousie, vraisemblablement dans les communautés gitanes de Séville, Cadix et Jerez, entre le XVIIIe et le XIXe siècle. Il rassemble des influences multiples : le chant grégorien, les musiques maures, les rythmes gitans, les traces africaines. C'est une musique de deuil et de joie extrême — le duende, ce frisson indescriptible qui saisit quand un spectacle de flamenco atteint son sommet, est une expérience réelle que l'on ressent ou pas.\n\nLes tablaos touristiques ne sont pas tous mauvais — certains font venir les meilleurs danseurs et musiciens. Mais pour une expérience authentique, cherchez les peñas flamencas — associations privées des quartiers de Triana ou du Barrio de Santa Cruz — ou les concerts du festival Bienal (un an sur deux en septembre). Triana, quartier gitan traditionnel de l'autre côté du Guadalquivir, est le berceau historique du flamenco sévillan.",
+        "tips": [
+          { "icon": "music_note", "text": "Casa de la Memoria ou El Arenal pour les tablaos de qualité, réservation indispensable" },
+          { "icon": "location_on", "text": "Triana le soir : le quartier gitan au bord du Guadalquivir, moins touristique que Santa Cruz" },
+          { "icon": "local_bar", "text": "Manzanilla et fino frío : les vins de Séville, servis dans les bars de Triana avec tapas offertes" },
+          { "icon": "restaurant", "text": "Jambon ibérique et huîtres au bar El Rinconcillo — la plus vieille taverne d'Espagne (1670)" }
+        ]
+      },
+      {
+        "id": "gastronomie",
+        "icon": "restaurant",
+        "title": "La table andalouse",
+        "image": "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=900&q=80",
+        "body": "La cuisine sévillane est celle du soleil et des produits simples sublimés. Le gazpacho andalou (tomates, poivrons, concombre, ail, vinaigre) est ici une religion, servi à température froide en été comme boisson autant que soupe. Le salmorejo, version cordouane plus épaisse et crémeuse, se garnit de jamón ibérique et d'œuf dur.\n\nLes tapas sévillanes sont offertes avec les boissons dans beaucoup de bars — une tradition qui se perd mais qui subsiste dans les quartiers moins touristiques. La Plaza de la Alfalfa et la Feria de Abril (grande fête annuelle d'avril) révèlent la Séville la plus authentique. Le poisson frit (pescaíto frito), les crevettes à l'ail et les anchois marinés complètent le tableau d'une gastronomie généreuse et abordable."
+      }
+    ]
+  },
+  "highlights": [
+    { "icon": "architecture", "label": "Real Alcázar", "description": "Palais mudéjar, décor de Game of Thrones.", "url": "https://www.alcazarsevilla.org" },
+    { "icon": "church", "label": "Cathédrale & Giralda", "description": "Plus grande cathédrale gothique du monde.", "url": "https://www.catedraldesevilla.es" },
+    { "icon": "music_note", "label": "Flamenco à Triana", "description": "Le berceau gitan du flamenco authentique.", "url": "https://www.turismosevilla.org" },
+    { "icon": "auto_stories", "label": "Archive des Indes", "description": "80 millions de pages sur la conquête américaine.", "url": "https://www.mecd.gob.es/archivo-general-indias" },
+    { "icon": "water", "label": "Guadalquivir", "description": "Torre del Oro et promenades au bord du fleuve.", "url": "https://www.turismosevilla.org" },
+    { "icon": "location_city", "label": "Barrio de Santa Cruz", "description": "Ancien quartier juif, rues blanches et orangers.", "url": "https://www.turismosevilla.org" }
+  ],
+  "gyg_partner_id": "URMJDFO",
+  "gyg_location_id": "48",
+  "gyg_cmp": "seville-guide",
+  "gyg_location_url": "https://www.getyourguide.com/seville-l48/",
+  "gyg_tours": [
+    {
+      "tour_id": "98487",
+      "icon": "architecture",
+      "category": "Incontournable",
+      "title": "Cathédrale, Giralda & Alcázar — Tour guidé coupe-file",
+      "description": "Les trois monuments UNESCO de Séville en une seule visite guidée. L'Alcázar, ses palais mudéjar et ses jardins luxuriants, puis la cathédrale gothique la plus grande du monde et la montée à la Giralda.",
+      "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=700&q=80"
+    },
+    {
+      "tour_id": "124094",
+      "icon": "castle",
+      "category": "Visite approfondie",
+      "title": "Alcázar, Cathédrale & Giralda — Tour expert",
+      "description": "Une visite plus approfondie avec accès prioritaire : les secrets de l'architecture mudéjar de l'Alcázar, les chapelles latérales de la cathédrale et la vue depuis la Giralda sur toute la ville.",
+      "image": "https://images.unsplash.com/photo-1549144511-f099e773c147?w=700&q=80"
+    },
+    {
+      "tour_id": "181535",
+      "icon": "group",
+      "category": "Petit groupe",
+      "title": "Alcázar & Cathédrale — Petit groupe bilingue",
+      "description": "Visite en petit groupe (12 personnes max) pour une expérience plus intime. Guide bilingue, rythme personnalisé, questions bienvenues. Le meilleur rapport qualité/immersion.",
+      "image": "https://images.unsplash.com/photo-1536364127590-1594e3161294?w=700&q=80"
+    },
+    {
+      "tour_id": "519309",
+      "icon": "music_note",
+      "category": "Journée complète",
+      "title": "Séville Full Day — Alcázar + Cathédrale + Flamenco",
+      "description": "La journée sévillane idéale : Alcázar et Cathédrale le matin, quartier de Triana l'après-midi, spectacle de flamenco authentique en soirée dans un tablao réputé.",
+      "image": "https://images.unsplash.com/photo-1485872299829-c673f5194813?w=700&q=80"
+    },
+    {
+      "tour_id": "67088",
+      "icon": "directions_walk",
+      "category": "Tour à pied",
+      "title": "Tour à pied Séville historique — Santa Cruz & Habsbourg",
+      "description": "2h dans les ruelles blanches du Barrio de Santa Cruz, l'ancien quartier juif : patios fleuris, fontaines cachées, orangers et récits de l'Inquisition et des trois cultures.",
+      "image": "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=700&q=80"
+    },
+    {
+      "tour_id": "89805",
+      "icon": "local_dining",
+      "category": "Art de vivre",
+      "title": "Tour tapas & flamenco — Le soir sévillan",
+      "description": "Découvrez l'âme nocturne de Séville : bar hopping dans Triana, dégustation de jamón ibérique et manzanilla froide, puis spectacle de flamenco dans une peña locale.",
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80"
+    }
+  ],
+  "restaurants": [
+    { "icon": "wine_bar", "name": "Bar El Rinconcillo", "note": "La plus vieille taverne d'Espagne (1670) — jamón ibérique, anchois, fino frío. Barrio Macarena." },
+    { "icon": "restaurant", "name": "Bodega Santa Cruz (Las Columnas)", "note": "Tapas écrites à la craie, debout au comptoir, clientèle locale de Santa Cruz." },
+    { "icon": "local_dining", "name": "Bar Alfalfa", "note": "Tapas généreuses offertes avec les boissons — la tradition sévillane qui se perd encore ici." },
+    { "icon": "water", "name": "Restaurante Río Grande", "note": "Vue sur le Guadalquivir et la Torre del Oro, spécialités de poisson frit andalou." }
+  ],
+  "hotels": [
+    { "name": "Hotel Ayre Sevilla", "walk_min": 15, "eco": true, "image": "" },
+    { "name": "Oasis Backpackers' Hostel", "walk_min": 12, "eco": true, "image": "" },
+    { "name": "Hotel Amadeus Sevilla", "walk_min": 10, "eco": false, "image": "" }
+  ],
+  "escapades": [
+    {
+      "title": "Cordoue & la Mezquita",
+      "tag": "45min de Séville",
+      "desc": "La Grande Mosquée-Cathédrale, chef-d'œuvre de l'architecture islamique avec 856 colonnes. AVE direct depuis Santa Justa.",
+      "image": "https://images.unsplash.com/photo-1548018560-c7196b3f6186?w=600&q=80"
+    },
+    {
+      "title": "Cadix et ses plages",
+      "tag": "1h30 de Séville",
+      "desc": "La plus ancienne ville d'Europe occidentale (3 000 ans), entourée de l'Atlantique, ses remparts blancs et ses plages de sable fin.",
+      "image": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=600&q=80"
+    },
+    {
+      "title": "Ronda & les pueblos blancos",
+      "tag": "2h de Séville",
+      "desc": "Le village suspendu au-dessus d'un gouffre de 150 mètres, les pueblos blancos de la Sierra de Grazalema et les plus belles routes d'Andalousie.",
+      "image": "https://images.unsplash.com/photo-1549925245-f20a1bac6454?w=600&q=80"
+    }
+  ]
+}

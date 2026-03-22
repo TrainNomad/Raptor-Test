@@ -1,0 +1,203 @@
+/* ============================================================
+   TrainNomad.eu — css/explorer-desktop.css
+   Grands écrans  ·  min-width: 1440px
+   ============================================================ */
+
+@media (min-width: 1440px) {
+
+  /* ── Nav ────────────────────────────────────────────────── */
+  nav .max-w-7xl {
+    max-width: 1400px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: 80px;
+  }
+
+  nav .hidden.md\:flex {
+    gap: 3rem;
+  }
+
+  /* ── Search bar ─────────────────────────────────────────── */
+  .sticky.top-\[80px\] {
+    top: 80px;
+    padding: 0.75rem 3rem;
+  }
+
+  .flex.flex-wrap.lg\:flex-nowrap {
+    flex-wrap: nowrap;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    gap: 0;
+  }
+
+  .flex-1.min-w-\[220px\] {
+    min-width: 260px;
+  }
+
+  .w-full.lg\:w-44 {
+    width: 200px;
+  }
+
+  /* Labels au-dessus des inputs */
+  label[class*="text-\[10px\]"] {
+    font-size: 0.65rem;
+  }
+
+  /* Champs texte dans la barre */
+  .flex-1.min-w-\[220px\] input,
+  .w-full.lg\:w-44 input {
+    font-size: 0.9rem;
+  }
+
+  /* Bouton Explorer */
+  #search-btn {
+    padding: 0.85rem 2rem;
+    font-size: 0.9rem;
+    border-radius: 0.875rem;
+    gap: 0.6rem;
+  }
+
+  /* ── Hauteur zone carte ─────────────────────────────────── */
+  #explorer-main {
+    height: calc(100vh - 80px - 76px);
+  }
+
+  /* ── Panneau latéral : plus large ───────────────────────── */
+  #side-panel {
+    width: 360px;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(26, 43, 60, .15);
+  }
+
+  #side-panel.collapsed {
+    transform: translateX(calc(-100% - 24px));
+  }
+
+  /* ── Bouton toggle ──────────────────────────────────────── */
+  #toggle-panel-btn {
+    left: 396px;
+    top: 20px;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    transition: left .3s ease;
+  }
+
+  #side-panel.collapsed ~ #toggle-panel-btn {
+    left: 20px;
+  }
+
+  /* ── Panel header ───────────────────────────────────────── */
+  #panel-header {
+    padding: 20px 24px 14px;
+  }
+  .panel-title {
+    font-size: 14px;
+  }
+  #results-count-label { font-size: 13px; }
+  #results-count       { font-size: 14px; }
+
+  /* ── Filtres ────────────────────────────────────────────── */
+  #filters-bar {
+    padding: 12px 20px;
+    gap: 7px;
+  }
+  .filter-chip {
+    font-size: 12px;
+    padding: 5px 14px;
+  }
+
+  /* ── Carte résultat ─────────────────────────────────────── */
+  .result-card {
+    padding: 12px 24px;
+    gap: 14px;
+  }
+  .result-city        { font-size: 14px; }
+  .result-meta        { font-size: 12px; }
+  .result-time        { font-size: 14px; }
+  .result-transfers   { font-size: 11px; }
+  .result-train-type  { font-size: 11px; }
+  .result-dot-badge   { width: 14px; height: 14px; }
+
+  /* ── Map hint ───────────────────────────────────────────── */
+  #map-hint {
+    left: calc(50% + 180px);
+    padding: 36px 48px;
+    border-radius: 24px;
+  }
+  .hint-icon  { font-size: 48px; margin-bottom: 16px; }
+  .hint-title { font-size: 18px; }
+  .hint-sub   { font-size: 14px; }
+
+  /* ── Légende durée ──────────────────────────────────────── */
+  #duration-legend {
+    bottom: 56px;
+    right: 16px;
+    min-width: 200px;
+    padding: 14px 20px;
+    border-radius: 14px;
+  }
+  .legend-title    { font-size: 11px; margin-bottom: 10px; }
+  .legend-gradient { height: 10px; }
+  .legend-labels   { font-size: 11px; margin-top: 7px; }
+
+  /* ── Popup destination ──────────────────────────────────── */
+  .popup-card {
+    width: 300px;
+    padding: 20px 22px 18px;
+  }
+  .popup-card-city { font-size: 17px; }
+  .popup-dep,
+  .popup-arr       { font-size: 20px; }
+  .popup-dur       { font-size: 12px; max-width: 90px; }
+  .popup-book-btn  { font-size: 14px; padding: 13px 0; border-radius: 12px; }
+  .popup-type      { font-size: 11px; }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  footer {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  footer .max-w-7xl {
+    max-width: 1400px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+  }
+  footer h5 { font-size: 1.1rem; margin-bottom: 2rem; }
+  footer ul  { gap: 1rem; }
+}
+
+/* ── Ultra-large 2K/4K ─────────────────────────────────────────────────────── */
+@media (min-width: 1920px) {
+  nav .max-w-7xl,
+  footer .max-w-7xl {
+    max-width: 1600px;
+  }
+
+  .flex.flex-wrap.lg\:flex-nowrap {
+    max-width: 1600px;
+  }
+
+  #side-panel {
+    width: 400px;
+  }
+
+  #toggle-panel-btn {
+    left: 436px;
+  }
+
+  #side-panel.collapsed ~ #toggle-panel-btn {
+    left: 20px;
+  }
+
+  .result-city { font-size: 15px; }
+  .result-time { font-size: 15px; }
+}

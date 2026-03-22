@@ -1,0 +1,350 @@
+/* ============================================================
+   TrainNomad.eu — css/trajetsmax.css
+   Styles propres à la page Trajets MAX
+   ============================================================ */
+
+:root {
+  --midnight-blue: #1A2B3C;
+  --green-highlight: #4ade80;
+  --bg-gray: #F8FAFC;
+}
+
+:root {
+    --midnight-blue: #1A2B3C;
+    --green-highlight: #4ade80;
+    --bg-gray: #F8FAFC;
+  }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background-color:var(--bg-gray); color:var(--midnight-blue); }
+  .search-bar-shadow { box-shadow: 0 4px 20px -2px rgba(26,43,60,.05); }
+  .journey-card { transition:all .3s cubic-bezier(.4,0,.2,1); animation:cardIn .35s ease both; }
+  .journey-card:hover { box-shadow:0 10px 25px -5px rgba(26,43,60,.08); transform:translateY(-2px); }
+  @keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .timeline-line { width:2px; background:repeating-linear-gradient(to bottom,#E2E8F0 0,#E2E8F0 4px,transparent 4px,transparent 8px); }
+  .custom-scrollbar::-webkit-scrollbar{width:6px} .custom-scrollbar::-webkit-scrollbar-track{background:transparent} .custom-scrollbar::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:10px}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+
+  /* Status dot */
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%}
+  .status-dot.ok{background:#4ade80} .status-dot.loading{background:#f59e0b;animation:pulse 1s infinite} .status-dot.err{background:#f87171}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .text-primary{
+    --tw-text-opacity: 1;
+    color: rgb(74 222 128 / var(--tw-text-opacity, 1));
+  }
+  /* ── Journey card — style fichier texte ── */
+  /* Carte : rounded-2xl, border, shadow-sm, p-6 */
+  .journey-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 1px 3px rgba(26,43,60,.06);
+    overflow: hidden;
+  }
+
+  /* Résumé : même layout que le fichier texte (flex, items-center, justify-between) */
+  .card-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    cursor: pointer;
+    gap: 32px;
+  }
+  .card-summary:hover { background: #fafcff; }
+
+  /* Partie gauche : logo + blocs dep/mid/arr */
+  .card-logo { width: 80px; flex-shrink: 0; display: flex; align-items: center; }
+  .card-logo-img { max-height: 24px; max-width: 80px; object-fit: contain; }
+  .card-logo-placeholder { width: 60px; height: 20px; background: #f1f5f9; border-radius: 4px; }
+
+  /* Groupe dep + mid + arr alignés sur une ligne */
+  .card-dep-block, .card-arr-block { text-align: center; }
+  .card-time {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--midnight-blue);
+  }
+  .card-station-lbl {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .card-overnight { font-size: 11px; font-weight: 700; color: #f59e0b; vertical-align: super; }
+
+  /* Milieu : durée + track + direct/corresp */
+  .card-mid-block { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .card-dur-lbl   { font-size: 10px; font-weight: 700; color: #94a3b8; }
+
+  /* Track — ligne avec point ou icône train au centre, largeur fixe */
+  .card-track { display: flex; align-items: center; gap: 4px; width: 96px; }
+  .card-track-dot  { width: 6px; height: 6px; border-radius: 50%; background: #cbd5e1; flex-shrink: 0; }
+  .card-track-line { flex: 1; height: 2px; background: #f1f5f9; border-radius: 1px; }
+  .card-track-icon { font-size: 14px; color: #cbd5e1; }
+
+  .card-direct  { font-size: 10px; font-weight: 700; color: var(--green-highlight); letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+  .card-corresp { font-size: 10px; font-weight: 700; color: #f59e0b; letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+
+  /* Prix — aligné à droite */
+  .card-price-block { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
+  .price-val         { font-size: 24px; font-weight: 800; display: block; line-height: 1.1; }
+  .price-val--green  { color: var(--green-highlight); }
+  .price-val--black  { color: var(--midnight-blue); }
+  .price-lbl {
+    font-size: 10px; font-weight: 700; color: #94a3b8;
+    letter-spacing: .12em; text-transform: uppercase;
+    background: #f8fafc; padding: 2px 7px; border-radius: 4px; margin-top: 4px;
+    display: inline-block;
+  }
+  .price-unavail { font-size: 18px; font-weight: 700; color: #cbd5e1; }
+  .price-loading { font-size: 12px; color: #94a3b8; font-style: italic; }
+  .price-ter     { font-size: 9px; color: #94a3b8; }
+
+  /* Select journey btn */
+  .btn-select-journey{margin-top:6px;padding:5px 14px;border-radius:999px;background:var(--midnight-blue);color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:background .15s}
+  .btn-select-journey:hover{background:#25394f}
+
+  /* ── Expanded legs — style fichier texte ── */
+  /* Section bg-slate-50 avec ligne timeline absolue à gauche */
+  .card-legs { display: none; }
+  .journey-card.expanded .card-legs { display: block; }
+
+  .tl-wrap {
+    position: relative;
+    background: #F8FAFC;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    margin: 0 24px 24px;
+    padding: 24px;
+  }
+  /* Ligne verticale pointillée absolue (calée sur les cercles) */
+  .tl-wrap::before {
+    content: '';
+    position: absolute;
+    left: 33px;
+    top: 32px;
+    bottom: 32px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, #E2E8F0 0, #E2E8F0 4px, transparent 4px, transparent 8px);
+  }
+
+  .tl-stop { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 32px; position: relative; }
+  .tl-stop--final { margin-bottom: 0; }
+  .tl-transfer { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 32px; position: relative; }
+
+  .tl-node-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; z-index: 1; }
+  .tl-circle { border-radius: 50%; flex-shrink: 0; }
+  /* Cercles calés sur ml-1 pour aligner avec la ligne absolue (left:33px) */
+  .tl-circle--dep { width: 16px; height: 16px; background: #fff; border: 4px solid var(--midnight-blue); margin-left: 1px; margin-top: 6px; }
+  .tl-circle--mid { width: 16px; height: 16px; background: #fff; border: 4px solid #cbd5e1; margin-left: 1px; margin-top: 6px; }
+  .tl-circle--arr { width: 16px; height: 16px; background: var(--green-highlight); margin-left: 1px; margin-top: 6px; }
+  .tl-circle--xfer { width: 24px; height: 24px; background: #fff7ed; border: 2px solid #fed7aa; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .tl-vline { display: none; } /* la ligne est gérée par ::before */
+
+  .tl-body { flex: 1; }
+  .tl-stop-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 4px; }
+  .tl-stop-name  { font-size: 14px; font-weight: 800; color: var(--midnight-blue); }
+  .tl-stop-time  { font-size: 12px; color: #94a3b8; font-weight: 500; display: block; margin-top: 2px; }
+  .tl-trip-badge {
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+    background: #e2e8f0; color: #64748b;
+    letter-spacing: .04em; white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tl-dur-box {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 12px; padding: 10px 14px;
+    background: #fff; border: 1px solid #f1f5f9; border-radius: 8px;
+    width: fit-content;
+  }
+  .tl-dur-ico  { font-size: 14px; }
+  .tl-dur-text { font-size: 12px; font-weight: 600; color: #64748b; }
+
+  /* Correspondance */
+  .tl-xfer-body { display: flex; align-items: center; gap: 12px; flex: 1; }
+  .tl-xfer-station { font-size: 14px; font-weight: 700; color: #f59e0b; }
+  .tl-xfer-wait    { font-size: 12px; font-weight: 700; color: #f59e0b; }
+  .tl-xfer-sep     { flex: 1; height: 1px; background: #fed7aa; }
+
+  /* Results header */
+  .results-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px}
+  .results-header-left{flex:1}
+  .results-title{font-size:22px;font-weight:800;color:var(--midnight-blue)}
+  .results-count{font-size:13px;color:#94a3b8;font-weight:500;margin-top:4px}
+  .results-sort{font-size:13px;font-weight:700;color:var(--midnight-blue);display:flex;align-items:center;gap:6px}
+
+  /* States */
+  .loading-container{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:16px}
+  .spinner{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:var(--green-highlight);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .state-empty,.state-error{text-align:center;padding:64px 0;color:#94a3b8;font-size:15px;font-weight:600}
+  .state-error{color:#f87171}
+
+  /* ── Phase retour — carte aller sélectionné ── */
+  .aller-recap-wrapper {
+    margin-bottom: 24px;
+  }
+  .aller-recap-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 800; color: var(--green-highlight);
+    text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 10px;
+  }
+  .aller-recap-label svg { flex-shrink: 0; }
+  .aller-recap-card {
+    background: linear-gradient(135deg, #1A2B3C 0%, #25394f 100%);
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    box-shadow: 0 4px 20px rgba(26,43,60,.18);
+    position: relative; overflow: hidden;
+  }
+  .aller-recap-card::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(74,222,128,.07);
+  }
+  .aller-recap-times {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .aller-recap-time {
+    font-size: 22px; font-weight: 800; color: #fff; line-height: 1;
+  }
+  .aller-recap-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .aller-recap-arrow-line {
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, rgba(74,222,128,.4), rgba(74,222,128,.9));
+    border-radius: 2px;
+  }
+  .aller-recap-dur {
+    font-size: 10px; font-weight: 700; color: rgba(74,222,128,.85); letter-spacing: .04em;
+  }
+  .aller-recap-stations {
+    font-size: 11px; font-weight: 500; color: rgba(255,255,255,.5);
+    margin-top: 3px;
+  }
+  .aller-recap-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  }
+  .aller-recap-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    background: rgba(74,222,128,.18); color: var(--green-highlight);
+    padding: 3px 10px; border-radius: 999px;
+    border: 1px solid rgba(74,222,128,.25);
+  }
+  .aller-recap-change-btn {
+    font-size: 11px; font-weight: 600; color: rgba(255,255,255,.45);
+    background: none; border: none; cursor: pointer; padding: 0;
+    text-decoration: underline; transition: color .15s;
+  }
+  .aller-recap-change-btn:hover { color: rgba(255,255,255,.8); }
+  .retour-section-label {
+    font-size: 11px; font-weight: 800; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 12px; margin-top: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .retour-section-label::after {
+    content: ''; flex: 1; height: 1px; background: #e2e8f0;
+  }
+
+  /* Btn more */
+  .btn-more{padding:10px 28px;border-radius:999px;border:1.5px solid #e2e8f0;font-size:13px;font-weight:700;color:var(--midnight-blue);background:#fff;cursor:pointer;transition:all .2s}
+  .btn-more:hover{background:var(--midnight-blue);color:#fff;border-color:var(--midnight-blue)}
+
+  /* Multi-select */
+  .ms-dropdown .ms-item{display:none}
+  .ms-dropdown.open .ms-item{display:flex}
+  .ms-item{align-items:center;gap:10px;padding:7px 6px;border-radius:8px;cursor:pointer;transition:background .1s}
+  .ms-item:hover{background:#f8fafc}
+  .ms-item input[type=checkbox]{accent-color:var(--green-highlight);cursor:pointer;width:14px;height:14px;flex-shrink:0}
+  .ms-color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .ms-item-label{font-size:13px;font-weight:500;color:#475569}
+
+  /* autocomplete */
+  .input-ac-wrapper { position: relative; }
+  input[type="date"]::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
+  /* input[type="date"] { -moz-appearance: textfield; } */
+  .suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px -4px rgba(26,43,60,.12);
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .ac-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background .1s;
+    gap: 8px;
+  }
+  .ac-row:hover, .ac-row.ac-active { background: #f8fafc; }
+  .ac-row-name { font-size: 13px; font-weight: 700; color: var(--midnight-blue); }
+  .ac-row-country { font-size: 11px; font-weight: 500; color: #94a3b8; white-space: nowrap; }
+
+  /* ── MAX availability — grisé ── */
+  .journey-card { position: relative; }
+
+  /* Carte non dispo : fond gris, contenu grisé, pas de hover lift */
+  .journey-card--unavail {
+    background: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: none !important;
+    cursor: default;
+  }
+  .journey-card--unavail:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .journey-card--unavail .card-summary { opacity: 0.5; pointer-events: none; }
+  .journey-card--unavail .card-legs   { opacity: 0.5; }
+  .journey-card--unavail .card-time   { color: #94a3b8; }
+  .journey-card--unavail .card-station-lbl { color: #cbd5e1; }
+
+  /* Bandeau "Places MAX épuisées" en bas de la carte */
+  .max-unavail-overlay {
+    display: flex; align-items: center; justify-content: center;
+    padding: 6px 24px 12px;
+    pointer-events: none;
+  }
+  .max-unavail-label {
+    background: #e2e8f0; color: #94a3b8;
+    font-size: 10px; font-weight: 800; letter-spacing: .08em;
+    padding: 4px 14px; border-radius: 99px;
+    display: flex; align-items: center; gap: 5px;
+    border: 1px solid #cbd5e1;
+  }
+
+  /* MAX badge on available cards */
+  .max-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #FF007A; color: #fff;
+    font-size: 9px; font-weight: 800; letter-spacing: .08em;
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+/* ── Bouton sélectionner ── */
+.btn-select-text  { display: inline; }
+.btn-select-arrow { display: inline; }
+
+/* ── Mobile menu masqué par défaut ── */
+#mobile-menu-btn { display: none; }
+#mobile-nav      { display: none; }

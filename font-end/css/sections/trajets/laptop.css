@@ -1,0 +1,24 @@
+/* ============================================================
+   TrainNomad.eu — css/trajets-laptop.css
+   Ordinateurs portables  ·  1024px – 1439px
+   ============================================================ */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 72px; padding-left: 1.5rem; padding-right: 1.5rem; }
+
+  /* ── Search bar ── */
+  .bg-white.border-b.border-slate-100.py-6.px-6.sticky { top: 72px !important; padding: 0.75rem 1.5rem !important; }
+  .flex.flex-wrap.lg\:flex-nowrap { flex-wrap: nowrap; gap: 0; }
+
+  /* ── Main ── */
+  .results__main { padding: 2rem 1.5rem; }
+
+  /* ── Footer ── */
+  footer .max-w-7xl { padding-left: 1.5rem; padding-right: 1.5rem; }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}

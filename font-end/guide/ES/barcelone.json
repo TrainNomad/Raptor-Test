@@ -1,0 +1,154 @@
+{
+  "id": "barcelona",
+  "slug": "barcelona",
+  "country": "ES",
+  "country_name": "Espagne",
+  "city": "Barcelone",
+  "tagline": "Gaudí, la Méditerranée et une ville qui ne dort jamais",
+  "description": "Entre l'architecture la plus folle d'Europe et la Méditerranée à pied, Barcelone s'atteint en 6h30 de Paris.",
+  "hero_image": "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1600&q=85",
+  "categories": ["city-break", "culture", "gastronomie"],
+  "train": {
+    "duration": "6h 30min",
+    "price_from": 39,
+    "co2_saving": 91,
+    "stop_area_id": "stop_area:OCE87784793",
+    "stop_name": "Barcelona Sants"
+  },
+  "plane": {
+    "duration": "~5h 30min",
+    "co2_kg": 230
+  },
+  "editorial": {
+    "intro": "Barcelone est une ville qui s'impose avant même qu'on le décide. L'architecture de Gaudí vous happe depuis le taxi, les Ramblas vous avalent dès que vous posez le pied, et la mer, toujours la mer, apparaît au bout de chaque rue descendante. La capitale catalane est une ville qui vit dans l'excès — d'art, de lumière, de bruit, de fêtes — mais qui sait aussi vous offrir des îlots de silence dans ses cours gothiques et ses marchés de quartier.",
+    "sections": [
+      {
+        "id": "gauди",
+        "icon": "architecture",
+        "title": "Gaudí : une vie, une ville",
+        "image": "https://images.unsplash.com/photo-1557409518-691ebcd96038?w=900&q=80",
+        "body": "Antoni Gaudí (1852–1926) n'a pas seulement construit des bâtiments à Barcelone — il a transformé la ville en manifeste architectural. La Sagrada Família, commencée en 1882 et toujours en chantier, est l'œuvre d'une vie et la 2e cathédrale la plus visitée au monde. Ce qui sidère en entrant, c'est la lumière : des milliers de vitraux colorés transforment la nef en une forêt sous-marine. La façade de la Nativité (côté est, sculptée du vivant de Gaudí) et celle de la Passion (côté ouest, plus dépouillée) racontent deux visions opposées du christianisme.\n\nPark Güell, commandé par l'industriel Eusebi Güell comme cité-jardin, est devenu un espace public extraordinaire de mosaïques et de vues plongeantes sur la mer. La Casa Batlló et la Casa Milà (La Pedrera) sur le Passeig de Gràcia ont transformé le simple immeuble bourgeois en sculpture habitée. Gaudí vivait reclus dans la Sagrada Família ses dernières années — il y fut enterré en 1926, renversé par un tramway qu'il n'avait pas vu venir."
+      },
+      {
+        "id": "gothique",
+        "icon": "museum",
+        "title": "Le Barri Gòtic et l'art catalan",
+        "image": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=900&q=80",
+        "body": "Derrière les Ramblas, le Quartier Gothique cache 2 500 ans d'histoire dans un labyrinthe de ruelles médiévales posé sur des fondations romaines. Le Temple d'Auguste (2e siècle av. J.-C.), découvert dans la cour d'un immeuble, est l'une des surprises de la ville. La cathédrale de Barcelone, avec ses oies sacrées dans le cloître, est nettement moins connue que la Sagrada Família — ce qui signifie qu'on peut la visiter presque seul.\n\nLe Musée National d'Art de Catalogne (MNAC), au sommet de Montjuïc, possède la meilleure collection d'art roman au monde — ces fresques arrachées d'églises pyrénéennes au début du XXe siècle pour les sauver de la détérioration sont stupéfiantes. Le Musée Picasso, dans cinq palais médiévaux du quartier El Born, retrace les années de formation barcelonaises du peintre avec des œuvres rarement montrées ailleurs."
+      },
+      {
+        "id": "gastronomie",
+        "icon": "local_dining",
+        "title": "La table barcelonaise",
+        "image": "https://images.unsplash.com/photo-1536364127590-1594e3161294?w=900&q=80",
+        "body": "La gastronomie barcelonaise est une affaire catalane, pas espagnole — une précision qui compte. Les pa amb tomàquet (pain frotté à la tomate, huile d'olive et sel) accompagnent tout. Les patates braves, les croquetes de jamón, les boquerones en vinagre sont les tapas incontournables. La Boqueria, marché couvert des Ramblas, est touristique mais irremplaçable pour les fruits, les jus fraîchement pressés et les comptoirs de fruits de mer.\n\nPour échapper au tourisme de masse : le marché de Santa Caterina dans le Born (plus calme que la Boqueria), les bars à vermouth du Raval le dimanche à midi, les chiringuitos de la Barceloneta pour les fruits de mer au soleil. La vie nocturne commence vraiment à minuit — les restaurants ferment à 23h, et les fêtes durent jusqu'à l'aube.",
+        "tips": [
+          { "icon": "restaurant", "text": "Pa amb tomàquet au Cerveceria Catalana (Eixample) — la référence abordable" },
+          { "icon": "storefront", "text": "Marché de Santa Caterina le matin : moins touristique que la Boqueria, tout aussi beau" },
+          { "icon": "local_bar", "text": "Vermouth du dimanche midi à El Xampanyet ou Bar Calders, dans le Born ou Poble Sec" },
+          { "icon": "water", "text": "Chiringuitos de la Barceloneta : gambas a la plancha, pa amb tomàquet, mer devant" }
+        ]
+      },
+      {
+        "id": "mer",
+        "icon": "water",
+        "title": "La mer et les quartiers vivants",
+        "image": "https://images.unsplash.com/photo-1571406252241-db0280bd36cd?w=900&q=80",
+        "body": "Barcelone est la rare grande ville européenne qui s'est réconciliée avec sa mer. Avant 1992, la Barceloneta était un quartier industriel enclavé entre la ville et les voies ferrées. Les Jeux Olympiques ont tout changé : port de plaisance, plages aménagées, Vila Olímpica transformée en quartier résidentiel moderne.\n\nLe quartier El Born, reconverti en quartier bohème depuis les années 2000, est aujourd'hui le plus animé après le tombée du jour. Les galeries d'art, les boutiques de créateurs catalans, les bars à vins naturels et les restaurants fusion s'entassent dans des rues médiévales. Poblenou et le 22@ (ancien district industriel reconverti en hub créatif) montrent une autre Barcelone — moins touristique, plus authentique, tout aussi belle."
+      }
+    ]
+  },
+  "highlights": [
+    { "icon": "architecture", "label": "Sagrada Família", "description": "L'œuvre d'une vie, toujours en chantier depuis 1882.", "url": "https://www.sagradafamilia.org" },
+    { "icon": "park", "label": "Park Güell", "description": "Mosaïques et vue sur la mer par Gaudí.", "url": "https://parkguell.barcelona" },
+    { "icon": "home", "label": "Casa Batlló", "description": "Immeuble-sculpture sur le Passeig de Gràcia.", "url": "https://www.casabatllo.es" },
+    { "icon": "museum", "label": "Musée Picasso", "description": "Années de formation dans 5 palais gothiques.", "url": "https://museupicasso.bcn.cat" },
+    { "icon": "shopping_bag", "label": "La Boqueria", "description": "Le plus célèbre marché couvert d'Espagne.", "url": "https://www.boqueria.barcelona" },
+    { "icon": "water", "label": "Barceloneta", "description": "Plage et chiringuitos à 15min du centre.", "url": "https://turisme.barcelona" }
+  ],
+  "gyg_partner_id": "URMJDFO",
+  "gyg_location_id": "45",
+  "gyg_cmp": "barcelona-guide",
+  "gyg_location_url": "https://www.getyourguide.com/barcelona-l45/",
+  "gyg_tours": [
+    {
+      "tour_id": "195065",
+      "icon": "architecture",
+      "category": "Incontournable",
+      "title": "Sagrada Família — Visite guidée coupe-file",
+      "description": "Skip the line pour la cathédrale la plus visitée du monde. Un guide expert déchiffre les symboles de Gaudí — la forêt de colonnes, les vitraux colorés, les façades opposées de la Nativité et de la Passion.",
+      "image": "https://images.unsplash.com/photo-1557409518-691ebcd96038?w=700&q=80"
+    },
+    {
+      "tour_id": "140241",
+      "icon": "panorama",
+      "category": "Vue panoramique",
+      "title": "Sagrada Família — Tour guidé + accès aux tours",
+      "description": "Montez dans les tours pour une vue à 360° sur Barcelone et la mer Méditerranée. L'accès aux tours se réserve rapidement — ce pack tout compris est la solution.",
+      "image": "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=700&q=80"
+    },
+    {
+      "tour_id": "50027",
+      "icon": "headphones",
+      "category": "À votre rythme",
+      "title": "Sagrada Família — Billet avec audioguide",
+      "description": "Découvrez la basilique à votre propre rythme avec un audioguide complet. Idéal pour ceux qui préfèrent explorer librement sans contrainte horaire.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80"
+    },
+    {
+      "tour_id": "288805",
+      "icon": "group",
+      "category": "Petit groupe",
+      "title": "Sagrada Família — Tour privé ou petit groupe expert",
+      "description": "Une visite en petit groupe ou en privé pour approfondir — les symboles cachés, la vision spirituelle de Gaudí, les techniques de construction toujours en cours.",
+      "image": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=700&q=80"
+    },
+    {
+      "tour_id": "137471",
+      "icon": "home",
+      "category": "Art Nouveau",
+      "title": "Tour Gaudí — Sagrada Família, Park Güell & Casa Batlló",
+      "description": "Le meilleur du Modernisme catalan en une journée : la Sagrada Família, Park Güell et ses mosaïques, la Casa Batlló avec son toit en dos de dragon.",
+      "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=700&q=80"
+    },
+    {
+      "tour_id": "151619",
+      "icon": "location_city",
+      "category": "Quartier historique",
+      "title": "Barri Gòtic & El Born — Tour à pied guidé",
+      "description": "2h dans les ruelles médiévales du quartier gothique et El Born : les fondations romaines, la cathédrale aux oies, les palais marchands et les bars à vermouth.",
+      "image": "https://images.unsplash.com/photo-1536364127590-1594e3161294?w=700&q=80"
+    }
+  ],
+  "restaurants": [
+    { "icon": "restaurant", "name": "Cerveceria Catalana", "note": "Les meilleures tapas de l'Eixample — pa amb tomàquet, croquetes, patates braves." },
+    { "icon": "wine_bar", "name": "El Xampanyet", "note": "Cave à cava historique dans le Born — vermouth et anchois depuis 1929." },
+    { "icon": "local_dining", "name": "Bar Calders", "note": "Tapas du Poble Sec, terrasse animée le dimanche midi, clientèle locale." },
+    { "icon": "water", "name": "La Cova Fumada", "note": "La buvette de la Barceloneta qui a inventé les patates braves. Arrive tôt, ferme à midi." }
+  ],
+  "hotels": [
+    { "name": "Hotel Arts Barcelona", "walk_min": 5, "eco": false, "image": "" },
+    { "name": "Generator Barcelona", "walk_min": 10, "eco": true, "image": "" },
+    { "name": "Praktik Rambla", "walk_min": 15, "eco": true, "image": "" }
+  ],
+  "escapades": [
+    {
+      "title": "Montserrat",
+      "tag": "1h de Barcelone",
+      "desc": "Massif rocheux spectaculaire, monastère bénédictin et randonnées avec vue sur les Pyrénées. Train direct depuis Plaça Espanya.",
+      "image": "https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=600&q=80"
+    },
+    {
+      "title": "Sitges",
+      "tag": "40min de Barcelone",
+      "desc": "Petite ville côtière bohème avec ses maisons blanches, ses plages calmes et ses restaurants de fruits de mer. Train direct.",
+      "image": "https://images.unsplash.com/photo-1551887196-72e32bfc7bf3?w=600&q=80"
+    },
+    {
+      "title": "Tarragone romaine",
+      "tag": "1h de Barcelone",
+      "desc": "Amphithéâtre, aqueduc et murailles romaines classés UNESCO. Une des mieux conservées de la Méditerranée.",
+      "image": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=600&q=80"
+    }
+  ]
+}

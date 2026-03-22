@@ -1,0 +1,187 @@
+{
+  "id": "venise",
+  "city": "Venise",
+  "country": "Italie",
+  "tagline": "La Sérénissime sans les foules, à une correspondance de Paris",
+  "excerpt": "2 jours à Venise",
+  "cover": "venise-cover.jpg",
+  "hero": "venise-hero.jpg",
+  "badges": [
+    "1 correspondance",
+    "TGV + Frecciarossa"
+  ],
+  "travel": {
+    "duration": "~9h30 (via Milan)",
+    "operator": "TGV Inoui + Frecciarossa",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Venezia Santa Lucia",
+    "price_from": "78€",
+    "best_season": "Octobre · Avril",
+    "co2_saved": "92%",
+    "correspondance": "1 changement à Milano Centrale",
+    "note": "Paris Gare de Lyon → Milan (~6h45) puis Frecciarossa Milan → Venise (~2h30). Achetez les deux segments : SNCF Connect pour Paris–Milan, Trenitalia pour Milan–Venise."
+  },
+  "intro": "Venise est la ville la plus photographiée et la moins bien connue d'Europe. Derrière les selfie sticks du Pont des Soupirs et les gondoliers en rayures, il y a une ville labyrinthique où l'on peut marcher une heure sans croiser un autre touriste. Le secret : quitter les Procuraties avant 9h le matin, s'engager dans n'importe quelle ruelle à gauche ou à droite, et accepter de se perdre.",
+  "essentials": {
+    "voir": [
+      {
+        "icon": "church",
+        "name": "Basilique Saint-Marc",
+        "note": "Gratuit, mais réservez le créneau tôt matin"
+      },
+      {
+        "icon": "palette",
+        "name": "Gallerie dell'Accademia",
+        "note": "Bellini, Giorgione, Titien — le meilleur de la peinture vénitienne"
+      },
+      {
+        "icon": "water",
+        "name": "Île de Burano",
+        "note": "Les maisons multicolores — 40 min de vaporetto"
+      },
+      {
+        "icon": "architecture",
+        "name": "Palais des Doges",
+        "note": "La salle du Grand Conseil vaut le prix d'entrée"
+      }
+    ],
+    "manger": [
+      {
+        "icon": "restaurant",
+        "name": "Cicchetti à l'Osteria",
+        "note": "Les tapas vénitiennes — 1€ pièce debout au bar"
+      },
+      {
+        "icon": "lunch_dining",
+        "name": "Rialto Mercato",
+        "note": "Le marché du matin pour les fruits de mer les plus frais"
+      },
+      {
+        "icon": "local_cafe",
+        "name": "Caffè Florian",
+        "note": "Le plus vieux café d'Europe (1720) — un espresso debout vaut moins cher"
+      },
+      {
+        "icon": "sports_bar",
+        "name": "Spritz vénitien",
+        "note": "Aperol ou Campari avec prosecco — 3€ dans les bacari locaux"
+      }
+    ],
+    "transport": [
+      {
+        "icon": "directions_boat",
+        "name": "Vaporetto",
+        "note": "Ticket 24h : 25€ — illimité sur tous les canaux"
+      },
+      {
+        "icon": "water",
+        "name": "Gondole",
+        "note": "80€/30 min — romantique mais négociez toujours"
+      },
+      {
+        "icon": "directions_walk",
+        "name": "À pied",
+        "note": "Le seul vrai moyen de découvrir Venise"
+      },
+      {
+        "icon": "train",
+        "name": "Frecciarossa",
+        "note": "Milan–Venise en 2h30 pour combiner les deux villes"
+      }
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "title": "La Sérénissime à l'aube",
+      "color": "#4ade80",
+      "points": [
+        {
+          "time": "08:00",
+          "title": "Place Saint-Marc",
+          "desc": "Avant 9h, la place est presque vide. Profitez-en."
+        },
+        {
+          "time": "09:00",
+          "title": "Basilique et Campanile",
+          "desc": "Montez au Campanile pour la vue aérienne sur les canaux."
+        },
+        {
+          "time": "11:00",
+          "title": "Rialto et marché",
+          "desc": "Le marché aux poissons ferme à 13h. Arrivez avant."
+        },
+        {
+          "time": "13:00",
+          "title": "Cicchetti au bar",
+          "desc": "Debout, au bar, avec un spritz vénitien. 8-10€ par personne."
+        },
+        {
+          "time": "15:00",
+          "title": "Perdez-vous",
+          "desc": "Choisissez une direction aléatoire. C'est comme ça qu'on trouve la vraie Venise."
+        },
+        {
+          "time": "18:00",
+          "title": "Coucher sur le Grand Canal",
+          "desc": "Depuis le Pont du Rialto ou l'Accademia."
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Les îles et les maîtres",
+      "color": "#1A2B3C",
+      "points": [
+        {
+          "time": "09:00",
+          "title": "Gallerie dell'Accademia",
+          "desc": "Les chefs-d'œuvre de la peinture vénitienne. 2h conseillées."
+        },
+        {
+          "time": "11:30",
+          "title": "Dorsoduro",
+          "desc": "Le quartier des étudiants — plus calme et authentique."
+        },
+        {
+          "time": "14:00",
+          "title": "Vaporetto vers Burano",
+          "desc": "40 min sur les lagunes. Les maisons colorées valent le détour."
+        },
+        {
+          "time": "17:00",
+          "title": "Retour et spritz",
+          "desc": "Dernière virée dans les bacari avant la gare."
+        },
+        {
+          "time": "19:00",
+          "title": "Venezia Santa Lucia",
+          "desc": "Frecciarossa du retour vers Milan, puis TGV vers Paris Gare de Lyon."
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "icon": "group_off",
+      "text": "Évitez juillet–août : 30 millions de touristes/an s'entassent dans une ville de 250 000 habitants. Octobre est parfait."
+    },
+    {
+      "icon": "water",
+      "text": "L'acqua alta (inondations) est fréquente de novembre à mars. Prévoyez des bottes légères."
+    },
+    {
+      "icon": "train",
+      "text": "TGV Paris–Milan sur SNCF Connect (à partir de ~49€), puis Frecciarossa Milan–Venise sur Trenitalia (à partir de ~15€). Budget total à partir de 78€ en réservant à l'avance."
+    },
+    {
+      "icon": "savings",
+      "text": "Le ticket vaporetto 24h (25€) est indispensable. Ne payez pas les taxis de l'eau — 4x plus chers."
+    }
+  ],
+  "related": [
+    "milan",
+    "barcelone",
+    "zurich"
+  ]
+}

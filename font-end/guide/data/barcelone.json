@@ -1,0 +1,78 @@
+{
+  "id": "barcelone",
+  "city": "Barcelone",
+  "country": "Espagne",
+  "tagline": "Gaudí, tapas et soleil catalan",
+  "excerpt": "3 jours à Barcelone",
+  "cover": "barcelone-cover.jpg",
+  "hero": "barcelone-hero.jpg",
+  "badges": ["Train direct", "TGV Inoui / AVE"],
+  "travel": {
+    "duration": "6h 50min",
+    "operator": "TGV Inoui / Renfe AVE",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Barcelona Sants",
+    "price_from": "79€",
+    "best_season": "Mars · Novembre",
+    "co2_saved": "91%"
+  },
+  "intro": "Barcelone est une ville qui se vit au niveau de la rue. Pas besoin de plan — il suffit de suivre l'odeur du pain grillé au matin, de se perdre dans le Barri Gòtic, de tomber nez à nez avec la Sagrada Família au détour d'une avenue. Capitale rebelle de la Catalogne, elle alterne entre génie architectural, plages urbaines et nuits qui ne finissent pas. En train depuis Paris, c'est un autre monde en moins de sept heures.",
+  "essentials": {
+    "voir": [
+      { "icon": "church",       "name": "Sagrada Família",     "note": "Réservez absolument en ligne — jamais sans billet" },
+      { "icon": "palette",      "name": "Parc Güell",          "note": "Tôt le matin pour éviter la foule" },
+      { "icon": "architecture", "name": "Casa Batlló",         "note": "La façade la plus folle de Gaudí" },
+      { "icon": "beach_access", "name": "Barceloneta",         "note": "La plage urbaine à 15 min à pied du centre" }
+    ],
+    "manger": [
+      { "icon": "storefront",   "name": "Mercat de la Boqueria","note": "Fruits, jamón et tapas dès 8h du matin" },
+      { "icon": "local_bar",    "name": "El Xampanyet",         "note": "Cava et pintxos dans le Born depuis 1929" },
+      { "icon": "restaurant",   "name": "Bar Cañete",           "note": "Les meilleures croquetas de la ville" },
+      { "icon": "lunch_dining", "name": "Cervecería Catalana",  "note": "Tapas créatives — arriver avant midi" }
+    ],
+    "transport": [
+      { "icon": "subway",          "name": "Metro TMB",       "note": "T-Casual 10 voyages : 11,35€" },
+      { "icon": "directions_bike", "name": "Bicing",          "note": "Vélos en libre-service, 50 cts/30 min" },
+      { "icon": "tram",            "name": "Trambaix/Trambesòs","note": "Inclus dans le titre de transport" },
+      { "icon": "directions_bus",  "name": "Aérobus",         "note": "Aéroport ↔ Plaça Catalunya en 35 min" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "L'Eixample et Gaudí", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Sagrada Família",    "desc": "Arrivée à l'ouverture. La lumière du matin traverse les vitraux de façon irréelle." },
+        { "time": "11:30", "title": "Casa Batlló",        "desc": "Façade organique inspirée d'un dragon. Comptez 1h." },
+        { "time": "13:30", "title": "Déjeuner Eixample",  "desc": "Les restaurants du quartier proposent un menu del día à 12-15€ — le meilleur rapport qualité-prix." },
+        { "time": "15:30", "title": "Passeig de Gràcia",  "desc": "La plus belle avenue de Barcelone. Vitrine architecturale et shopping." },
+        { "time": "19:00", "title": "Vermouth El Born",   "desc": "L'apéro catalan commence tôt. El Xampanyet pour le cava." }
+      ]
+    },
+    {
+      "day": 2, "title": "Barri Gòtic et mer", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:00", "title": "Boqueria",           "desc": "Le marché le plus célèbre d'Espagne. Achetez des fruits pour la route." },
+        { "time": "10:30", "title": "Barri Gòtic",        "desc": "Laissez-vous perdre. La cathédrale, le pont des évêques, la plaça Reial." },
+        { "time": "13:00", "title": "El Born",             "desc": "Cervecería Catalana pour les tapas, puis flânerie dans les boutiques." },
+        { "time": "16:00", "title": "Barceloneta",         "desc": "Plage, sangría glacée et coucher de soleil sur la Méditerranée." },
+        { "time": "20:30", "title": "Dîner tardif",        "desc": "Les Catalans dînent à 21h minimum. Réservez à l'avance le week-end." }
+      ]
+    },
+    {
+      "day": 3, "title": "Hauteurs et départ", "color": "#94a3b8",
+      "points": [
+        { "time": "09:00", "title": "Parc Güell",         "desc": "Prenez le bus 24 depuis Passeig de Gràcia. Arrivez dès l'ouverture pour les zones gratuites." },
+        { "time": "11:30", "title": "Gràcia",              "desc": "Le quartier le plus authentique, loin du tourisme. Café et lecture." },
+        { "time": "13:30", "title": "Dernier déjeuner",    "desc": "Jamón, fromage manchego et pain con tomate — les classiques." },
+        { "time": "16:00", "title": "Barcelona Sants",     "desc": "Retour en TGV/AVE vers Paris. Moins de 7h de beauté ferroviaire." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "savings",   "text": "Le T-Casual (10 voyages, 11,35€) couvre métro, bus, tram et même le funiculaire de Montjuïc." },
+    { "icon": "schedule",  "text": "La Sagrada Família est fermée aux visites le dimanche matin (messe). Réservez un créneau l'après-midi." },
+    { "icon": "train",     "text": "TGV/AVE Paris–Barcelone : 2 trains/jour depuis la Gare de Lyon. À partir de 79€, les billets les moins chers se trouvent 60 jours à l'avance sur SNCF Connect ou Renfe." },
+    { "icon": "security",  "text": "Restez vigilant sur les Ramblas et à la Boqueria — pickpockets très actifs dans ces zones touristiques." }
+  ],
+  "related": ["madrid", "venise", "milan"]
+}

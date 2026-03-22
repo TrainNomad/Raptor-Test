@@ -1,0 +1,37 @@
+/* ============================================================
+   TrainNomad.eu — css/trajets-tablet.css
+   Tablettes  ·  640px – 1023px
+   ============================================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 64px; padding-left: 1.25rem; padding-right: 1.25rem; }
+  nav .hidden.md\:flex { gap: 1.25rem; }
+
+  /* ── Search bar ── */
+  .bg-white.border-b.border-slate-100.py-6.px-6.sticky { top: 64px !important; padding: 0.65rem 1.25rem !important; }
+  .flex.flex-wrap.lg\:flex-nowrap { flex-wrap: wrap; gap: 0; }
+  .flex-1.min-w-\[200px\] { flex: 1; min-width: 180px; border-right: 1px solid #f1f5f9; }
+  .w-full.lg\:w-40 { width: 140px; flex-shrink: 0; }
+  .w-px.bg-slate-100 { display: none !important; }
+  #btn-search { width: 100%; border-radius: 0.75rem; padding: 0.75rem 1rem; margin-top: 0.25rem; }
+
+  /* ── Main layout ── */
+  .results__main { padding: 1.5rem 1.25rem; gap: 1.5rem; }
+  aside { display: none !important; }
+
+  /* Journey card */
+  .card-summary { padding: 18px 16px; gap: 16px; }
+  .card-time { font-size: 16px; }
+  .card-track { width: 72px; }
+
+  /* ── Footer ── */
+  footer { padding-top: 3rem; padding-bottom: 3rem; }
+  footer .max-w-7xl { padding-left: 1.25rem; padding-right: 1.25rem; }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem;
+  }
+  footer .col-span-1 { grid-column: 1 / -1; }
+}

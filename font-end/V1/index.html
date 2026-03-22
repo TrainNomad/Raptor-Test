@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KNQFGSZX');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>TrainNomad | Trouvez vos disponibilités TGVmax & Trajets Éco</title>
+    <meta name="description" content="Trouvez facilement vos billets TGVmax réservables. Utilisez notre carte interactive et notre calendrier pour planifier vos voyages éco-responsables avec TrainNomad.">
+    
+    <link rel="icon" type="image/x-icon" href="assets/Train_Marker.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/autocomplete.css">
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <meta property="og:title" content="TrainNomad - Le voyage commence sur les rails">
+    
+    <meta property="og:description" content="Marre de chercher des places TGV Max ? Trouvez instantanément vos trajets disponibles avec notre carte interactive. Planifiez vos voyages éco-responsables en un clic.">
+    <meta property="og:url" content="https://trainnomad.eu">
+    <meta property="og:image" content="https://trainnomad.eu/assets/background-index.jpeg">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQFGSZX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header class="header">
+        <nav class="header__nav">
+            <div class="nav__logo">
+                <h3 class="nav__logo-title">TrainNomad</h3>
+            </div>
+            <div class="nav__right">
+                <a href="A_propos.html">
+                    <p class="nav__right-about_me">
+                        À propos
+                    </p>
+                </a>
+            </div>
+        </nav>
+
+        <div class="main__hero">
+            <div class="hero__background">
+                <img src="Assets/background_index.jpg" class="hero__background-img">
+                 <!-- <img src="assets/Background_Index.svg" class="hero__background-svg"> -->
+            </div>
+            
+            <!-- <div class="hero__sections">
+                <h1>L'essentiel du rail, sans la complexité</h1>
+                <p>Toutes les connexions et tous vos avantages réunis sur une seule interface</p>
+            </div> -->
+            <div class="hero__sections">
+                <h1>L'Europe, un voyage à la fois</h1>
+                <p>
+                    Explorez de nouveaux horizons en toute liberté. De la France à l'Angleterre, 
+                    consultez les horaires de toutes les grandes lignes européennes et 
+                    tracez votre propre itinéraire sur les rails.
+                </p>
+            </div>
+            <div class="search__main">
+
+        <!-- Type de trajet -->
+        <div class="search__main-top">
+            <div class="trip-type-dropdown">
+                <button class="trip-type-button" id="tripTypeBtn">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <span id="selectedTripType">Aller simple</span>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="trip-type-menu hidden" id="tripTypeMenu">
+                    <div class="trip-type-option" data-value="roundtrip">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i> Aller-retour
+                    </div>
+                    <div class="trip-type-option selected" data-value="oneway">
+                        <i class="fa-solid fa-arrow-right"></i> Aller simple
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inputs principaux -->
+        <div class="search__main-bottom">
+            <div class="search__inputs">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Départ" class="search__depart-input" id="input-from" autocomplete="off">
+                    <div id="ac-from" class="suggestions-container hidden"></div>
+                    <input type="hidden" id="id-from">
+                </div>
+
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Arrivée" class="search__arrive-input" id="input-to" autocomplete="off">
+                    <div id="ac-to" class="suggestions-container hidden"></div>
+                    <input type="hidden" id="id-to">
+                </div>
+
+                <div class="input-wrapper">
+                    <input type="date" class="search__date-input" id="input-date">
+                </div>
+
+                <div class="input-wrapper" id="return-date-wrapper" style="display:none">
+                    <input type="date" class="search__date-input" id="return-date">
+                </div>
+            </div>
+
+            <div class="search__bouton-container">
+                <button type="button" class="search__bouton" id="btn-search" disabled>RECHERCHER</button>
+            </div>
+        </div>
+
+        <!-- Options supplémentaires (heure + carte) -->
+        <div class="search__extras">
+            <div class="field-extra">
+                <label>Heure de départ</label>
+                <input type="time" id="input-time" value="06:00">
+            </div>
+            <div class="field-extra">
+                <label>Carte de réduction</label>
+                <select id="input-carte">
+                    <option value="Tarif Normal">Sans carte</option>
+                    <option value="Tarif Avantage">Carte Avantage (Jeune / Senior / Week-end / Duo)</option>
+                    <option value="Tarif Elève - Etudiant - Apprenti">Carte Avantage Jeune / Étudiant</option>
+                    <option value="Tarif Réglementé">Carte Liberté / Abonnement pro</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Barre de statut moteur -->
+        <!-- <div class="status-bar">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-text">Connexion au moteur…</span>
+        </div> -->
+    </div>
+        </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════ MAIN -->
+    <main class="main">
+
+
+
+        <!-- ── Section Compagnies ─────────────────────────────────────────── -->
+        <section class="companies">
+            <div class="companies__label">Compagnies & services disponibles</div>
+            <div class="companies__track-wrapper">
+                <div class="companies__track">
+                    <!-- Dupliqué pour le défilement infini -->
+                    <div class="company-item"><img src="Assets/icone_logo/tgv_inoui.png" alt="TGV Inoui"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ouigo.png" alt="Ouigo"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ter.png" alt="TER"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/intercites.png" alt="Intercités"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/lyria.png" alt="Lyria"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/eurostar.png" alt="Eurostar"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/frecciarossa.png" alt="Frecciarossa"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ice.png" alt="ICE"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/renfe.png" alt="renfe"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/SNCB.png" alt="sncb"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/nightjet.png" alt="Nightjet"></div>
+                    <!-- Copie pour boucle seamless -->
+                    <div class="company-item"><img src="Assets/icone_logo/tgv_inoui.png" alt="TGV Inoui"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ouigo.png" alt="Ouigo"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ter.png" alt="TER"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/intercites.png" alt="Intercités"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/lyria.png" alt="Lyria"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/eurostar.png" alt="Eurostar"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/frecciarossa.png" alt="Frecciarossa"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/ice.png" alt="ICE"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/renfe.png" alt="renfe"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/SNCB.png" alt="sncb"></div>
+                    <div class="company-item"><img src="Assets/icone_logo/nightjet.png" alt="Nightjet"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── Bandeau données libres ──────────────────────────────────────── -->
+        <section class="opendata-banner">
+            <div class="opendata-banner__inner">
+                <div class="opendata-banner__icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div class="opendata-banner__text">
+                    <strong>Projet 100 % données libres</strong>
+                    TrainNomad est construit exclusivement sur des données ouvertes (GTFS SNCF, API SNCF open data).
+                    Les <strong>prix des billets ne sont pas disponibles</strong> via ces sources — pour réserver, rendez-vous directement sur le site de la compagnie.
+                </div>
+            </div>
+        </section>
+
+                <!-- ── Bandeau TGVMax ──────────────────────────────────────── -->
+
+          <div class="trainmax-card-container">
+    <div class="trainmax-card-content">
+        <div class="trainmax-badge">Focus TGVmax</div>
+        <div class="trainmax-text-wrapper">
+            <h2>Optimisez votre abonnement <br><span>Max Jeune & Senior</span></h2>
+            <p>
+                Marre de voir "complet" sur tous vos trajets ? <strong>TrainMax</strong> est notre outil dédié pour débusquer les places à 0€ en temps réel. Ne ratez plus aucune disponibilité sur le réseau TGV et Intercités.
+            </p>
+            <a href="TGVMax/index.html" class="trainmax-button">
+                Lancer TrainMax <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <style>
+        .trainmax-card-container {
+            position: relative;
+            margin: 40px auto;
+            max-width: 1100px;
+            min-height: 350px;
+            border-radius: 24px; /* Coins bien arrondis */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            /* Image de train en arrière-plan + dégradé vert */
+            background: 
+                linear-gradient(105deg, rgba(14, 55, 33, 0.95) 30%, rgba(34, 139, 34, 0.4) 100%),
+                url('Assets/TGVMax/TGVMax-Section.jpg') center/cover no-repeat;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            font-family: sans-serif;
+            color: #ffffff;
+        }
+
+        .trainmax-card-content {
+            padding: 40px 60px;
+            z-index: 2;
+            width: 60%;
+        }
+
+        .trainmax-badge {
+            display: inline-block;
+            background: #e8007d; /* On garde le rose TGVmax pour le contraste */
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .trainmax-card-content h2 {
+            font-size: 2.2rem;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+
+        .trainmax-card-content h2 span {
+            color: #4ade80; /* Un vert plus clair et brillant */
+        }
+
+        .trainmax-card-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .trainmax-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            color: #0e3721;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .trainmax-button:hover {
+            transform: translateY(-3px);
+            background: #4ade80;
+            color: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .trainmax-card-container {
+                margin: 20px;
+                background: linear-gradient(180deg, rgba(14, 55, 33, 0.9) 60%, rgba(34, 139, 34, 0.6) 100%),
+                            url('Assets/background_index.jpg') center/cover no-repeat;
+            }
+            .trainmax-card-content {
+                width: 100%;
+                padding: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</div>
+
+        <!-- ── Comment ça marche ──────────────────────────────────────────── -->
+        <section class="how">
+            <div class="how__container">
+                <h2 class="how__title">Comment ça marche ?</h2>
+                <p class="how__subtitle">Trois étapes pour trouver votre prochain trajet</p>
+
+                <div class="how__steps">
+                    <div class="how__step">
+                        <div class="step__number">1</div>
+                        <div class="step__icon">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="1.8">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Cherchez votre trajet</h3>
+                        <p class="step__desc">Saisissez votre gare de départ, d'arrivée, la date et l'heure souhaitée dans le formulaire ci-dessus.</p>
+                    </div>
+
+                    <div class="how__connector"></div>
+
+                    <div class="how__step">
+                        <div class="step__number">2</div>
+                        <div class="step__icon">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="1.8">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Explorez les horaires</h3>
+                        <p class="step__desc">Consultez tous les itinéraires disponibles avec horaires précis, durée, correspondances et types de trains.</p>
+                    </div>
+
+                    <div class="how__connector"></div>
+
+                    <div class="how__step">
+                        <div class="step__number">3</div>
+                        <div class="step__icon">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="1.8">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                <line x1="6" y1="1" x2="6" y2="4"></line>
+                                <line x1="10" y1="1" x2="10" y2="4"></line>
+                                <line x1="14" y1="1" x2="14" y2="4"></line>
+                            </svg>
+                        </div>
+                        <h3 class="step__title">Réservez sur le site officiel</h3>
+                        <p class="step__desc">Muni des horaires, rendez-vous sur le site de la compagnie pour finaliser votre réservation et obtenir votre billet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Ce que TrainNomad NE fait PAS ──────────────────────────────── -->
+        <section class="transparency">
+            <div class="transparency__container">
+                <div class="transparency__col transparency__col--left">
+                    <h2>Ce que TrainNomad propose</h2>
+                    <ul class="transparency__list transparency__list--yes">
+                        <li><span class="t-icon t-yes">✓</span> Horaires en temps réel issus des données GTFS SNCF</li>
+                        <li><span class="t-icon t-yes">✓</span> Tous les itinéraires : directs et avec correspondances</li>
+                        <li><span class="t-icon t-yes">✓</span> Compatibilité avec vos cartes de réduction SNCF</li>
+                        <li><span class="t-icon t-yes">✓</span> Couverture nationale + liaisons internationales</li>
+                        <li><span class="t-icon t-yes">✓</span> Moteur de calcul d'itinéraires (algorithme RAPTOR)</li>
+                    </ul>
+                </div>
+                <div class="transparency__col transparency__col--right">
+                    <h2>Ce que TrainNomad ne propose pas</h2>
+                    <ul class="transparency__list transparency__list--no">
+                        <li><span class="t-icon t-no">✗</span> Les prix des billets <em>(données commerciales non libres)</em></li>
+                        <li><span class="t-icon t-no">✗</span> La réservation directe en ligne</li>
+                        <li><span class="t-icon t-no">✗</span> Les disponibilités des places en temps réel</li>
+                        <li><span class="t-icon t-no">✗</span> Les offres promotionnelles et flash</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Outils disponibles ──────────────────────────────────────────── -->
+        <section class="tools">
+            <div class="tools__container">
+                <h2 class="tools__title">Des outils pour affiner votre recherche</h2>
+
+                <div class="tools__cards-row">
+                    <div class="tool-card">
+                        <div class="tool-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <rect x="7" y="14" width="3" height="3" fill="#196080"></rect>
+                            </svg>
+                        </div>
+                        <h3 class="tool-card__title">Calendrier de disponibilités</h3>
+                        <p class="tool-card__description">Visualisez les jours où des trains circulent sur votre trajet et identifiez les meilleurs créneaux.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="2">
+                                <circle cx="12" cy="10" r="3"></circle>
+                                <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="tool-card__title">Carte interactive</h3>
+                        <p class="tool-card__description">Sélectionnez votre gare sur la carte et découvrez toutes les destinations accessibles depuis chez vous.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3 class="tool-card__title">Détail des itinéraires</h3>
+                        <p class="tool-card__description">Horaires précis, numéros de train, durée de correspondance, type de matériel — tout ce dont vous avez besoin.</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#196080" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="tool-card__title">Cartes de réduction</h3>
+                        <p class="tool-card__description">Filtrez les résultats selon votre carte : TGVmax, Carte Avantage, Carte Liberté ou sans carte.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer_nav"> 
+            <div class="footer_left">
+                <p>@TrainNomad - 2026</p>
+
+                <a href="mention legal.html">
+                    <p>Mentions légales</p>
+                </a>
+                <!-- <p>Mentions légales</p> -->
+            </div>
+            <div class="footer_right">
+                <h3>TrainNomad</h3>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script src="Script/autocomplete.js"></script>
+    <script src="Script/index.js"></script>
+</body>
+</html>

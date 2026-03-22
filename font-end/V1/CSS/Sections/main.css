@@ -1,0 +1,635 @@
+/* -------------------------------------- */
+/* --- DESTINATIONS POPULAIRES --- */
+/* -------------------------------------- */
+
+.main {
+    width: 100%;
+    padding: 80px 0;
+    /* background-color: #fafafa; */
+}
+
+.destinations {
+    width: 100%;
+}
+
+.destinations__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.destinations__header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.destinations__title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.destinations__subtitle {
+    font-size: 16px;
+    color: #717171;
+}
+
+/* Grille des destinations */
+.destinations__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+}
+
+/* Carte de destination */
+.destination-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.destination-card__image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+.destination-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.destination-card:hover .destination-card__image img {
+    transform: scale(1.05);
+}
+
+.destination-card__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+}
+
+.destination-card__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.3;
+}
+
+.destination-card__tagline {
+    font-size: 16px;
+    color: rgb(236, 134, 66);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.destination-card__highlights {
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.5;
+}
+
+.destination-card__highlights strong {
+    color: #222;
+}
+
+/* Section TrainNomad Tip */
+.destination-card__trainnomad-tip {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background-color: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    /* border-left: 3px solid rgb(236, 134, 66); */
+}
+
+.tip-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.destination-card__trainnomad-tip p {
+    font-size: 13px;
+    color: #484848;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.destination-card__trainnomad-tip strong {
+    color: #222;
+}
+
+.destination-card__description {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.6;
+    margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .destinations__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .destinations__title {
+        font-size: 26px;
+    }
+    
+    .main {
+        padding: 50px 0;
+    }
+    
+    .destination-card__content {
+        padding: 20px;
+        gap: 12px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .destinations__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .destinations__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* -------------------------------------- */
+/* --- OUTILS PRATIQUES --- */
+/* -------------------------------------- */
+
+.tools {
+    width: 100%;
+    background-color: white;
+    padding: 80px 0;
+}
+
+.tools__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.tools__title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 48px;
+    text-align: left;
+    line-height: 1.3;
+}
+
+.tools__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+}
+
+/* Cartes d'outils - Colonne gauche */
+.tools__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tool-card {
+    background: #f7f9fc;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tool-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.1);
+}
+
+.tool-card__icon {
+    flex-shrink: 0;
+}
+
+.tool-card__content {
+    flex-grow: 1;
+}
+
+.tool-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.tool-card__description {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.6;
+}
+
+/* Visuel calendrier - Colonne droite */
+.tools__visual {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.tools__visual-header {
+    margin-bottom: 32px;
+}
+
+.tools__visual-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.tools__visual-header p {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.6;
+}
+
+.tools__visual-header strong {
+    color: #222;
+    font-weight: 600;
+}
+
+/* Aperçu du calendrier */
+.calendar-preview {
+    background: #fafbfc;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.calendar-preview__header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.calendar-preview__icon svg {
+    display: block;
+}
+
+.calendar-preview__controls {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-bar {
+    height: 12px;
+    background: #c8d6e5;
+    border-radius: 6px;
+}
+
+.control-bar.short {
+    width: 60%;
+}
+
+/* Grille du calendrier */
+.calendar-preview__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-cell {
+    aspect-ratio: 1;
+    background: white;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.calendar-cell.available {
+    background: #d4edda;
+    border-color: #28a745;
+}
+
+.calendar-cell.available .star {
+    color: #28a745;
+}
+
+.calendar-cell.unavailable {
+    background: #f8d7da;
+    border-color: #dc3545;
+}
+
+.calendar-cell.unavailable .cross {
+    color: #dc3545;
+    font-size: 24px;
+}
+
+.calendar-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive pour la section outils */
+@media (max-width: 968px) {
+    .tools__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .tools__title {
+        font-size: 26px;
+    }
+    
+    .tools {
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .tool-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .calendar-preview__grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+    
+    .calendar-cell {
+        font-size: 16px;
+    }
+    
+    .tools__visual {
+        padding: 20px;
+    }
+}
+
+/* ── SECTION COMPAGNIES (Logos défilants) ── */
+.companies {
+    padding: 40px 0 20px;
+    overflow: hidden;
+    border-bottom: 1px solid #e8e8e8;
+}
+.companies__label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 20px;
+}
+.companies__track-wrapper {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.companies__track {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    width: max-content;
+    animation: scroll-logos 30s linear infinite;
+}
+.companies__track:hover { animation-play-state: paused; }
+
+@keyframes scroll-logos {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.company-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    flex-shrink: 0;
+    filter: grayscale(40%);
+    opacity: 0.75;
+    transition: filter 0.2s, opacity 0.2s;
+}
+.company-item:hover { filter: grayscale(0%); opacity: 1; }
+.company-item img {
+    height: 36px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+/* ── BANDEAU OPEN DATA ── */
+.opendata-banner {
+    background: #fff8ed;
+    border-top: 1px solid #f0d89a;
+    border-bottom: 1px solid #f0d89a;
+    padding: 16px 24px;
+}
+.opendata-banner__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: #7a5c1a;
+    line-height: 1.6;
+}
+.opendata-banner__icon {
+    flex-shrink: 0;
+    color: #c8962e;
+    margin-top: 2px;
+}
+
+/* ── COMMENT ÇA MARCHE ── */
+.how {
+    padding: 72px 24px 60px;
+    background: #fff;
+}
+.how__container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+.how__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+.how__subtitle {
+    font-size: 15px;
+    color: #888;
+    margin-bottom: 52px;
+}
+.how__steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.how__step {
+    flex: 1;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 0 16px;
+}
+.how__connector {
+    width: 60px;
+    height: 2px;
+    background: #e0e0e0;
+    margin-top: 56px;
+    flex-shrink: 0;
+}
+.step__number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #196080;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.step__icon { color: #196080; }
+.step__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+.step__desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Outils ──────────────────────────────────────────────────────────── */
+    .tools { padding: 60px 0px ; background: #fff; }
+    .tools__container { max-width: 960px; margin: 0 auto; }
+    .tools__title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 36px;
+        text-align: center;
+    }
+    .tools__cards-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    .tool-card {
+        background: #f4f6f8;
+        border-radius: 10px;
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .tool-card:hover {
+        box-shadow: 0 6px 24px rgba(25,96,128,0.1);
+        transform: translateY(-3px);
+    }
+    .tool-card__title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0;
+    }
+    .tool-card__description {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+/* ── TRANSPARENCE (Ce que nous faisons / ne faisons pas) ── */
+.transparency {
+    background: #f4f6f8;
+    padding: 60px 24px;
+}
+.transparency__container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+.transparency__col h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+.transparency__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.transparency__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.5;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+.t-icon {
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.t-yes { color: #4a6741; }
+.t-no  { color: #8b3a2a; }
+
+/* ── RESPONSIVE MAIN ── */
+@media (max-width: 768px) {
+    .how__steps { flex-direction: column; align-items: center; }
+    .how__connector { width: 2px; height: 30px; margin: 0; }
+    .transparency__container { grid-template-columns: 1fr; }
+}

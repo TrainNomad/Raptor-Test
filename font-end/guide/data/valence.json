@@ -1,0 +1,72 @@
+{
+  "id": "valence",
+  "city": "Valence",
+  "country": "Espagne",
+  "tagline": "Paella, Cité des Arts et mer Méditerranée",
+  "excerpt": "2 jours à Valence",
+  "cover": "valence-cover.jpg",
+  "hero": "valence-hero.jpg",
+  "badges": ["1 correspondance", "TGV + AVE / Euromed"],
+  "travel": {
+    "duration": "~11h (via Barcelone)",
+    "operator": "TGV Inoui + Renfe AVE / Euromed",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Valencia Joaquín Sorolla",
+    "price_from": "99€",
+    "best_season": "Mars · Novembre",
+    "co2_saved": "88%",
+    "correspondance": "1 changement à Barcelona Sants",
+    "note": "Paris Gare de Lyon → Barcelone Sants (6h50, dès 79€), puis Renfe Euromed ou AVE Barcelone → Valence (3h15 à 1h40 selon train, dès 20€). Arrivée à Valencia Joaquín Sorolla Station. Achetez Paris–Barcelone sur SNCF Connect et Barcelone–Valence sur Renfe.es.",
+    "operators_used": ["SNCF", "RENFE"]
+  },
+  "intro": "Valence est la ville espagnole la plus sous-estimée. Moins touristique que Barcelone, moins aride que Madrid, elle offre le meilleur des deux mondes : une vieille ville médiévale, une plage en tram à 15 minutes du centre, et la Ciudad de las Artes y las Ciencias — complexe architectural futuriste de Santiago Calatrava qui donne l'impression d'avoir atterri sur une autre planète. Et la paella ? Elle a été inventée ici, dans les rizières du lac Albufera.",
+  "essentials": {
+    "voir": [
+      { "icon": "architecture",   "name": "Ciudad de las Artes y las Ciencias","note": "Calatrava dans toute sa démesure — incontournable" },
+      { "icon": "church",         "name": "Cathédrale + Saint-Calice",  "note": "La cathédrale abrite le Saint-Calice — le vrai Graal ?" },
+      { "icon": "water",          "name": "Jardins du Turia",           "note": "L'ancien fleuve transformé en parc de 9 km — unique en Europe" },
+      { "icon": "beach_access",   "name": "Playa de la Malvarrosa",    "note": "La plage urbaine à 15 min en tram" }
+    ],
+    "manger": [
+      { "icon": "restaurant",     "name": "Paella valenciana",          "note": "Uniquement riz, poulet, lapin et légumes — la vraie recette" },
+      { "icon": "storefront",     "name": "Mercat Central",            "note": "L'un des plus grands marchés couverts d'Europe (1920)" },
+      { "icon": "local_cafe",     "name": "Horchata et fartons",       "note": "La boisson locale à la chufa — Horchatería Santa Catalina" },
+      { "icon": "sports_bar",     "name": "El Carmen",                 "note": "Quartier des bars à tapas — vie nocturne très animée" }
+    ],
+    "transport": [
+      { "icon": "subway",         "name": "Métro Valence (FGV)",       "note": "10 lignes — billet simple 1,50€" },
+      { "icon": "tram",           "name": "Tram vers la plage",        "note": "Ligne T3/T5 Pont de Fusta → Malvarrosa (20 min)" },
+      { "icon": "directions_bike","name": "Valenbisi",                  "note": "Vélos en libre-service — 10 cts/30 min" },
+      { "icon": "directions_bus", "name": "Bus EMT",                   "note": "Couvre toute la ville — abonnement journalier 2€" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Architecture et vieille ville", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Mercat Central",                  "desc": "Jus de orange fraîchement pressé et tortilla pour bien commencer." },
+        { "time": "10:30", "title": "Cathédrale et Miguelete",         "desc": "Montez le clocher octogonal pour la vue sur la vieille ville." },
+        { "time": "12:30", "title": "Jardins du Turia",               "desc": "Balade ou vélo dans l'ancien lit du fleuve — presque 10 km de verdure." },
+        { "time": "14:00", "title": "Paella au bord du lac Albufera",  "desc": "30 min en bus depuis le centre. La paella dans son environnement naturel." },
+        { "time": "17:00", "title": "Ciudad de las Artes",            "desc": "La Cité des Arts et des Sciences de Calatrava — visite extérieure libre et gratuite." },
+        { "time": "21:00", "title": "El Carmen",                      "desc": "Le quartier de nuit de Valence — bars à tapas et ambiance animée." }
+      ]
+    },
+    {
+      "day": 2, "title": "Plage et départ", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:30", "title": "Horchata de Chufa",              "desc": "La boisson valencienne par excellence, avec des fartons — Horchatería Santa Catalina." },
+        { "time": "10:30", "title": "Playa Malvarrosa",               "desc": "La plage de Blasco Ibáñez. Tram depuis le centre en 15 min." },
+        { "time": "13:00", "title": "Déjeuner de fruits de mer",      "desc": "Restaurant de plage — arroz a banda ou fideuà." },
+        { "time": "15:30", "title": "Valencia Joaquín Sorolla",        "desc": "Renfe Euromed vers Barcelone, puis TGV vers Paris Gare de Lyon." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "train",       "text": "Achetez Paris–Barcelone (dès 79€) sur SNCF Connect, puis Barcelone–Valence (dès 20€) sur Renfe.es. L'Euromed (arrêts côtiers) est moins cher mais plus lent que l'AVE ; les deux sont confortables." },
+    { "icon": "restaurant",  "text": "La vraie paella valenciana ne contient ni fruits de mer ni chorizo — uniquement riz, poulet, lapin, haricots et safran. Tout le reste est une paella mixta, pas la recette originale." },
+    { "icon": "schedule",    "text": "La Fallas (mi-mars) est le festival le plus impressionnant d'Espagne : sculptures géantes et feux d'artifice chaque nuit. Réservez l'hôtel 6 mois à l'avance." },
+    { "icon": "wb_sunny",    "text": "Valence est agréable toute l'année. Les étés sont chauds (35°C) mais la brise marine adoucit les températures sur la plage." }
+  ],
+  "related": ["barcelone", "madrid", "grenade"]
+}

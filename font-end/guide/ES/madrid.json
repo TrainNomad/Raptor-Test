@@ -1,0 +1,154 @@
+{
+  "id": "madrid",
+  "slug": "madrid",
+  "country": "ES",
+  "country_name": "Espagne",
+  "city": "Madrid",
+  "tagline": "La capitale qui se réveille quand les autres s'endorment",
+  "description": "Le Prado, Velázquez, le vermouth à 11h et les tapas à minuit — Madrid s'atteint en 9h45 depuis Paris.",
+  "hero_image": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=85",
+  "categories": ["city-break", "culture", "gastronomie"],
+  "train": {
+    "duration": "9h 45min",
+    "price_from": 59,
+    "co2_saving": 87,
+    "stop_area_id": "stop_area:OCE71107000",
+    "stop_name": "Madrid Puerta de Atocha"
+  },
+  "plane": {
+    "duration": "~6h 00min",
+    "co2_kg": 270
+  },
+  "editorial": {
+    "intro": "Madrid n'est pas une ville qui séduit au premier coup d'œil. Pas de mer, pas de monument-cliché universellement connu, pas de charme méditerranéen immédiat. Mais laissez-vous une journée, et vous comprendrez : c'est une ville à l'énergie incroyable, qui vit à un rythme décalé de deux heures sur le reste de l'Europe, dont les musées sont parmi les plus riches du monde, et dont les habitants ont élevé le fait de traîner dans les bars à une forme d'art de vivre.",
+    "sections": [
+      {
+        "id": "prado",
+        "icon": "palette",
+        "title": "Le Triangle d'Or des musées",
+        "image": "https://images.unsplash.com/photo-1569858237737-5e0c42b5cb7e?w=900&q=80",
+        "body": "Le Paseo del Prado concentre trois musées qui, réunis, forment l'une des plus grandes collections artistiques au monde. Le Prado d'abord : 8 000 tableaux dont 1 300 exposés, une collection royale espagnole construite au fil des siècles. Velázquez y est omniprésent — Les Ménines (1656) est considéré par beaucoup comme la plus grande peinture de l'histoire occidentale. Goya y occupe des salles entières, du brillant des cartons de tapisseries jusqu'à l'angoisse noire de Saturne dévorant son fils.\n\nLe Musée Thyssen-Bornemisza, juste en face, couvre les siècles que le Prado ignore — des primitifs flamands à Hopper, Mondrian et Lichtenstein. Le Reina Sofía, à l'extrémité du paseo, est dédié à l'art moderne espagnol — Guernica de Picasso y trône dans une salle à elle seule, entourée de ses études préparatoires. Ces trois musées nécessitent chacun une demi-journée au minimum."
+      },
+      {
+        "id": "histoire",
+        "icon": "history_edu",
+        "title": "Du Palais Royal aux Habsbourg",
+        "image": "https://images.unsplash.com/photo-1571997804658-a65e65f5a4c6?w=900&q=80",
+        "body": "Madrid fut choisie comme capitale par Philippe II en 1561, sans autre raison affirmée que la centralité géographique de la péninsule. Le Palais Royal (Palacio Real), construit sous Philippe V au XVIIIe siècle pour remplacer l'Alcázar incendié, est le plus grand d'Europe en surface (135 000 m²) — plus grand que Versailles ou Buckingham. Il n'est plus résidence royale depuis 1931, mais la famille royale y reçoit encore lors des visites d'État.\n\nLe Madrid des Habsbourg — les quartiers autour de la Plaza Mayor et de la Puerta del Sol — date du XVIe et XVIIe siècle. La Plaza Mayor, fermée sur elle-même avec ses portiques uniformes, a servi de décor aux autodafés de l'Inquisition, aux corridas et aux exécutions royales. Aujourd'hui c'est surtout un piège à touristes qu'on traverse avec plaisir avant de s'éloigner dans les ruelles de La Latina."
+      },
+      {
+        "id": "gastronomie",
+        "icon": "restaurant",
+        "title": "Tapas, vermouth et churros à minuit",
+        "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
+        "body": "Madrid mange tard — très tard. Le déjeuner entre 14h et 16h, le dîner rarement avant 21h, et les cuisines restent ouvertes jusqu'à 1h du matin. Le vermouth du dimanche à midi (le vermut) est une institution : à La Latina ou Malasaña, les bars servent leur maison avec des olives et des chips de façon presqu'automatique.\n\nLes tapas madrilènes classiques : patatas bravas (sauce piquante et aïoli), croquetas de jamón, bocadillo de calamares (baguette aux calmars frits — spécialité absolue de Madrid, absente partout ailleurs). Le Mercado de San Miguel, à côté de la Plaza Mayor, est touristique mais pratique pour picorer. Les véritables bars à tapas sont dans les ruelles de La Latina, autour de la Cava Baja. Et le chocolate con churros, chez San Ginés, est le dernier repas des noctambules à 6h du matin.",
+        "tips": [
+          { "icon": "restaurant", "text": "Bocadillo de calamares à El Brillante ou dans les bars autour de la Plaza Mayor" },
+          { "icon": "wine_bar", "text": "Tapas de La Latina : Cava Baja et Cava Alta, les meilleures adresses à 5min de la Plaza Mayor" },
+          { "icon": "local_cafe", "text": "Chocolate con churros chez San Ginés (24h/24) — l'institution depuis 1894" },
+          { "icon": "storefront", "text": "Marché de l'Encants le samedi — marché aux puces vintage le plus grand de la péninsule" }
+        ]
+      },
+      {
+        "id": "quartiers",
+        "icon": "location_city",
+        "title": "Malasaña, Lavapiés, La Latina",
+        "image": "https://images.unsplash.com/photo-1495562569060-2eec283d3391?w=900&q=80",
+        "body": "Madrid s'est réinventée par ses quartiers. Malasaña, berceau de la Movida des années 80 (le mouvement culturel post-franquiste autour de Almodóvar), est today le quartier le plus vivant pour la nuit — bars à vins naturels, cafés vintage, concerts en sous-sol. Lavapiés est devenu multiculturel et artistique, avec ses théâtres alternatifs, ses restaurants du monde entier et ses galeries informelles.\n\nLe Retiro, le grand parc de Madrid, est le salon de la ville : pédalo sur l'étang, concerts improvisés, livres d'occasion sous les arbres. Et Chueca, premier quartier LGBT friendly d'Espagne, est aujourd'hui un des plus cosmopolites et festifs de la ville."
+      }
+    ]
+  },
+  "highlights": [
+    { "icon": "palette", "label": "Musée du Prado", "description": "Velázquez, Goya, Le Bosco — la collection royale d'Espagne.", "url": "https://www.museodelprado.es" },
+    { "icon": "architecture", "label": "Palais Royal", "description": "Le plus grand palais royal d'Europe (135 000 m²).", "url": "https://www.patrimonionacional.es" },
+    { "icon": "art", "label": "Reina Sofía", "description": "Guernica de Picasso et l'art moderne espagnol.", "url": "https://www.museoreinasofia.es" },
+    { "icon": "local_activity", "label": "Plaza Mayor", "description": "Place baroque au cœur du Madrid des Habsbourg.", "url": "https://turismo.madrid.es" },
+    { "icon": "park", "label": "El Retiro", "description": "Le parc-salon de Madrid, 130 hectares.", "url": "https://turismo.madrid.es" },
+    { "icon": "nightlife", "label": "Malasaña & Lavapiés", "description": "Les quartiers les plus vivants après la tombée du jour.", "url": "https://turismo.madrid.es" }
+  ],
+  "gyg_partner_id": "URMJDFO",
+  "gyg_location_id": "46",
+  "gyg_cmp": "madrid-guide",
+  "gyg_location_url": "https://www.getyourguide.com/madrid-l46/",
+  "gyg_tours": [
+    {
+      "tour_id": "33321",
+      "icon": "palette",
+      "category": "Incontournable",
+      "title": "Musée du Prado — Visite guidée coupe-file",
+      "description": "Entrez sans queue dans le musée le plus riche d'Espagne. Le guide sélectionne les 20 chefs-d'œuvre essentiels parmi 8 000 tableaux — Velázquez, Goya, Le Bosco, El Greco — et décode ce que vous auriez manqué seul.",
+      "image": "https://images.unsplash.com/photo-1569858237737-5e0c42b5cb7e?w=700&q=80"
+    },
+    {
+      "tour_id": "372185",
+      "icon": "castle",
+      "category": "Combo Royal",
+      "title": "Prado + Palais Royal — Tour guidé en une journée",
+      "description": "Les deux incontournables de Madrid en une journée : les chefs-d'œuvre du Prado le matin, les 2 000 pièces du Palais Royal l'après-midi. Transport inclus entre les deux sites.",
+      "image": "https://images.unsplash.com/photo-1571997804658-a65e65f5a4c6?w=700&q=80"
+    },
+    {
+      "tour_id": "58185",
+      "icon": "art",
+      "category": "Triangle des arts",
+      "title": "Prado & Reina Sofía — Les deux grands musées",
+      "description": "Velázquez et Goya le matin au Prado, Picasso et Dalí l'après-midi au Reina Sofía. La journée culturelle complète de Madrid avec guides experts dans chaque musée.",
+      "image": "https://images.unsplash.com/photo-1495562569060-2eec283d3391?w=700&q=80"
+    },
+    {
+      "tour_id": "470912",
+      "icon": "location_city",
+      "category": "Tour complet",
+      "title": "Prado + Tour de la ville + Flamenco en soirée",
+      "description": "La journée parfaite à Madrid : Prado le matin, promenade guidée dans les Habsbourg et La Latina, puis spectacle de flamenco authentique en soirée dans un tablao.",
+      "image": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=700&q=80"
+    },
+    {
+      "tour_id": "226044",
+      "icon": "local_activity",
+      "category": "Pass découverte",
+      "title": "Madrid Explorer Pass — 3 à 7 expériences au choix",
+      "description": "Construisez votre séjour à la carte : Prado, Palais Royal, Bernabéu, flamenco, tapas tour — jusqu'à 50% d'économies sur les meilleures activités de Madrid.",
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80"
+    },
+    {
+      "tour_id": "89805",
+      "icon": "directions_walk",
+      "category": "À pied",
+      "title": "Tour à pied Madrid Historique — Habsbourg & Bourbon",
+      "description": "3h dans les ruelles du vieux Madrid : la Plaza Mayor, la Puerta del Sol, les ruelles de La Latina, la Cava Baja et les bars à tapas que les guides mentionnent tous.",
+      "image": "https://images.unsplash.com/photo-1571406252241-db0280bd36cd?w=700&q=80"
+    }
+  ],
+  "restaurants": [
+    { "icon": "local_cafe", "name": "San Ginés", "note": "Churros con chocolate depuis 1894 — ouvert 24h/24. La dernière adresse des noctambules." },
+    { "icon": "restaurant", "name": "El Brillante", "note": "Le bocadillo de calamares de référence, à côté du Prado. Simple, parfait." },
+    { "icon": "wine_bar", "name": "Taberna Tempranillo", "note": "Meilleure sélection de vins espagnols à La Latina, tapas généreuses." },
+    { "icon": "local_dining", "name": "Mercado de San Miguel", "note": "Marché couvert de la Plaza Mayor — bonne introduction aux tapas madrilènes." }
+  ],
+  "hotels": [
+    { "name": "Room Mate Oscar", "walk_min": 8, "eco": false, "image": "" },
+    { "name": "TOC Hostel Madrid", "walk_min": 5, "eco": true, "image": "" },
+    { "name": "Hotel Ateneo Madrid", "walk_min": 10, "eco": false, "image": "" }
+  ],
+  "escapades": [
+    {
+      "title": "Tolède",
+      "tag": "30min de Madrid",
+      "desc": "La ville des trois cultures (chrétienne, juive, musulmane), capitale de Castille, suspendue sur un éperon rocheux. AVE direct depuis Atocha.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+    },
+    {
+      "title": "Ségovie & son aqueduc",
+      "tag": "30min de Madrid",
+      "desc": "L'aqueduc romain de 2 000 ans le plus intact d'Espagne, le château d'Alcázar et le cochon de lait rôti comme nulle part ailleurs.",
+      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=80"
+    },
+    {
+      "title": "Escurial royal",
+      "tag": "1h de Madrid",
+      "desc": "Le Monastère de l'Escurial, panthéon des rois d'Espagne et bibliothèque royale parmi les plus belles du monde.",
+      "image": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?w=600&q=80"
+    }
+  ]
+}

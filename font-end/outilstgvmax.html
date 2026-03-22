@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>TrainNomad — MAX, La France à 0€</title>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+      <!-- Tailwind CDN (doit précéder tailwind.config.js) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="script/tailwind.config.js"></script>
+
+<!-- Tailwind config -->
+<!-- <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'midnight': '#1A2B3C',
+          'primary':  '#4ade80',
+          'max-pink':  '#FF007A',
+          'max-purple':'#7D2AE8',
+        },
+        fontFamily: {
+          sans:    ['Plus Jakarta Sans', 'sans-serif'],
+          display: ['Plus Jakarta Sans', 'sans-serif'],
+        },
+        borderRadius: {
+          '3xl': '24px',
+          '4xl': '40px',
+        }
+      }
+    }
+  }
+</script> -->
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/outilstgvmax.css">
+
+</head>
+
+<body class="text-midnight antialiased bg-[#fdfbf7]">
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+    <!-- Logo : feuille + .eu en rose, TrainNomad en noir -->
+    <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='index.html'">
+      <span class="material-symbols-outlined text-3xl" style="color:#FF007A;">eco</span>
+      <span class="text-xl font-extrabold tracking-tight text-midnight">TrainNomad<span style="color:#FF007A;">.eu</span></span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-10">
+      <a class="text-sm font-bold hover:text-[#4ade80] transition-colors flex items-center gap-2" href="trajets.html">
+        <span class="material-symbols-outlined text-lg">train</span> Voyager
+      </a>
+      <a class="text-sm font-bold hover:text-[#4ade80] transition-colors flex items-center gap-2" href="explorer.html">
+        <span class="material-symbols-outlined text-lg">explore</span> Explorer
+      </a>
+      <a class="text-sm font-bold text-white bg-midnight px-4 py-2 rounded-xl hover:bg-[#4ade80] hover:text-midnight transition-all flex items-center gap-2 shadow-sm" href="outilstgvmax.html">
+        <span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax
+      </a>
+    </div>
+
+    <div class="flex items-center gap-4">
+    <!-- Bouton menu mobile -->
+    <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
+        class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors"
+        aria-label="Menu">
+      <span id="mobile-menu-icon" class="material-symbols-outlined text-midnight text-2xl">menu</span>
+    </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ MENU MOBILE ══ -->
+<div id="mobile-nav">
+  <a href="trajets.html">
+    <span class="material-symbols-outlined text-xl">train</span> Voyager
+  </a>
+  <a href="explorer.html">
+    <span class="material-symbols-outlined text-xl">explore</span> Explorer
+  </a>
+  <a href="outilstgvmax.html" class="nav-cta">
+    <span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax
+  </a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="relative min-h-[calc(100vh-80px)] flex items-center justify-center py-16 px-6 lg:px-12"
+  style="background: url('assets/outilsTGVMax/background.jpg') center/cover no-repeat;">
+  <div class="absolute inset-0 bg-black/55 pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+    <!-- LEFT : Booking card -->
+    <div>
+      <div class="bg-white rounded-4xl p-6 lg:p-8 hero-shadow border border-gray-50">
+        <div class="flex items-center gap-2 mb-4">
+          <h2 class="text-xl font-bold tracking-tight text-midnight">Trouver une place MAX</h2>
+          <svg class="w-5 h-5 text-[#FF007A]" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+
+        <!-- Toggle Aller simple / Aller-retour -->
+        <div class="flex items-center gap-1.5 mb-3">
+          <button onclick="maxSetTripType('oneway')" id="max-tt-oneway"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-midnight text-white">
+            <i class="fa-solid fa-arrow-right text-[10px]"></i> Aller simple
+          </button>
+          <button onclick="maxSetTripType('roundtrip')" id="max-tt-roundtrip"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-500 hover:bg-slate-200">
+            <i class="fa-solid fa-arrow-right-arrow-left text-[10px]"></i> Aller-retour
+          </button>
+          <input type="hidden" id="max-input-time" value="01:00"/>
+          <input type="hidden" id="max-input-carte" value="Tarif Normal"/>
+          <input type="hidden" id="max-trip-type" value="oneway"/>
+        </div>
+
+        <!-- Champs de recherche -->
+        <div class="border border-slate-100 rounded-2xl overflow-visible">
+
+          <!-- Départ -->
+          <div class="search-field input-ac-wrapper" style="position:relative;">
+            <div class="search-field__label">Départ</div>
+            <div class="search-field__row">
+              <i class="fa-solid fa-location-dot search-field__icon"></i>
+              <input type="text" id="max-input-from" autocomplete="off" placeholder="Paris, France"/>
+              <input type="hidden" id="max-id-from"/>
+            </div>
+            <div id="max-ac-from" class="suggestions-container hidden"></div>
+          </div>
+
+          <hr class="search-divider"/>
+
+          <!-- Arrivée -->
+          <div class="search-field input-ac-wrapper" style="position:relative;">
+            <div class="search-field__label">Arrivée</div>
+            <div class="search-field__row">
+              <i class="fa-solid fa-location-arrow search-field__icon"></i>
+              <input type="text" id="max-input-to" autocomplete="off" placeholder="Marseille, Nice…"/>
+              <input type="hidden" id="max-id-to"/>
+            </div>
+            <div id="max-ac-to" class="suggestions-container hidden"></div>
+          </div>
+
+          <hr class="search-divider"/>
+
+          <!-- Dates -->
+          <div id="max-dates-row" class="flex">
+            <!-- Date aller -->
+            <div class="search-field flex-1" onclick="document.getElementById('max-input-date').showPicker()" style="cursor:pointer;">
+              <div class="search-field__label" id="max-label-date">Date</div>
+              <div class="search-field__row">
+                <i class="fa-regular fa-calendar search-field__icon"></i>
+                <input type="date" id="max-input-date" style="color-scheme:light; cursor:pointer;"/>
+              </div>
+            </div>
+            <!-- Date retour (cachée par défaut) -->
+            <div id="max-return-date-field" class="search-field flex-1 hidden border-l border-slate-100" onclick="document.getElementById('max-return-date').showPicker()" style="cursor:pointer;">
+              <div class="search-field__label">Retour</div>
+              <div class="search-field__row">
+                <i class="fa-regular fa-calendar search-field__icon"></i>
+                <input type="date" id="max-return-date" style="color-scheme:light; cursor:pointer;"/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CTA -->
+        <button id="max-btn-search"
+          class="mt-4 w-full py-4 bg-gradient-magenta rounded-2xl text-white font-extrabold text-sm tracking-widest flex items-center justify-center gap-3 shadow-lg shadow-pink-200 uppercase disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          disabled>
+          <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24">search</span>
+          Scanner les places à 0€
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT : Texte + pills -->
+    <div class="flex flex-col space-y-8">
+
+      <div class="flex">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm rounded-full border border-white/30 text-sm font-semibold tracking-wide uppercase text-white">
+          <span class="relative flex h-2 w-2">
+            <span class="do-ping absolute inline-flex h-full w-full rounded-full bg-[#FF007A] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FF007A]"></span>
+          </span>
+          Exclusif Abonnés MAX
+        </span>
+      </div>
+
+      <h1 class="text-5xl lg:text-7xl font-extrabold leading-[1.1] text-white">
+        La France à <span class="text-gradient-pink-purple">0€</span><br/>avec MAX
+      </h1>
+
+      <p class="text-white/75 text-lg leading-relaxed max-w-lg">
+        Abonné TGV Max ? Trouvez instantanément les places disponibles à 0€ à travers toute la France. Ne ratez plus jamais un trajet gratuit.
+      </p>
+
+      <!-- Pills temps de trajet depuis Paris -->
+      <div>
+        <p class="text-white/50 text-xs font-bold uppercase tracking-widest mb-3">Depuis Paris, en train</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">train</span>
+            <span class="font-bold">Bordeaux</span><span class="text-white/50 text-xs">À 2h04</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">anchor</span>
+            <span class="font-bold">Rennes</span><span class="text-white/50 text-xs">À 1h27</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">wb_sunny</span>
+            <span class="font-bold">Avignon</span><span class="text-white/50 text-xs">À 2h37</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">beach_access</span>
+            <span class="font-bold">Marseille</span><span class="text-white/50 text-xs">À 3h20</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">spa</span>
+            <span class="font-bold">Nice</span><span class="text-white/50 text-xs">À 5h30</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white text-sm font-semibold">
+            <span class="material-symbols-outlined text-[#FF007A] text-base" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20">park</span>
+            <span class="font-bold">Arcachon</span><span class="text-white/50 text-xs">À 3h15</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ TABLEAU COMPARATIF ═══════════════════ -->
+<section class="py-20 px-6 lg:px-12 bg-white">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-14">
+      <span class="inline-block bg-[#fff0f6] text-[#FF007A] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Abonnements TGV Max</span>
+      <h2 class="text-3xl lg:text-4xl font-extrabold text-midnight mb-4">Quel abonnement vous correspond ?</h2>
+      <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">Deux formules MAX pour voyager à 0€ en France — selon votre âge, même prix, mêmes avantages.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+
+      <!-- MAX JEUNE -->
+      <div class="offer-card offer-card--hl">
+        <div class="offer-badge-top">⭐ Le plus populaire</div>
+        <div class="offer-label">Pour les 16–27 ans</div>
+        <div class="offer-name">MAX Jeune</div>
+        <div class="offer-age">16 – 27 ans</div>
+        <div class="offer-price"><sup>€</sup>79<span class="text-base font-normal text-slate-400">/mois</span></div>
+        <div class="offer-pricenote">Sans engagement après 3 mois · résiliation 15 €</div>
+        <hr class="offer-divider"/>
+        <ul class="offer-list">
+          <li><span class="ck">✓</span> Billets à 0€ (TGV Inoui, Intercités, OUIGO GV) hors forte affluence</li>
+          <li><span class="ck">✓</span> -30 % garanti toute l'année, 1re &amp; 2e classe</li>
+          <li><span class="ck">✓</span> Réservation dès J-30, places jusqu'à la dernière minute</li>
+          <li><span class="ck">✓</span> Jusqu'à 6 réservations simultanées</li>
+          <li><span class="ck">✓</span> France + Luxembourg + Fribourg-en-Brisgau</li>
+          <li><span class="ck">✓</span> Confirmation obligatoire entre J-2 et J-1 17h</li>
+        </ul>
+        <a class="offer-cta" href="https://www.sncf-connect.com/catalogue/description/max-jeune" target="_blank">Souscrire sur SNCF Connect →</a>
+      </div>
+
+      <!-- MAX SENIOR -->
+      <div class="offer-card">
+        <div class="offer-label">Pour les 60 ans et +</div>
+        <div class="offer-name">MAX Senior</div>
+        <div class="offer-age">60 ans et plus</div>
+        <div class="offer-price"><sup>€</sup>79<span class="text-base font-normal text-slate-400">/mois</span></div>
+        <div class="offer-pricenote">Mêmes conditions que MAX Jeune</div>
+        <hr class="offer-divider"/>
+        <ul class="offer-list">
+          <li><span class="ck">✓</span> Billets à 0€ (TGV Inoui, Intercités, OUIGO GV) hors forte affluence</li>
+          <li><span class="ck">✓</span> -30 % garanti toute l'année, 1re &amp; 2e classe</li>
+          <li><span class="ck">✓</span> Réservation dès J-30, places jusqu'à la dernière minute</li>
+          <li><span class="ck">✓</span> Jusqu'à 6 réservations simultanées</li>
+          <li><span class="ck">✓</span> France + Luxembourg + Fribourg-en-Brisgau</li>
+          <li><span class="ck">✓</span> Confirmation obligatoire entre J-2 et J-1 17h</li>
+        </ul>
+        <a class="offer-cta" href="https://www.sncf-connect.com/catalogue/description/max-senior" target="_blank">Souscrire sur SNCF Connect →</a>
+      </div>
+
+      <!-- MAX ACTIF — info card -->
+      <div class="offer-card" style="background:#f8fafc; border-style:dashed;">
+        <div class="offer-label" style="color:#64748b;">Pour les navetteurs</div>
+        <div class="offer-name" style="color:#475569;">MAX Actif / Actif+</div>
+        <div class="offer-age">Tout âge · trajet fixe</div>
+        <div class="offer-price" style="font-size:1.4rem; color:#64748b;">Prix variable</div>
+        <div class="offer-pricenote">selon trajet, classe et fréquence</div>
+        <hr class="offer-divider"/>
+        <ul class="offer-list">
+          <li><span class="ck">✓</span> Abonnement navetteur sur un <strong>trajet fixe</strong></li>
+          <li><span class="ck">✓</span> MAX Actif : 250 trajets/an, lun.–jeu.</li>
+          <li><span class="ck">✓</span> MAX Actif+ : 450 trajets/an, 7j/7</li>
+          <li><span class="ck">✓</span> TGV Inoui &amp; Intercités uniquement</li>
+          <li><span class="ck-off">✗</span> <span class="text-slate-400">Pas de billets à 0€ n'importe où</span></li>
+          <li><span class="ck-off">✗</span> <span class="text-slate-400">Destinations non libres — trajet défini</span></li>
+        </ul>
+        <a class="offer-cta" style="color:#64748b; border-color:#cbd5e1;" href="https://www.sncf-connect.com/catalogue/description/max-actif-plus" target="_blank">En savoir plus sur SNCF Connect →</a>
+      </div>
+
+    </div>
+
+    <!-- ── Feature cards sous le tableau ── -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="bg-[#fff0f6] p-6 rounded-3xl flex items-start gap-4">
+        <div class="w-11 h-11 rounded-xl bg-[#FF007A]/10 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-[#FF007A]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">calendar_month</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-midnight mb-1">Disponibilité J-30</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Les places MAX s'ouvrent 30 jours avant le départ. Planifiez à l'avance pour maximiser vos chances de trouver un billet.</p>
+        </div>
+      </div>
+      <div class="bg-[#f3e8ff] p-6 rounded-3xl flex items-start gap-4">
+        <div class="w-11 h-11 rounded-xl bg-[#7D2AE8]/10 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-[#7D2AE8]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">confirmation_number</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-midnight mb-1">0€ à volonté en France</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Pas de limite de trajets. Voyagez autant que vous le souhaitez partout en France, sans débourser un centime de plus.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════ DESTINATIONS INSOLITES ═══════════════════ -->
+<section class="py-20 px-6 lg:px-12 bg-[#fdfbf7]">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-12">
+      <span class="inline-block bg-midnight text-[#4ade80] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Idées de voyage</span>
+      <h2 class="text-3xl lg:text-4xl font-extrabold text-midnight mb-4">Des destinations auxquelles<br/>vous n'auriez pas pensé</h2>
+      <p class="text-slate-500 text-lg max-w-xl mx-auto">Accessibles à 0€ avec votre abonnement MAX — des escapades qui valent le détour, à portée de rail.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Avignon+TGV">
+        <span class="dest-inspo">Coup de cœur</span>
+        <div class="dest-icon bg-yellow-50">
+          <span class="material-symbols-outlined text-yellow-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">sunny</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Avignon</div>
+        <div class="dest-time">À 2h37 de Paris</div>
+        <p class="dest-desc">Cité des Papes, marchés provençaux, lavandes. Une parenthèse méridionale parfaite le week-end.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Arcachon">
+        <span class="dest-inspo">Nature</span>
+        <div class="dest-icon bg-blue-50">
+          <span class="material-symbols-outlined text-blue-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">water</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Arcachon</div>
+        <div class="dest-time">À 3h15 de Paris</div>
+        <p class="dest-desc">Dune du Pilat, huîtres, forêts de pins. L'Atlantique à portée de train, sans voiture.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Quimper">
+        <span class="dest-inspo">Bretagne</span>
+        <div class="dest-icon bg-teal-50">
+          <span class="material-symbols-outlined text-teal-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">sailing</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Quimper</div>
+        <div class="dest-time">À 3h55 de Paris</div>
+        <p class="dest-desc">Bout du Finistère, cathédrale gothique, crêpes au beurre salé. La Bretagne dans ce qu'elle a de plus authentique.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Nice+Ville">
+        <span class="dest-inspo">Soleil</span>
+        <div class="dest-icon bg-orange-50">
+          <span class="material-symbols-outlined text-orange-400" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">beach_access</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Nice</div>
+        <div class="dest-time">À 5h30 de Paris</div>
+        <p class="dest-desc">Promenade des Anglais, vieille ville colorée, marché du cours Saleya. La Côte d'Azur à 0€.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Vannes">
+        <span class="dest-inspo">Bretagne</span>
+        <div class="dest-icon bg-indigo-50">
+          <span class="material-symbols-outlined text-indigo-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">castle</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Vannes</div>
+        <div class="dest-time">À 2h20 de Paris</div>
+        <p class="dest-desc">Golfe du Morbihan, remparts médiévaux, îles en bateau. Une des plus belles villes de Bretagne, souvent oubliée.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Aix-en-Provence+TGV">
+        <span class="dest-inspo">Provence</span>
+        <div class="dest-icon bg-green-50">
+          <span class="material-symbols-outlined text-green-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">eco</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Aix-en-Provence</div>
+        <div class="dest-time">À 3h05 de Paris</div>
+        <p class="dest-desc">Fontaines, marchés, montagne Sainte-Victoire. Cézanne n'a pas eu tort de s'y installer.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Marseille+Saint-Charles">
+        <div class="dest-icon bg-blue-50">
+          <span class="material-symbols-outlined text-blue-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">anchor</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Marseille</div>
+        <div class="dest-time">À 3h20 de Paris</div>
+        <p class="dest-desc">Calanques, Vieux-Port, bouillabaisse. La cité phocéenne, une expérience à part entière.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Saint-Malo">
+        <span class="dest-inspo">Bretagne</span>
+        <div class="dest-icon bg-slate-50">
+          <span class="material-symbols-outlined text-slate-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">fort</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Saint-Malo</div>
+        <div class="dest-time">À 2h25 de Paris</div>
+        <p class="dest-desc">Remparts sur la mer, grandes marées, intra-muros préservé. La ville des corsaires s'explore à pied.</p>
+      </a>
+
+      <a class="dest-card" href="trajets.html?fromName=Paris&toName=Montpellier+Saint-Roch">
+        <div class="dest-icon bg-purple-50">
+          <span class="material-symbols-outlined text-purple-500" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">museum</span>
+        </div>
+        <div class="dest-cities">Paris <span class="dest-arrow">→</span> Montpellier</div>
+        <div class="dest-time">À 3h20 de Paris</div>
+        <p class="dest-desc">Place de la Comédie, hôtels particuliers, vignobles du Languedoc. Vivante, jeune, méditerranéenne.</p>
+      </a>
+
+    </div>
+
+    <p class="text-center text-slate-400 text-sm mt-10">
+      ⚡ À propos des résultats affichés — TrainNomad utilise les données ouvertes SNCF (API SNCF open data) et n'affiche que les trains TGV Inoui & Intercités éligibles aux abonnements Max. Les trains Ouigo peuvent être inclus dans votre abonnement, mais leurs disponibilités ne sont pas accessibles via cette source — vérifiez directement sur SNCF Connect. Les disponibilités affichées sont indicatives : des places peuvent être prises ou libérées d'ici votre réservation.
+    </p>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ À PROPOS DES RÉSULTATS ═══════════════════ -->
+<!-- <div class="opendata-banner">
+  <div class="opendata-banner__inner">
+    <div class="opendata-banner__icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <div class="opendata-banner__text">
+      <strong>À propos des résultats affichés —</strong>
+      TrainNomad utilise les données ouvertes SNCF (API SNCF open data) et n'affiche que les trains <strong>TGV Inoui &amp; Intercités</strong> éligibles aux abonnements Max.
+      Les trains <strong>Ouigo peuvent être inclus dans votre abonnement</strong>, mais leurs disponibilités ne sont pas accessibles via cette source — vérifiez directement sur SNCF Connect.
+      Les disponibilités affichées sont <strong>indicatives</strong> : des places peuvent être prises ou libérées d'ici votre réservation.
+    </div>
+  </div>
+</div> -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="text-white py-20" style="background:#1A2B3C">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16 mb-12">
+            <div class="col-span-1">
+                <div class="flex items-center gap-2 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+                    <span class="text-xl font-extrabold tracking-tight">TrainNomad<span class="text-primary">.eu</span></span>
+                </div>
+                <p class="text-slate-400 text-base leading-relaxed">
+                    L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-primary transition-colors" href="A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="text-slate-400 text-base leading-relaxed" style="color: #a0aec0; line-height: 1.6; font-style: italic;">
+"Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."</p>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="script/outilstgvmax.js"></script>
+</body>
+</html>

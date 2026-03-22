@@ -1,0 +1,61 @@
+{
+  "id": "geneve",
+  "city": "Genève",
+  "country": "Suisse",
+  "tagline": "Jet d'eau, ONU et horlogerie à 3h05 de Paris",
+  "excerpt": "1 jour à Genève",
+  "cover": "geneve-cover.jpg",
+  "hero": "geneve-hero.jpg",
+  "badges": ["Train direct", "TGV Lyria"],
+  "travel": {
+    "duration": "3h 05min",
+    "operator": "TGV Lyria",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Genève Cornavin",
+    "price_from": "29€",
+    "best_season": "Mai · Septembre",
+    "co2_saved": "90%"
+  },
+  "intro": "Genève est souvent perçue comme froide et institutionnelle — ville des banques, de l'ONU, du CERN. Mais derrière ces façades sérieuses se cache une ville compacte et agréable, dominée par son lac et son jet d'eau iconique, parsemée de montres dans chaque vitrine et de cafés où l'on refait le monde depuis des siècles. En une journée depuis Paris, c'est parfaitement faisable.",
+  "essentials": {
+    "voir": [
+      { "icon": "water",        "name": "Jet d'eau",            "note": "140m de haut — visible de toute la ville" },
+      { "icon": "church",       "name": "Cathédrale Saint-Pierre","note": "Calvin y a prêché. Vue panoramique depuis la tour." },
+      { "icon": "museum",       "name": "Palais des Nations",   "note": "L'ONU européenne — visite guidée sur réservation" },
+      { "icon": "watch",        "name": "Patek Philippe Museum", "note": "Le plus beau musée de l'horlogerie au monde" }
+    ],
+    "manger": [
+      { "icon": "restaurant",   "name": "Fondue au Fromage",    "note": "La vraie fondue genevoise dans la vieille ville" },
+      { "icon": "local_cafe",   "name": "Bains des Pâquis",     "note": "Café du lac avec raclette l'hiver, brunch l'été" },
+      { "icon": "lunch_dining", "name": "Marché de Rive",       "note": "Marché local le matin en semaine" },
+      { "icon": "sports_bar",   "name": "Bar du Lac",           "note": "Terrasse au bord du lac, vue sur le Mont-Blanc par temps clair" }
+    ],
+    "transport": [
+      { "icon": "tram",          "name": "Trams TPG",           "note": "Gratuit avec votre titre de transport hôtelier !" },
+      { "icon": "directions_boat","name": "Mouettes genevoises", "note": "Bateaux-bus traversant le lac — panoramique et pratique" },
+      { "icon": "directions_bike","name": "Genève Roule",       "note": "Vélos gratuits sur dépôt" },
+      { "icon": "train",         "name": "TGV Lyria direct",    "note": "Paris Gare de Lyon → Genève Cornavin en 3h05" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Genève en une journée", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Arrivée Cornavin",     "desc": "La gare centrale, à 10 min à pied du lac." },
+        { "time": "09:30", "title": "Vieille Ville",        "desc": "Montez à la cathédrale Saint-Pierre. Vue sur le lac et les Alpes." },
+        { "time": "11:00", "title": "Maison Rousseau",      "desc": "La maison natale de Jean-Jacques Rousseau — petit musée intime." },
+        { "time": "12:30", "title": "Bords du lac",         "desc": "Pique-nique ou restaurant face au Jet d'eau. Les pelouses des Bains des Pâquis." },
+        { "time": "14:30", "title": "Jet d'eau",            "desc": "Promenez-vous sur la jetée. Vous serez mouillé — c'est normal." },
+        { "time": "16:00", "title": "Patek Philippe Museum","desc": "2h dans l'histoire de la montre. Le chef-d'œuvre genevois." },
+        { "time": "18:30", "title": "Genève Cornavin",      "desc": "Retour TGV Lyria vers Paris. Arrivée Gare de Lyon vers 21h30." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "directions_transit","text": "Si vous dormez à Genève, votre hôtel vous offre une carte d'accès gratuit aux transports en commun (TPG). Demandez-la à l'accueil." },
+    { "icon": "payments",  "text": "Genève est très chère. Un sandwich au café peut coûter 15 CHF. Prévoyez un budget repas conséquent ou pique-niquez au bord du lac." },
+    { "icon": "train",     "text": "TGV Lyria propose jusqu'à 6 trains/jour Paris–Genève depuis la Gare de Lyon. À partir de 29€. Premier départ de Paris à 6h55, dernier retour à 20h05 de Genève." },
+    { "icon": "wb_cloudy", "text": "Le Mont-Blanc est visible depuis le lac par beau temps — demandez aux locaux si la vue est dégagée." }
+  ],
+  "related": ["zurich", "milan", "barcelone"]
+}

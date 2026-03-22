@@ -1,0 +1,73 @@
+{
+  "id": "porto",
+  "city": "Porto",
+  "country": "Portugal",
+  "tagline": "Vinho do Porto, azulejos et Douro",
+  "excerpt": "2 jours à Porto",
+  "cover": "porto-cover.jpg",
+  "hero": "porto-hero.jpg",
+  "badges": ["2 correspondances", "TGV + Renfe + CP"],
+  "travel": {
+    "duration": "~16h à 20h",
+    "operator": "TGV Inoui + Renfe + CP Portugal",
+    "from": "Paris Gare Montparnasse",
+    "arrival_station": "Porto São Bento ou Porto Campanhã",
+    "price_from": "95€",
+    "best_season": "Avril · Mai · Septembre",
+    "co2_saved": "85%",
+    "correspondance": "2 changements — Hendaye/Irún puis Vigo ou Badajoz",
+    "note": "Itinéraire recommandé : TGV Paris Montparnasse → Hendaye (4h45, dès 34€), puis Renfe Irún → Vigo (~4h30), puis CP Alfa Pendular Vigo → Porto (~1h30). Ou via Madrid + CP Alfa Pendular Madrid → Porto (~6h). Achetez les billets sur SNCF Connect, Renfe.es et cp.pt.",
+    "operators_used": ["SNCF", "RENFE", "CP"]
+  },
+  "intro": "Porto est la ville la plus authentique de la péninsule ibérique. Moins touristique que Lisbonne, plus verticale, plus rugueuse — ses façades de carrelage bleu descendent vers le Douro en pente raide, ses ponts de fer enjambent le fleuve, et ses caves à vinho do Porto s'étendent à perte de vue à Vila Nova de Gaia. Porto résiste à la gentrification avec une fierté tranquille. Deux jours suffisent à en tomber amoureux.",
+  "essentials": {
+    "voir": [
+      { "icon": "train",          "name": "Gare de São Bento",        "note": "20 000 azulejos — la plus belle gare du monde" },
+      { "icon": "water",          "name": "Ribeira et le Douro",      "note": "Les quais de Porto côté fleuve — surtout au coucher du soleil" },
+      { "icon": "church",         "name": "Librairie Lello",           "note": "La plus belle librairie du monde — réservez un créneau" },
+      { "icon": "wine_bar",       "name": "Caves de Vila Nova de Gaia","note": "Dégustations de porto côté Gaia — traversez le pont Dom Luís" }
+    ],
+    "manger": [
+      { "icon": "restaurant",     "name": "Francesinha",               "note": "Le sandwich-ragoût local — une expérience culinaire unique" },
+      { "icon": "local_cafe",     "name": "Majestic Café",             "note": "Le café historique de 1921 sur la Rua Santa Catarina" },
+      { "icon": "storefront",     "name": "Mercado do Bolhão",         "note": "Le marché couvert rénové — fruits, fromages et bacalhau" },
+      { "icon": "lunch_dining",   "name": "Bacalhau à Brás",           "note": "La morue gratinée — plat national, décliné partout" }
+    ],
+    "transport": [
+      { "icon": "tram",           "name": "Tram historique",           "note": "Ligne 1 le long du Douro — 4€ l'aller" },
+      { "icon": "subway",         "name": "Métro Porto",               "note": "6 lignes — andante ticket 24h à 7€" },
+      { "icon": "directions_walk","name": "À pied",                    "note": "Le centre est compact — tout se fait en marchant" },
+      { "icon": "directions_bike","name": "Vélos Gira",               "note": "Attention aux pentes — Porto est une ville verticale" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Le cœur de Porto", "color": "#4ade80",
+      "points": [
+        { "time": "09:00", "title": "Gare São Bento",                 "desc": "Commencez ici, même si vous n'avez rien à prendre. Les azulejos valent le détour." },
+        { "time": "10:00", "title": "Librairie Lello",                "desc": "Arrivez tôt, achetez le billet en ligne. File d'attente garantie." },
+        { "time": "11:30", "title": "Cathédrale de Porto (Sé)",       "desc": "La terrasse offre une vue magnifique sur les toits." },
+        { "time": "13:00", "title": "Ribeira",                         "desc": "Déjeuner sur les quais. Francesinha ou bacalhau." },
+        { "time": "15:00", "title": "Pont Dom Luís",                  "desc": "Traversez à pied vers Vila Nova de Gaia." },
+        { "time": "16:00", "title": "Caves à porto",                  "desc": "Dégustation chez Sandeman ou Graham's — 12-18€ avec verre inclus." },
+        { "time": "19:30", "title": "Coucher sur le Douro",           "desc": "Depuis le pont ou la Ribeira — lumière dorée sur le fleuve." }
+      ]
+    },
+    {
+      "day": 2, "title": "Foz do Douro et départ", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:30", "title": "Mercado do Bolhão",              "desc": "Le marché rénové — vivant et sans touristes à cette heure." },
+        { "time": "11:00", "title": "Musée de la Fondation Serralves","desc": "Art contemporain dans un cadre splendide. Parc inclus." },
+        { "time": "13:30", "title": "Foz do Douro",                   "desc": "Où le fleuve rejoint l'Atlantique. Promenade, fruits de mer." },
+        { "time": "16:00", "title": "Porto Campanhã",                 "desc": "Retour en train CP → connexion vers la France." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "train",       "text": "Itinéraire : TGV Paris Montparnasse → Hendaye (4h45, dès 34€), Renfe Irún → Vigo (~4h30, dès 20€), CP Alfa Pendular Vigo → Porto (~1h30, dès 12€). Budget total à partir de 95€ en réservant à l'avance sur SNCF Connect, Renfe.es et cp.pt." },
+    { "icon": "schedule",    "text": "La Librairie Lello demande une réservation en ligne — le billet coûte 6€ (déductible d'un achat). Ne manquez pas ce délai." },
+    { "icon": "wine_bar",    "text": "Les caves de Vila Nova de Gaia proposent des dégustations le matin (moins fréquentées). Sandeman, Graham's et Taylor's sont les plus accessibles." },
+    { "icon": "wb_sunny",    "text": "Porto est agréable presque toute l'année. Évitez juillet-août pour la chaleur et la foule. Avril-mai : parfait." }
+  ],
+  "related": ["lisbonne", "faro", "seville"]
+}

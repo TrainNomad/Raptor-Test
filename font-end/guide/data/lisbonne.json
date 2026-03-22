@@ -1,0 +1,82 @@
+{
+  "id": "lisbonne",
+  "city": "Lisbonne",
+  "country": "Portugal",
+  "tagline": "Fado, Alfama et pastéis de nata au bout des rails ibériques",
+  "excerpt": "3 jours à Lisbonne",
+  "cover": "lisbonne-cover.jpg",
+  "hero": "lisbonne-hero.jpg",
+  "badges": ["2 correspondances", "TGV + Alvia + CP"],
+  "travel": {
+    "duration": "~18h à 22h (selon itinéraire)",
+    "operator": "TGV Inoui + Renfe Alvia + CP Portugal",
+    "from": "Paris Gare Montparnasse",
+    "arrival_station": "Lisboa Santa Apolónia",
+    "price_from": "100€",
+    "best_season": "Mars · Juin · Octobre",
+    "co2_saved": "85%",
+    "correspondance": "2 changements — Hendaye/Irún puis Badajoz (ou via Barcelone + Madrid)",
+    "note": "Itinéraire recommandé : TGV Paris Montparnasse → Hendaye (4h45), puis Renfe Alvia Irún → Badajoz (~7h), puis CP Badajoz → Lisboa Santa Apolónia (~4h). Total ~18h. Le Trenhotel Lusitania (Madrid–Lisbonne direct de nuit) est suspendu depuis 2020, sa reprise est espérée mais pas confirmée en 2026. Achetez les billets en 3 étapes : SNCF Connect, Renfe.es, puis cp.pt.",
+    "operators_used": ["SNCF", "RENFE", "CP"]
+  },
+  "intro": "Lisbonne est la capitale la plus attachante d'Europe occidentale. Ses sept collines, ses tramways jaunes qui grincent dans les ruelles, ses miradouros dominant le Tage, ses pastéis de nata dorés à la sortie du four — tout ici a la lenteur du plaisir. La ville a survécu à un séisme qui la détruisit en 1755 et en garde une grâce mélancolique, le fado, musique de l'âme portugaise. Le voyage est long depuis Paris, mais c'est précisément ce qui en fait une aventure.",
+  "essentials": {
+    "voir": [
+      { "icon": "location_city",  "name": "Quartier de l'Alfama",     "note": "Le labyrinthe historique — perdez-vous avant 9h" },
+      { "icon": "church",         "name": "Mosteiro dos Jerónimos",   "note": "Chef-d'œuvre manuélin de Belém — réservez" },
+      { "icon": "tram",           "name": "Tram 28",                  "note": "L'itinéraire historique à 3€ — prenez-le en semaine tôt" },
+      { "icon": "photo_camera",   "name": "Miradouro da Graça",       "note": "La meilleure vue sur Lisbonne, moins touristique que l'Alfama" }
+    ],
+    "manger": [
+      { "icon": "local_cafe",     "name": "Pastéis de Belém",         "note": "Les vrais pastéis depuis 1837 — file d'attente incontournable" },
+      { "icon": "restaurant",     "name": "Taberna da Rua das Flores","note": "Petiscos portugais dans un cadre historique" },
+      { "icon": "storefront",     "name": "Mercado da Ribeira (Time Out)","note": "Meilleur rapport qualité-prix de la ville sous une verrière" },
+      { "icon": "sports_bar",     "name": "Ginjinha",                  "note": "La cerise au genièvre en shot debout dans les bars d'Alfama" }
+    ],
+    "transport": [
+      { "icon": "tram",           "name": "Trams & Funiculaires",     "note": "Carris — pass 24h à 6,60€" },
+      { "icon": "subway",         "name": "Métro",                    "note": "4 lignes, 1,65€ le ticket simple" },
+      { "icon": "directions_boat","name": "Ferries sur le Tage",      "note": "Vers Almada — vue imprenable sur la ville (2,25€)" },
+      { "icon": "directions_bike","name": "Gira (vélos)",             "note": "Vélos électriques en libre-service" }
+    ]
+  },
+  "days": [
+    {
+      "day": 1, "title": "Alfama et collines", "color": "#4ade80",
+      "points": [
+        { "time": "08:00", "title": "Arrivée Lisboa Santa Apolónia", "desc": "Café et pastel de nata en gare. Vous méritez ça après le voyage." },
+        { "time": "09:00", "title": "Alfama à l'aube",              "desc": "Le seul quartier qui n'a pas changé depuis le tremblement de terre de 1755." },
+        { "time": "10:30", "title": "Castelo de São Jorge",          "desc": "Vue panoramique sur le Tage et les toits orange. Arrivez tôt." },
+        { "time": "13:00", "title": "Déjeuner Mouraria",             "desc": "Le quartier multiculturel — restaurants portugais abordables." },
+        { "time": "15:30", "title": "Miradouro da Graça",            "desc": "La meilleure vue de la ville. Moins fréquentée que les autres." },
+        { "time": "20:00", "title": "Concert de fado",               "desc": "Un fado ao vivo dans un petit restaurant de l'Alfama — réservez à l'avance." }
+      ]
+    },
+    {
+      "day": 2, "title": "Belém et le Tage", "color": "#1A2B3C",
+      "points": [
+        { "time": "09:00", "title": "Pastéis de Belém",              "desc": "Prenez-en trois. C'est la règle." },
+        { "time": "10:00", "title": "Mosteiro dos Jerónimos",         "desc": "Chef-d'œuvre du style manuélin, inscrit à l'UNESCO. Comptez 1h30." },
+        { "time": "12:00", "title": "Torre de Belém",                 "desc": "La tour sur le Tage — photo iconique depuis les berges." },
+        { "time": "14:00", "title": "Tram 28",                        "desc": "Montez à l'arrêt Campo Ourique, descendez à Alfama. L'expérience ultime." },
+        { "time": "17:00", "title": "Chiado et Baixa",               "desc": "Flânerie dans le quartier littéraire. Café A Brasileira depuis 1905." }
+      ]
+    },
+    {
+      "day": 3, "title": "LX Factory et départ", "color": "#94a3b8",
+      "points": [
+        { "time": "10:00", "title": "LX Factory",                    "desc": "Anciennes usines reconverties en marché, restaurants et galeries. Le dimanche est idéal." },
+        { "time": "12:30", "title": "Bairro Alto",                   "desc": "Déjeuner dans le quartier bohème. Menu du jour à 10-12€." },
+        { "time": "15:00", "title": "Museu Nacional do Azulejo",     "desc": "L'histoire du carrelage portugais — plus fascinant qu'il n'y paraît." },
+        { "time": "18:00", "title": "Lisboa Santa Apolónia",         "desc": "Retour en train via Badajoz → Irún → Paris Montparnasse." }
+      ]
+    }
+  ],
+  "tips": [
+    { "icon": "train",       "text": "L'itinéraire le plus pratique : TGV Paris Montparnasse → Hendaye (4h45, dès 34€), puis Renfe Alvia Irún → Badajoz (~7h, dès 30€), puis CP Badajoz → Lisbonne (~4h, dès 25€). Achetez chaque segment séparément : SNCF Connect, Renfe.es, cp.pt. Budget total à partir de ~100€." },
+    { "icon": "nightlight",  "text": "Le Trenhotel Lusitania (Madrid–Lisbonne de nuit) est suspendu depuis 2020. Sa réactivation est en négociation mais non confirmée en 2026. Vérifiez sur Renfe.es avant de partir." },
+    { "icon": "schedule",    "text": "Prévoyez 1h30 minimum de correspondance à Hendaye/Irún — les deux gares sont proches mais le changement de quai prend du temps." },
+    { "icon": "wb_sunny",    "text": "Évitez août : Lisbonne atteint 38-40°C et se remplit de touristes. Mars–juin ou octobre sont parfaits." }
+  ],
+  "related": ["porto", "madrid", "seville"]
+}

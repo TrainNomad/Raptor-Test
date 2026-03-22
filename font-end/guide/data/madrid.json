@@ -1,0 +1,204 @@
+{
+  "id": "madrid",
+  "city": "Madrid",
+  "country": "Espagne",
+  "tagline": "Prado, tapas et nuits infinies à moins de 10h de Paris",
+  "excerpt": "3 jours à Madrid",
+  "cover": "madrid-cover.jpg",
+  "hero": "madrid-hero.jpg",
+  "badges": [
+    "Correspondance requise",
+    "TGV + AVE"
+  ],
+  "travel": {
+    "duration": "~9h30 (via Barcelone)",
+    "operator": "TGV Inoui + Renfe AVE",
+    "from": "Paris Gare de Lyon",
+    "arrival_station": "Madrid Atocha",
+    "price_from": "99€",
+    "best_season": "Mars · Juin",
+    "co2_saved": "88%",
+    "correspondance": "1 changement à Barcelona Sants",
+    "note": "Paris → Barcelone (6h50) puis AVE Barcelone → Madrid (2h30). Achetez les deux segments séparément sur SNCF Connect et Renfe."
+  },
+  "intro": "Madrid est une ville qui se vit la nuit. Les Madrilènes dînent à 22h, sortent à minuit et rentrent à l'aube — et cela depuis des siècles. Mais derrière cette réputation festive se cache l'une des meilleures concentrations muséales d'Europe : le Prado, le Reina Sofía, le Thyssen-Bornemisza. Trois musées de classe mondiale à moins de 500 mètres les uns des autres. En combinant TGV et AVE via Barcelone, vous arrivez en moins de dix heures sans prendre l'avion.",
+  "essentials": {
+    "voir": [
+      {
+        "icon": "palette",
+        "name": "Museo del Prado",
+        "note": "Velázquez, Goya, El Greco — réservez tôt"
+      },
+      {
+        "icon": "museum",
+        "name": "Reina Sofía",
+        "note": "Guernica de Picasso au 2e étage. Gratuit le lundi."
+      },
+      {
+        "icon": "park",
+        "name": "Parque del Retiro",
+        "note": "Location de barques sur le lac — classique"
+      },
+      {
+        "icon": "architecture",
+        "name": "Gran Vía",
+        "note": "L'avenue la plus vivante d'Espagne, jour et nuit"
+      }
+    ],
+    "manger": [
+      {
+        "icon": "restaurant",
+        "name": "Mercado San Miguel",
+        "note": "Tapas premium dans une halle historique"
+      },
+      {
+        "icon": "lunch_dining",
+        "name": "Botin",
+        "note": "Le plus vieux restaurant du monde (1725) — cochon de lait"
+      },
+      {
+        "icon": "local_cafe",
+        "name": "Chocolatería San Ginés",
+        "note": "Churros con chocolate depuis 1894, à 2h du matin"
+      },
+      {
+        "icon": "sports_bar",
+        "name": "Barrio de las Letras",
+        "note": "Le quartier des bars littéraires — décontracté et local"
+      }
+    ],
+    "transport": [
+      {
+        "icon": "subway",
+        "name": "Metro de Madrid",
+        "note": "Ticket 10 voyages (Metrobus) : 12,20€"
+      },
+      {
+        "icon": "directions_bike",
+        "name": "BiciMad",
+        "note": "Vélos électriques en libre-service"
+      },
+      {
+        "icon": "directions_bus",
+        "name": "EMT Bus",
+        "note": "Nuit : lignes N commencent à 23h30"
+      },
+      {
+        "icon": "train",
+        "name": "Cercanías",
+        "note": "Pour l'aéroport et les banlieues (El Escorial)"
+      }
+    ]
+  },
+  "days": [
+    {
+      "day": 1,
+      "title": "Arrivée et triangle des musées",
+      "color": "#4ade80",
+      "points": [
+        {
+          "time": "11:00",
+          "title": "Arrivée Atocha",
+          "desc": "Petit-déjeuner dans un bar madrilène — café con leche et tostada con tomate."
+        },
+        {
+          "time": "12:30",
+          "title": "Museo del Prado",
+          "desc": "Réservez 2-3h minimum. Velázquez, les Majas de Goya."
+        },
+        {
+          "time": "16:00",
+          "title": "Reina Sofía",
+          "desc": "Guernica. Et l'exposition permanente du 20e siècle."
+        },
+        {
+          "time": "20:00",
+          "title": "Tapas Plaza de Santa Ana",
+          "desc": "La plaza des étudiants, animée toute l'année."
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "La Madrid historique",
+      "color": "#1A2B3C",
+      "points": [
+        {
+          "time": "09:30",
+          "title": "Plaza Mayor",
+          "desc": "La plus grande place d'Espagne. Café sous les arcades."
+        },
+        {
+          "time": "11:00",
+          "title": "Mercado San Miguel",
+          "desc": "Tapas de qualité dans une belle halle en fer forgé."
+        },
+        {
+          "time": "13:00",
+          "title": "Palais Royal",
+          "desc": "Extérieur impressionnant. Intérieur optionnel selon le budget."
+        },
+        {
+          "time": "15:00",
+          "title": "Parque del Retiro",
+          "desc": "Barque sur le lac, promenade, lecture. Les Madrilènes savent se reposer."
+        },
+        {
+          "time": "22:00",
+          "title": "Dîner tardif",
+          "desc": "Les Madrilènes dînent à cette heure. Aucun restaurant ne sera plein avant 21h30."
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Gran Vía et départ",
+      "color": "#94a3b8",
+      "points": [
+        {
+          "time": "02:30",
+          "title": "Churros San Ginés",
+          "desc": "Si vous n'avez pas dormi — ou si vous vous levez tôt exprès. Mythique."
+        },
+        {
+          "time": "10:00",
+          "title": "Thyssen-Bornemisza",
+          "desc": "Pour les amateurs d'art — de Dürer à Hopper en passant par Kandinsky."
+        },
+        {
+          "time": "13:00",
+          "title": "Gran Vía",
+          "desc": "Shopping ou architecture — les façades Art Déco valent le détour."
+        },
+        {
+          "time": "16:00",
+          "title": "Atocha",
+          "desc": "AVE vers Barcelone, puis TGV vers Paris Gare de Lyon."
+        }
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "icon": "train",
+      "text": "Achetez les deux segments séparément : TGV Paris–Barcelone sur SNCF Connect (à partir de 79€), puis AVE Barcelone–Madrid sur Renfe (à partir de 25€). Prévoyez 1h30 minimum de correspondance à Barcelone Sants."
+    },
+    {
+      "icon": "museum",
+      "text": "Le Reina Sofía est gratuit le lundi et les dimanches après 19h — profitez-en pour voir Guernica sans file."
+    },
+    {
+      "icon": "schedule",
+      "text": "Madrid vit la nuit. Dîner avant 21h dans un restaurant, c'est manger seul avec les touristes. Attendez."
+    },
+    {
+      "icon": "wb_sunny",
+      "text": "Évitez juillet–août : Madrid atteint régulièrement 38-40°C. Avril–juin ou septembre–octobre sont idéaux."
+    }
+  ],
+  "related": [
+    "barcelone",
+    "venise",
+    "zurich"
+  ]
+}

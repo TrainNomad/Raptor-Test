@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title id="page-title">Guide de voyage · TrainNomad.eu</title>
+    <meta name="description" id="page-desc" content="Guide de voyage en train · TrainNomad.eu">
+    <link rel="icon" type="image/svg+xml" href="../assets/Logo/SVG/Background_IndexFichier 2.svg">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../script/tailwind.config.js"></script>
+    <script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root { --midnight:#1A2B3C; --primary:#4ade80; --bg:#f8f7f5; }
+        * { box-sizing:border-box; }
+        body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--midnight); }
+        .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+        /* ── Nav mobile ── */
+        #mobile-menu-btn { display:none; }
+        #mobile-nav { display:none; }
+        @media (max-width:767px) {
+            #mobile-menu-btn { display:flex !important; }
+            nav .desktop-links { display:none !important; }
+            #mobile-nav {
+                display:none; position:fixed; top:80px; left:0; right:0;
+                background:rgba(255,255,255,0.98); backdrop-filter:blur(12px);
+                border-bottom:1px solid #f1f5f9; z-index:60;
+                padding:1rem 1.5rem 1.5rem;
+                box-shadow:0 8px 24px rgba(26,43,60,0.08);
+                flex-direction:column; gap:0.25rem;
+            }
+            #mobile-nav.open { display:flex; }
+            #mobile-nav a {
+                display:flex; align-items:center; gap:0.75rem;
+                padding:0.75rem 0.5rem; font-size:0.95rem; font-weight:700;
+                color:var(--midnight); border-radius:0.75rem; text-decoration:none;
+            }
+            #mobile-nav a.nav-cta { background:var(--midnight); color:#fff; padding:0.75rem 1rem; margin-top:0.5rem; border-radius:0.75rem; }
+        }
+
+        /* ── Skeleton loading ── */
+        .skeleton {
+            background:linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size:200% 100%;
+            animation:shimmer 1.4s infinite;
+            border-radius:8px;
+        }
+        @keyframes shimmer { from{background-position:200% 0} to{background-position:-200% 0} }
+
+        /* ── Hero ── */
+        .article-hero {
+            position:relative; height:min(88vh,660px); overflow:hidden;
+            background:linear-gradient(135deg,#1A2B3C,#2d4a63);
+        }
+        .article-hero-img {
+            position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+            transition:transform 8s ease;
+        }
+        .article-hero:hover .article-hero-img { transform:scale(1.04); }
+        .article-hero-overlay {
+            position:absolute; inset:0;
+            background:linear-gradient(to top, rgba(26,43,60,0.92) 0%, rgba(26,43,60,0.35) 55%, rgba(26,43,60,0.08) 100%);
+        }
+        .article-hero-content {
+            position:absolute; bottom:0; left:0; right:0; padding:48px 40px;
+        }
+        @media (max-width:639px) { .article-hero-content { padding:28px 20px; } .article-hero { height:60vh; } }
+
+        /* Breadcrumb */
+        .breadcrumb { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
+        .breadcrumb a { color:rgba(255,255,255,0.55); font-size:12px; font-weight:700; text-decoration:none; transition:color .15s; }
+        .breadcrumb a:hover { color:var(--primary); }
+        .breadcrumb-sep { color:rgba(255,255,255,0.25); font-size:12px; }
+        .breadcrumb-cur { color:rgba(255,255,255,0.9); font-size:12px; font-weight:700; }
+
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:6px;
+            padding:5px 14px; border-radius:999px;
+            font-size:12px; font-weight:800; letter-spacing:.04em;
+            margin-right:8px; margin-bottom:14px;
+        }
+        .hero-badge-green { background:var(--primary); color:var(--midnight); }
+        .hero-badge-white { background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.24); }
+
+        /* ── Barre infos clés ── */
+        .key-info-bar {
+            background:white; border-bottom:1px solid #f1f5f9;
+            position:sticky; top:80px; z-index:20;
+            box-shadow:0 2px 12px rgba(26,43,60,0.06);
+        }
+        .key-info-inner {
+            max-width:1280px; margin:0 auto; padding:14px 40px;
+            display:flex; flex-wrap:wrap; gap:6px 24px; align-items:center;
+        }
+        @media (max-width:639px) { .key-info-inner { padding:12px 16px; gap:4px 16px; } }
+        .key-info-item { display:flex; flex-direction:column; gap:1px; }
+        .key-info-label { font-size:10px; font-weight:800; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; }
+        .key-info-value { font-size:14px; font-weight:800; color:var(--midnight); }
+        .key-info-sep { width:1px; height:32px; background:#f1f5f9; flex-shrink:0; }
+        @media (max-width:639px) { .key-info-sep { display:none; } }
+
+        /* ── Layout ── */
+        .article-layout {
+            display:grid; grid-template-columns:1fr 300px; gap:48px;
+            max-width:1280px; margin:0 auto; padding:52px 40px;
+        }
+        @media (max-width:1023px) { .article-layout { grid-template-columns:1fr; gap:28px; padding:28px 20px; } }
+
+        /* ── Corps texte ── */
+        .article-body p:first-of-type::first-letter {
+            font-size:3.8rem; font-weight:800; line-height:.82;
+            float:left; margin-right:8px; margin-top:6px; color:var(--primary);
+        }
+        .article-body p { font-size:17px; line-height:1.8; color:#374151; margin-bottom:24px; }
+        .section-title {
+            font-size:26px; font-weight:800; color:var(--midnight);
+            margin:44px 0 20px; padding-top:16px; border-top:2px solid #f1f5f9;
+            display:flex; align-items:center; gap:10px;
+        }
+        .section-title-bar { display:inline-block; width:4px; height:22px; background:var(--primary); border-radius:2px; flex-shrink:0; }
+
+        /* ── Essentials ── */
+        .essentials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:24px 0 44px; }
+        @media (max-width:767px) { .essentials-grid { grid-template-columns:1fr; } }
+        .essential-col { background:white; border-radius:16px; padding:20px; border:1px solid #f1f5f9; box-shadow:0 2px 10px rgba(26,43,60,0.04); }
+        .essential-col-title { font-size:10px; font-weight:800; color:#94a3b8; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; display:flex; align-items:center; gap:5px; }
+        .essential-item { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #f8f7f5; }
+        .essential-item:last-child { border-bottom:none; padding-bottom:0; }
+        .essential-icon { width:30px; height:30px; border-radius:8px; background:#f8f7f5; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .essential-icon .material-symbols-outlined { font-size:15px; color:var(--midnight); }
+        .essential-item-name { font-size:13px; font-weight:700; color:var(--midnight); }
+        .essential-item-note { font-size:11px; color:#94a3b8; margin-top:1px; }
+
+        /* ── Timeline ── */
+        .day-block { margin-bottom:36px; }
+        .day-header { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+        .day-number { width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
+        .day-title { font-size:17px; font-weight:800; color:var(--midnight); }
+        .timeline { position:relative; padding-left:18px; }
+        .timeline::before { content:''; position:absolute; left:5px; top:8px; bottom:8px; width:2px; background:#f1f5f9; border-radius:1px; }
+        .timeline-item { position:relative; padding:10px 0 10px 18px; display:flex; gap:12px; }
+        .timeline-dot { position:absolute; left:-6px; top:17px; width:10px; height:10px; border-radius:50%; border:2px solid white; box-shadow:0 0 0 2px #e2e8f0; }
+        .timeline-time { font-size:11px; font-weight:800; color:#94a3b8; width:42px; flex-shrink:0; padding-top:1px; }
+        .timeline-content-title { font-size:13px; font-weight:800; color:var(--midnight); margin-bottom:2px; }
+        .timeline-content-desc { font-size:12px; color:#64748b; line-height:1.5; }
+
+        /* ── Tips ── */
+        .tips-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:20px 0; }
+        @media (max-width:639px) { .tips-grid { grid-template-columns:1fr; } }
+        .tip-card { background:white; border-radius:14px; padding:14px 16px; display:flex; gap:11px; align-items:flex-start; border:1px solid #f1f5f9; box-shadow:0 1px 6px rgba(26,43,60,0.04); }
+        .tip-icon { width:34px; height:34px; border-radius:9px; background:rgba(74,222,128,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .tip-icon .material-symbols-outlined { font-size:17px; color:var(--primary); }
+        .tip-text { font-size:13px; color:#374151; line-height:1.5; font-weight:500; }
+
+        /* ── Sidebar ── */
+        .sidebar-card { background:white; border-radius:18px; padding:22px; border:1px solid #f1f5f9; margin-bottom:18px; box-shadow:0 2px 10px rgba(26,43,60,0.04); }
+        .sidebar-card-title { font-size:10px; font-weight:800; color:#94a3b8; letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px; }
+        .sidebar-cta { background:var(--midnight); color:white; border-radius:12px; padding:15px; text-align:center; text-decoration:none; display:block; font-weight:800; font-size:13px; transition:opacity .15s; }
+        .sidebar-cta:hover { opacity:.88; }
+        .sidebar-cta-sub { font-size:11px; font-weight:500; color:rgba(255,255,255,0.55); margin-top:3px; }
+        .travel-stat { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid #f8f7f5; }
+        .travel-stat:last-child { border-bottom:none; }
+        .travel-stat-label { font-size:12px; color:#94a3b8; font-weight:600; }
+        .travel-stat-value { font-size:13px; font-weight:800; color:var(--midnight); }
+        .related-card { display:flex; align-items:center; gap:11px; padding:10px 0; border-bottom:1px solid #f8f7f5; text-decoration:none; color:inherit; transition:gap .15s; }
+        .related-card:last-child { border-bottom:none; }
+        .related-card:hover { gap:15px; }
+        .related-card-emoji { width:38px; height:38px; border-radius:10px; background:#f8f7f5; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+        .related-card-name { font-size:13px; font-weight:800; color:var(--midnight); }
+        .related-card-meta { font-size:11px; color:#94a3b8; }
+
+        /* ── Scroll reveal ── */
+        .reveal { opacity:0; transform:translateY(14px); transition:opacity .45s ease, transform .45s ease; }
+        .reveal.visible { opacity:1; transform:none; }
+
+        /* ── Progress bar ── */
+        #reading-progress { position:fixed; top:0; left:0; height:3px; z-index:200; background:linear-gradient(90deg,var(--primary),var(--midnight)); width:0%; transition:width .08s linear; }
+
+        .footer-quote { color:#a0aec0; line-height:1.6; font-style:italic; }
+
+        /* ── État d'erreur ── */
+        #error-state { display:none; text-align:center; padding:100px 20px; }
+    </style>
+</head>
+<body>
+
+<div id="reading-progress"></div>
+
+<!-- ══ NAV ══ -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="../index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+            <img src="../assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-9 h-9">
+            <span class="text-xl font-extrabold tracking-tight" style="color:#1A2B3C">TrainNomad<span style="color:#4ade80">.eu</span></span>
+        </a>
+        <div class="desktop-links hidden md:flex items-center gap-10">
+            <a class="text-sm font-bold transition-colors flex items-center gap-2 hover:text-green-400" href="../trajets.html" style="color:#1A2B3C"><span class="material-symbols-outlined text-lg">train</span> Voyager</a>
+            <a class="text-sm font-bold transition-colors flex items-center gap-2 hover:text-green-400" href="../explorer.html" style="color:#1A2B3C"><span class="material-symbols-outlined text-lg">explore</span> Explorer</a>
+            <a class="text-sm font-bold flex items-center gap-2 transition-colors hover:text-green-400" href="index.html" style="color:#1A2B3C"><span class="material-symbols-outlined text-lg">menu_book</span> Guides</a>
+            <a class="text-sm font-bold text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm" href="../outilstgvmax.html" style="background:#1A2B3C"><span class="material-symbols-outlined text-lg">bolt</span> Outils TGVmax</a>
+        </div>
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="hidden items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors" aria-label="Menu">
+            <span id="mobile-menu-icon" class="material-symbols-outlined text-2xl" style="color:#1A2B3C">menu</span>
+        </button>
+    </div>
+</nav>
+<div id="mobile-nav">
+    <a href="../trajets.html"><span class="material-symbols-outlined text-xl">train</span> Voyager</a>
+    <a href="../explorer.html"><span class="material-symbols-outlined text-xl">explore</span> Explorer</a>
+    <a href="index.html"><span class="material-symbols-outlined text-xl">menu_book</span> Guides</a>
+    <a href="../outilstgvmax.html" class="nav-cta"><span class="material-symbols-outlined text-xl">bolt</span> Outils TGVmax</a>
+</div>
+
+<!-- ══ CONTENU DYNAMIQUE ══ -->
+<div id="guide-content" style="display:none">
+
+    <!-- Hero -->
+    <div class="article-hero" id="hero">
+        <img id="hero-img" class="article-hero-img" src="" alt=""/>
+        <div class="article-hero-overlay"></div>
+        <div class="article-hero-content">
+            <div class="max-w-7xl mx-auto">
+                <div class="breadcrumb">
+                    <a href="index.html">Guides</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span id="breadcrumb-country" class="breadcrumb-cur"></span>
+                    <span class="breadcrumb-sep">/</span>
+                    <span id="breadcrumb-city" class="breadcrumb-cur"></span>
+                </div>
+                <div id="hero-badges"></div>
+                <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-4"></h1>
+                <p id="hero-tagline" class="text-slate-300 text-lg max-w-xl leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barre infos clés -->
+    <div class="key-info-bar">
+        <div class="key-info-inner" id="key-info-bar"></div>
+    </div>
+
+    <!-- Corps -->
+    <div class="article-layout">
+        <article>
+            <div class="article-body reveal" id="intro-block"></div>
+
+            <div class="reveal">
+                <div class="section-title"><span class="section-title-bar"></span> L'essentiel</div>
+                <div class="essentials-grid" id="essentials-grid"></div>
+            </div>
+
+            <div class="reveal">
+                <div class="section-title"><span class="section-title-bar"></span> L'itinéraire</div>
+                <div id="days-container"></div>
+            </div>
+
+            <div class="reveal">
+                <div class="section-title"><span class="section-title-bar"></span> Bons à savoir</div>
+                <div class="tips-grid" id="tips-grid"></div>
+            </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="sidebar-card reveal">
+                <div class="sidebar-card-title">Réserver ce trajet</div>
+                <a id="sidebar-cta" href="#" class="sidebar-cta">
+                    <span class="material-symbols-outlined" style="font-size:18px;color:#4ade80;vertical-align:middle;margin-right:4px">train</span>
+                    <span id="sidebar-cta-text"></span>
+                    <div class="sidebar-cta-sub" id="sidebar-cta-sub"></div>
+                </a>
+            </div>
+
+            <div class="sidebar-card reveal">
+                <div class="sidebar-card-title">Infos pratiques</div>
+                <div id="travel-stats"></div>
+            </div>
+
+            <div class="sidebar-card reveal" id="related-card">
+                <div class="sidebar-card-title">À explorer aussi</div>
+                <div id="related-list"></div>
+            </div>
+        </aside>
+    </div>
+
+</div>
+
+<!-- État de chargement -->
+<div id="loading-state" style="max-width:1280px;margin:0 auto;padding:52px 40px">
+    <div class="skeleton" style="height:500px;border-radius:0;margin:-52px -40px 40px;"></div>
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:48px">
+        <div>
+            <div class="skeleton" style="height:24px;width:40%;margin-bottom:12px"></div>
+            <div class="skeleton" style="height:16px;margin-bottom:8px"></div>
+            <div class="skeleton" style="height:16px;width:80%;margin-bottom:8px"></div>
+            <div class="skeleton" style="height:16px;width:90%;margin-bottom:8px"></div>
+        </div>
+        <div><div class="skeleton" style="height:180px;border-radius:18px"></div></div>
+    </div>
+</div>
+
+<!-- État erreur -->
+<div id="error-state">
+    <div style="font-size:48px;margin-bottom:16px">🔍</div>
+    <h2 style="font-size:24px;font-weight:800;margin-bottom:8px">Guide introuvable</h2>
+    <p style="color:#94a3b8;margin-bottom:24px">Le fichier de données pour cette ville n'existe pas encore.</p>
+    <a href="index.html" style="background:#1A2B3C;color:white;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none">← Retour aux guides</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer class="text-white py-20" style="background:#1A2B3C">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 mb-12" style="border-bottom:1px solid rgba(255,255,255,0.1)">
+            <div class="col-span-1">
+                <a href="../index.html" class="flex items-center gap-2 mb-8 group w-fit">
+                    <img src="../assets/Logo/SVG/Background_IndexFichier 2.svg" alt="TrainNomad Logo" class="w-8 h-8 transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-tight text-white">TrainNomad<span style="color:#4ade80">.eu</span></span>
+                </a>
+                <p class="text-slate-400 text-base leading-relaxed">L'expérience de réservation ferroviaire la plus élégante. Conçue pour le voyageur moderne et éco-responsable.</p>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Navigation</h5>
+                <ul class="flex flex-col gap-5 text-base text-slate-400">
+                    <li><a class="hover:text-green-400 transition-colors" href="../A_propos.html">À propos</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../trajets.html">Destinations</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../explorer.html">Explorer</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="index.html">Guides</a></li>
+                    <li><a class="hover:text-green-400 transition-colors" href="../outilstgvmax.html">Outils TGVMax</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold mb-8 text-lg">Notre Engagement</h5>
+                <p class="footer-quote text-base">"Choisir le rail, c'est réduire son empreinte carbone de 90% par rapport à l'avion. Voyagez léger, voyagez loin, voyagez responsable."</p>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] text-slate-500 uppercase tracking-[0.2em] font-bold">
+            <p>© 2026 TrainNomad.eu - Engagé pour un futur durable.</p>
+            <div class="flex gap-10">
+                <a class="hover:text-white transition-colors" href="../mention_legal.html">Mentions Légales</a>
+                <a class="hover:text-white transition-colors" href="../confidentialite.html">Confidentialité</a>
+                <a class="hover:text-white transition-colors" href="../conditions.html">Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="module">
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+// Lire le paramètre ?ville= dans l'URL
+const params = new URLSearchParams(window.location.search);
+const villeId = params.get('ville') || params.get('city') || 'milan';
+
+// ── Chargement du JSON ────────────────────────────────────────────────────────
+let D;
+try {
+    const res = await fetch(`data/${villeId}.json`);
+    if (!res.ok) throw new Error('404');
+    D = await res.json();
+} catch(e) {
+    $('loading-state').style.display = 'none';
+    $('error-state').style.display   = 'block';
+    throw e;
+}
+
+// ── Meta ──────────────────────────────────────────────────────────────────────
+document.title = `Guide ${D.city} — ${D.excerpt} · TrainNomad.eu`;
+$('page-desc').content = `Guide complet pour ${D.excerpt} en train depuis Paris. ${D.tagline}`;
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+const heroImg = $('hero-img');
+heroImg.src = `../assets/guides/${D.hero || D.cover}`;
+heroImg.alt = D.city;
+heroImg.onerror = () => { heroImg.style.display = 'none'; };
+
+$('breadcrumb-country').textContent = D.country;
+$('breadcrumb-city').textContent    = D.city;
+$('hero-title').textContent         = D.excerpt;
+$('hero-tagline').textContent       = D.tagline;
+
+$('hero-badges').innerHTML = (D.badges || []).map((b, i) =>
+    `<span class="hero-badge ${i === 0 ? 'hero-badge-green' : 'hero-badge-white'}">${b}</span>`
+).join('');
+
+// ── Barre infos clés ──────────────────────────────────────────────────────────
+const t = D.travel;
+const keyInfoItems = [
+    { label: '⏱ Durée',            value: t.duration },
+    { label: '🚄 Opérateur',        value: t.operator },
+    ...(t.correspondance ? [{ label: '🔄 Correspondance', value: t.correspondance }] : []),
+    { label: '💶 Dès',              value: t.price_from, green: true },
+    { label: '🌤 Meilleure saison', value: t.best_season },
+    { label: '🌿 CO₂ économisé',    value: t.co2_saved + ' vs avion', green: true },
+];
+$('key-info-bar').innerHTML = keyInfoItems.map((item, i) => `
+    ${i > 0 ? '<div class="key-info-sep hidden md:block"></div>' : ''}
+    <div class="key-info-item">
+        <span class="key-info-label">${item.label}</span>
+        <span class="key-info-value" ${item.green ? 'style="color:var(--primary)"' : ''}>${item.value}</span>
+    </div>
+`).join('');
+
+// ── Introduction ──────────────────────────────────────────────────────────────
+$('intro-block').innerHTML = `<p>${D.intro}</p>`;
+
+// ── L'essentiel ──────────────────────────────────────────────────────────────
+const ESSENTIAL_COLS = [
+    { key: 'voir',      label: '👁 À voir',     icon: 'visibility' },
+    { key: 'manger',    label: '🍽 Où manger',  icon: 'restaurant' },
+    { key: 'transport', label: '🚇 Transport',  icon: 'directions_transit' },
+];
+$('essentials-grid').innerHTML = ESSENTIAL_COLS.map(col => `
+    <div class="essential-col">
+        <div class="essential-col-title">
+            <span class="material-symbols-outlined" style="font-size:13px">${col.icon}</span>
+            ${col.label}
+        </div>
+        ${(D.essentials[col.key] || []).map(item => `
+            <div class="essential-item">
+                <div class="essential-icon">
+                    <span class="material-symbols-outlined">${item.icon}</span>
+                </div>
+                <div>
+                    <div class="essential-item-name">${item.name}</div>
+                    <div class="essential-item-note">${item.note}</div>
+                </div>
+            </div>
+        `).join('')}
+    </div>
+`).join('');
+
+// ── Jours ─────────────────────────────────────────────────────────────────────
+$('days-container').innerHTML = (D.days || []).map(day => `
+    <div class="day-block">
+        <div class="day-header">
+            <div class="day-number" style="background:${day.color};color:${day.color === '#4ade80' ? '#1A2B3C' : 'white'}">J${day.day}</div>
+            <div class="day-title">${day.title}</div>
+        </div>
+        <div class="timeline">
+            ${(day.points || []).map(p => `
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background:${day.color}"></div>
+                    <div class="timeline-time">${p.time}</div>
+                    <div>
+                        <div class="timeline-content-title">${p.title}</div>
+                        <div class="timeline-content-desc">${p.desc}</div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+`).join('');
+
+// ── Tips ──────────────────────────────────────────────────────────────────────
+$('tips-grid').innerHTML = (D.tips || []).map(tip => `
+    <div class="tip-card">
+        <div class="tip-icon"><span class="material-symbols-outlined">${tip.icon}</span></div>
+        <div class="tip-text">${tip.text}</div>
+    </div>
+`).join('');
+
+// ── Sidebar CTA ───────────────────────────────────────────────────────────────
+$('sidebar-cta').href        = `../trajets.html?to=${encodeURIComponent(t.to_id || '')}&toName=${encodeURIComponent(t.arrival_station || D.city)}`;
+$('sidebar-cta-text').textContent = `Paris → ${D.city}`;
+$('sidebar-cta-sub').textContent  = `Dès ${t.price_from} · ${t.operator}`;
+
+// ── Sidebar stats ─────────────────────────────────────────────────────────────
+const stats = [
+    { label:'Départ',           value: t.from },
+    { label:'Arrivée',          value: t.arrival_station || D.city },
+    { label:'Durée',            value: t.duration },
+    { label:'Correspondance',   value: t.correspondance || 'Direct', green: !t.correspondance },
+    { label:'Opérateur',        value: t.operator },
+    { label:'Meilleure saison', value: t.best_season },
+    { label:'CO₂ économisé',    value: t.co2_saved + ' vs avion', green: true },
+];
+$('travel-stats').innerHTML = stats.map(s => `
+    <div class="travel-stat">
+        <span class="travel-stat-label">${s.label}</span>
+        <span class="travel-stat-value" ${s.green ? 'style="color:var(--primary)"' : ''}>${s.value}</span>
+    </div>
+`).join('');
+
+// ── Guides liés ───────────────────────────────────────────────────────────────
+const RELATED_META = {
+    milan:      { emoji:'🏛️', meta:'3h 45min · Frecciarossa' },
+    barcelone:  { emoji:'🏖️', meta:'6h 30min · AVE' },
+    zurich:     { emoji:'🏔️', meta:'4h · Lyria' },
+    bruxelles:  { emoji:'🍺', meta:'1h 22min · Eurostar' },
+    amsterdam:  { emoji:'🚲', meta:'3h 30min · Thalys' },
+    berlin:     { emoji:'🎨', meta:'8h · Nightjet' },
+    venise:     { emoji:'🚤', meta:'4h 45min · Frecciarossa' },
+    madrid:     { emoji:'🎭', meta:'9h 30min · Trenhotel' },
+    geneve:     { emoji:'⌚', meta:'3h 05min · Lyria' },
+    munich:     { emoji:'🍻', meta:'5h 45min · ICE' },
+};
+const related = (D.related || []).slice(0, 3);
+if (related.length) {
+    $('related-list').innerHTML = related.map(id => {
+        const m = RELATED_META[id] || { emoji:'🚄', meta:'' };
+        const name = id.charAt(0).toUpperCase() + id.slice(1);
+        return `
+        <a href="guide.html?ville=${id}" class="related-card">
+            <div class="related-card-emoji">${m.emoji}</div>
+            <div>
+                <div class="related-card-name">${name}</div>
+                <div class="related-card-meta">${m.meta}</div>
+            </div>
+            <span class="material-symbols-outlined text-slate-300 ml-auto" style="font-size:16px">arrow_forward</span>
+        </a>`;
+    }).join('');
+} else {
+    $('related-card').style.display = 'none';
+}
+
+// ── Afficher le contenu ───────────────────────────────────────────────────────
+$('loading-state').style.display = 'none';
+$('guide-content').style.display  = 'block';
+
+// ── Scroll reveal ─────────────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Progress bar ──────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+    const el = document.documentElement;
+    const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    $('reading-progress').style.width = pct + '%';
+});
+
+// ── Menu mobile ───────────────────────────────────────────────────────────────
+window.toggleMobileMenu = function() {
+    const nav = $('mobile-nav'), icon = $('mobile-menu-icon');
+    nav.classList.toggle('open');
+    icon.textContent = nav.classList.contains('open') ? 'close' : 'menu';
+};
+
+</script>
+</body>
+</html>

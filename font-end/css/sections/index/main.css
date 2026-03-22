@@ -1,0 +1,150 @@
+/* ============================================================
+   TrainNomad.eu — css/main.css
+   Styles globaux (extraits du bloc <style> inline)
+   ============================================================ */
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ── Hero gradient ────────────────────────────────────────── */
+.hero-gradient {
+    background: radial-gradient(circle at 50% -20%, #4ade8015 0%, transparent 50%);
+}
+
+/* ── Champ date : masquer l'icône native ──────────────────── */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+input[type="date"] {
+    color-scheme: light;
+}
+
+/* ── Wrapper autocomplétion ───────────────────────────────── */
+.input-ac-wrapper {
+    position: relative;
+}
+
+/* ── Icône calendrier cliquable ───────────────────────────── */
+.icon-calendar {
+    cursor: pointer;
+}
+
+/* ── Companies — défilement infini ───────────────────────── */
+.companies__track-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.companies__track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: scroll-logos 28s linear infinite;
+    align-items: center;
+}
+
+.company-item img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: filter 0.3s, opacity 0.3s;
+}
+
+.company-item img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+@keyframes scroll-logos {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* ── Carte TGVmax ─────────────────────────────────────────── */
+.trainmax-card-container {
+    position: relative;
+    margin: 40px auto;
+    max-width: 1100px;
+    min-height: 350px;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(105deg, rgba(14, 55, 33, 0.95) 30%, rgba(34, 139, 34, 0.4) 100%),
+        url('../assets/TGVMax/TGVMax-Section.jpg') center / cover no-repeat;
+    /* box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); */
+    color: #ffffff;
+}
+
+.trainmax-card-content {
+    padding: 40px 60px;
+    z-index: 2;
+    width: 60%;
+}
+
+.trainmax-badge {
+    display: inline-block;
+    background: #e8007d;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.trainmax-card-content h2 {
+    font-size: 2.2rem;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+}
+
+.trainmax-card-content h2 span {
+    color: #4ade80;
+}
+
+.trainmax-card-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.trainmax-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    color: #0e3721;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.trainmax-button:hover {
+    transform: translateY(-3px);
+    background: #4ade80;
+    color: #ffffff;
+}
+
+/* ── Citation footer ──────────────────────────────────────── */
+.footer-quote {
+    color: #a0aec0;
+    line-height: 1.6;
+    font-style: italic;
+}

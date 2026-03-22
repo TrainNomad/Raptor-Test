@@ -1,0 +1,175 @@
+/* ============================================================
+   TrainNomad.eu — css/explorer-mobile.css
+   Téléphones  ·  max-width: 639px
+   ============================================================ */
+
+@media (max-width: 639px) {
+
+  /* ── Nav ── */
+  nav .max-w-7xl { height: 56px; padding-left: 1rem; padding-right: 1rem; }
+  nav .hidden.md\:flex { display: none !important; }
+  #mobile-menu-btn { display: flex !important; }
+
+  /* ── Menu mobile déroulant ── */
+  #mobile-nav {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #f1f5f9;
+    z-index: 60;
+    padding: 1rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 24px rgba(26,43,60,0.08);
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  #mobile-nav.open { display: flex; }
+  #mobile-nav a {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 0.5rem; font-size: 0.95rem; font-weight: 700;
+    color: #1A2B3C; border-radius: 0.75rem; text-decoration: none;
+    transition: background 0.15s;
+  }
+  #mobile-nav a:hover { background: #f8fafc; }
+  #mobile-nav a.nav-cta {
+    background: #1A2B3C; color: #fff;
+    padding: 0.75rem 1rem; margin-top: 0.5rem;
+  }
+  #mobile-nav a.nav-cta:hover { background: #4ade80; color: #1A2B3C; }
+
+  /* ── Search bar ── */
+  .bg-white.border-b.border-slate-100.py-4.px-6 { top: 56px !important; padding: 0.5rem 0.75rem; }
+  .flex.flex-wrap.lg\:flex-nowrap { flex-direction: column; gap: 0; }
+  .flex-1.min-w-\[220px\] { min-width: unset; border-bottom: 1px solid #f1f5f9; }
+  .w-full.lg\:w-44 { width: 100%; border-bottom: 1px solid #f1f5f9; }
+  .w-px.bg-slate-100 { display: none !important; }
+  #search-btn { width: 100%; border-radius: 0.75rem; padding: 0.75rem 1rem; }
+
+  /* ── Zone principale : hauteur auto pour permettre le scroll vers le footer ── */
+  #explorer-main {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* ── Carte : plein écran fixe, cachée par défaut ── */
+  #map-container {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    height: 100%;
+  }
+  #map-container.map-open {
+    display: block;
+  }
+
+  /* ── Panneau : dans le flux, pleine largeur, hauteur min de l'écran ── */
+  #side-panel {
+    position: relative;
+    top: auto; left: auto; right: auto; bottom: auto;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 56px - 145px);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    box-shadow: none;
+    background: #fff;
+    overflow: visible;
+  }
+  #side-panel.collapsed { display: none; }
+
+  /* ── Liste résultats : hauteur auto (scroll de la page entière) ── */
+  #results-list {
+    overflow-y: visible;
+    height: auto;
+    padding-bottom: 80px; /* espace pour le bouton flottant */
+  }
+
+  /* ── toggle-panel-btn desktop masqué sur mobile ── */
+  #toggle-panel-btn { display: none !important; }
+
+  /* ── Bouton carte/liste — fixed en bas, toujours visible ── */
+  #mobile-view-btn {
+    display: flex !important;
+    position: fixed;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    align-items: center; gap: 6px;
+    background: #1A2B3C; color: #fff;
+    border: none; border-radius: 999px;
+    padding: 11px 22px;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-shadow: 0 4px 20px rgba(26,43,60,0.35);
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.15s;
+  }
+  #mobile-view-btn:hover { background: #4ade80; color: #1A2B3C; }
+  #mobile-view-btn .material-symbols-outlined { font-size: 18px; }
+
+  /* ── Bouton fermer la carte (visible en mode carte) ── */
+  #mobile-close-map {
+    display: none;
+    position: fixed;
+    top: 12px; right: 12px;
+    z-index: 55;
+    align-items: center; gap: 4px;
+    background: rgba(255,255,255,0.95);
+    color: #1A2B3C;
+    border: 1px solid rgba(226,232,240,0.8);
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 12px; font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-shadow: 0 2px 12px rgba(26,43,60,0.1);
+    cursor: pointer;
+  }
+  #mobile-close-map.visible { display: flex; }
+  #mobile-close-map .material-symbols-outlined { font-size: 16px; }
+
+  /* ── Map hint ── */
+  #map-hint {
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 24px;
+    width: calc(100% - 3rem);
+  }
+  .hint-icon  { font-size: 28px; margin-bottom: 8px; }
+  .hint-title { font-size: 13px; }
+  .hint-sub   { font-size: 11px; }
+
+  /* ── Filtres : scroll horizontal ── */
+  #filters-bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #filters-bar::-webkit-scrollbar { display: none; }
+  .filter-chip { flex-shrink: 0; }
+
+  /* ── Légende durée : dans le side-panel, toujours visible ── */
+
+  /* ── Footer visible ── */
+  footer {
+    display: block !important;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem; /* espace au-dessus du bouton flottant */
+  }
+  footer .grid.grid-cols-1.md\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+  }
+  footer .col-span-1 { grid-column: 1; }
+  footer .flex.flex-col.md\:flex-row {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  footer .flex.gap-10 {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

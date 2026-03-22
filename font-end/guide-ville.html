@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html class="dark" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TrainNomad — Guide ville</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#14b866",
+          "background-light": "#f6f8f7",
+          "background-dark": "#112119",
+          "midnight": "#1A2B3C",
+        },
+        fontFamily: { "display": ["Plus Jakarta Sans", "sans-serif"] },
+        borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+      },
+    },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..0&display=swap" rel="stylesheet"/>
+<script src="https://kit.fontawesome.com/8e4de4bf0a.js" crossorigin="anonymous"></script>
+<script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="URMJDFO"></script>
+
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100dvh; }
+
+  .bg-gradient-cta { background: linear-gradient(135deg, #14b866 0%, #d4e157 100%); }
+
+  /* Hero parallax fade */
+  .hero-img { transition: transform .8s cubic-bezier(.22,1,.36,1); }
+
+  /* Entrées animées */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp .6s ease both; }
+  .fade-up-1 { animation-delay: .1s; }
+  .fade-up-2 { animation-delay: .2s; }
+  .fade-up-3 { animation-delay: .3s; }
+  .fade-up-4 { animation-delay: .4s; }
+
+  /* Hover cards */
+  .hover-card { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s; }
+  .hover-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -8px rgba(20,184,102,.2); }
+
+  /* Skeleton */
+  @keyframes shimmer { to { background-position: 200% center; } }
+  .skeleton {
+    background: linear-gradient(90deg, #1e3a2a 25%, #2a4f38 50%, #1e3a2a 75%);
+    background-size: 200%; animation: shimmer 1.4s infinite;
+    border-radius: .5rem;
+  }
+
+  /* Tag overnight */
+  .overnight-tag {
+    display: inline-block; font-size: 9px; font-weight: 800;
+    color: #f97316; background: #431407; border-radius: 4px;
+    padding: 0 3px; margin-left: 2px;
+  }
+
+  /* Scrollbar masquée */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+
+<body class="bg-background-dark text-slate-100 font-display">
+
+<!-- ══ NAV ══ -->
+<nav class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="guide-index.html" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span class="hidden sm:inline">Tous les guides</span>
+      </a>
+      <div class="w-px h-4 bg-white/10"></div>
+      <a href="index.html" class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-2xl">eco</span>
+        <span class="text-lg font-extrabold text-white">TrainNomad<span class="text-primary">.eu</span></span>
+      </a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="trajets.html" class="hidden md:flex items-center gap-1.5 text-sm font-bold hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-base">train</span> Voyager
+      </a>
+      <a href="outilstgvmax.html" class="hidden md:flex items-center gap-1.5 text-sm font-bold text-midnight bg-primary px-4 py-2 rounded-xl hover:bg-emerald-400 transition-all">
+        <span class="material-symbols-outlined text-base">bolt</span> Outils TGVmax
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ SKELETON EN ATTENTE ══ -->
+<div id="skeleton" class="max-w-5xl mx-auto px-6 py-8">
+  <div class="skeleton w-full h-80 rounded-2xl mb-8"></div>
+  <div class="skeleton w-64 h-8 mb-3"></div>
+  <div class="skeleton w-96 h-5 mb-2"></div>
+  <div class="skeleton w-80 h-5"></div>
+</div>
+
+<!-- ══ CONTENU DYNAMIQUE ══ -->
+<div id="page-content" class="hidden">
+
+  <!-- HERO -->
+  <section class="relative h-[60vh] overflow-hidden" id="hero-section">
+    <div id="hero-bg" class="hero-img absolute inset-0 bg-cover bg-center scale-105"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent"></div>
+    <div class="relative h-full flex flex-col justify-end px-6 pb-10 max-w-5xl mx-auto">
+      <div class="fade-up fade-up-1">
+        <a href="guide-index.html" id="hero-country-badge"
+          class="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-md text-primary px-3 py-1.5 rounded-full text-sm font-semibold mb-4 hover:bg-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-sm">location_on</span>
+          <span id="hero-country">—</span>
+        </a>
+      </div>
+      <h1 id="hero-title" class="fade-up fade-up-2 text-4xl md:text-6xl font-extrabold mb-3 leading-tight">—</h1>
+      <p id="hero-desc" class="fade-up fade-up-3 text-lg text-slate-300 max-w-2xl">—</p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-6 pb-24">
+
+    <!-- BILAN VOYAGE -->
+    <section class="py-12 fade-up fade-up-4">
+      <h2 class="text-2xl font-bold mb-8">Bilan de ton voyage</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+        <!-- Train -->
+        <div class="hover-card bg-primary/10 border border-primary/25 rounded-2xl p-6 flex flex-col gap-5">
+          <div class="flex justify-between items-start">
+            <span id="co2-badge" class="bg-primary text-midnight px-3 py-1 rounded-full text-xs font-bold">—% d'économie CO2</span>
+            <span class="material-symbols-outlined text-primary text-2xl">train</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400 mb-1">Durée du trajet</p>
+            <p id="train-duration" class="text-3xl font-extrabold">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400 mb-1">Tarif indicatif</p>
+            <p id="train-price" class="text-2xl font-extrabold text-primary">—</p>
+          </div>
+          <a id="train-search-btn" href="#"
+            class="mt-auto flex items-center justify-center gap-2 bg-primary text-midnight font-bold py-3 px-6 rounded-xl hover:bg-emerald-400 transition-all text-sm">
+            <span class="material-symbols-outlined text-base">search</span>
+            Rechercher ce trajet
+          </a>
+          <p class="text-[10px] text-slate-600 text-center italic">Horaires fournis par TrainNomad — réservation sur le site de l'opérateur</p>
+        </div>
+
+        <!-- Avion -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 flex flex-col gap-5 opacity-75">
+          <div class="flex justify-between items-start">
+            <span class="bg-red-500/80 text-white px-3 py-1 rounded-full text-xs font-bold">Impact Carbone Élevé</span>
+            <span class="material-symbols-outlined text-slate-500 text-2xl">flight</span>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400 mb-1">Temps réel (transferts + attente)</p>
+            <p id="plane-duration" class="text-3xl font-extrabold text-slate-400">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400 mb-1">Bilan CO2 estimé</p>
+            <p id="plane-co2" class="text-2xl font-extrabold text-red-400">—</p>
+          </div>
+          <div class="mt-auto flex items-center gap-2 bg-slate-700/50 rounded-xl px-4 py-3">
+            <span class="material-symbols-outlined text-red-400 text-sm">warning</span>
+            <p class="text-xs text-slate-400">Choisir le train réduit votre empreinte de <span id="co2-pct" class="font-bold text-primary">—</span>%</p>
+          </div>
+          <p class="text-[10px] text-slate-600 italic">Comparatif basé sur les moyennes du trajet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INCONTOURNABLES (pastilles rapides) -->
+    <section class="py-12">
+      <h2 class="text-2xl font-bold mb-8 text-center">Les Incontournables</h2>
+      <div id="highlights-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"></div>
+    </section>
+
+    <!-- ══ SECTIONS ÉDITORIALES ══ -->
+    <div id="editorial-sections" class="space-y-0"></div>
+
+    <!-- ══ ACTIVITÉS GYG — style article ══ -->
+    <section class="py-12" id="gyg-section">
+      <div class="flex items-center gap-3 mb-2">
+        <h2 class="text-2xl font-bold">Que faire à <span id="gyg-city-name">—</span> ?</h2>
+        <span class="bg-primary/15 border border-primary/25 text-primary text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+          <span class="material-symbols-outlined text-xs">verified</span>GetYourGuide
+        </span>
+      </div>
+      <p class="text-slate-400 text-sm mb-10">Billets coupe-file, visites guidées et expériences locales — disponibilités et tarifs en temps réel.</p>
+      <div id="gyg-tours-list" class="space-y-12"></div>
+      <p class="text-[10px] text-slate-600 italic text-center mt-8">
+        Liens partenaires GetYourGuide — Supportez TrainNomad
+      </p>
+    </section>
+
+    <!-- HÉBERGEMENTS -->
+    <section class="py-12">
+      <h2 class="text-2xl font-bold mb-2">Où dormir sans voiture ?</h2>
+      <p class="text-slate-400 mb-8">Hébergements éco-responsables à quelques pas de la gare.</p>
+      <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- ESCAPADES -->
+    <section class="py-12">
+      <h2 class="text-2xl font-bold mb-2">Idées d'escapades</h2>
+      <p class="text-slate-400 mb-8">Prolongez depuis la gare, sans voiture.</p>
+      <div id="escapades-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-12 text-center">
+      <div class="bg-primary/10 rounded-3xl p-10 md:p-16 border border-primary/20">
+        <h2 id="cta-title" class="text-3xl md:text-4xl font-extrabold mb-4">Prêt à partir ?</h2>
+        <p class="text-slate-400 mb-10 max-w-xl mx-auto">Comparez les horaires et réservez votre trajet en quelques clics. Votre aventure commence sur les rails.</p>
+        <a id="cta-btn" href="trajets.html"
+          class="bg-gradient-cta hover:opacity-90 transition-all text-midnight font-extrabold text-lg px-10 py-4 rounded-full inline-flex items-center gap-3 shadow-xl shadow-primary/20">
+          <span class="material-symbols-outlined">search</span>
+          Rechercher un trajet
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+</div><!-- /page-content -->
+
+<!-- ══ FOOTER ══ -->
+<footer class="bg-background-dark border-t border-primary/10 py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/5 pb-12 mb-10">
+      <div class="col-span-2">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+          <span class="text-xl font-extrabold">TrainNomad<span class="text-primary">.eu</span></span>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+          Le guide ultime pour voyager de manière responsable à travers l'Europe en utilisant le réseau ferroviaire.
+        </p>
+      </div>
+      <div>
+        <h5 class="font-bold mb-5 text-xs uppercase tracking-widest text-slate-500">Navigation</h5>
+        <ul class="space-y-3 text-sm text-slate-400">
+          <li><a href="index.html" class="hover:text-primary transition-colors">Accueil</a></li>
+          <li><a href="guide-index.html" class="hover:text-primary transition-colors">Guides</a></li>
+          <li><a href="trajets.html" class="hover:text-primary transition-colors">Trajets</a></li>
+          <li><a href="outilstgvmax.html" class="hover:text-primary transition-colors">Outils TGVmax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-bold mb-5 text-xs uppercase tracking-widest text-slate-500">Légal</h5>
+        <ul class="space-y-3 text-sm text-slate-400">
+          <li><a href="mention_legal.html" class="hover:text-primary transition-colors">Mentions Légales</a></li>
+          <li><a href="confidentialite.html" class="hover:text-primary transition-colors">Confidentialité</a></li>
+          <li><a href="conditions.html" class="hover:text-primary transition-colors">Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-center text-xs text-slate-600 uppercase tracking-widest font-bold">
+      © 2026 TrainNomad.eu — Voyagez vert, voyagez mieux.
+    </p>
+  </div>
+</footer>
+
+<script>
+// ─── Config GYG ───────────────────────────────────────────────────────────────
+const GYG_PARTNER_ID = 'URMJDFO';
+
+// ─── Utilitaires ─────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+// Convertit \n en paragraphes HTML
+function paragraphs(text) {
+  return text.split('\n\n').filter(Boolean)
+    .map(p => `<p class="text-slate-300 leading-relaxed text-[15px] mb-4 last:mb-0">${p.trim().replace(/\n/g,' ')}</p>`)
+    .join('');
+}
+
+const COUNTRY_NAMES = {
+  FR:'France', IT:'Italie', ES:'Espagne', DE:'Allemagne', CH:'Suisse',
+  NL:'Pays-Bas', AT:'Autriche', PT:'Portugal', GB:'Royaume-Uni', BE:'Belgique',
+};
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  const params  = new URLSearchParams(window.location.search);
+  const country = params.get('country') || 'IT';
+  const city    = params.get('city')    || 'milan';
+
+  let guide;
+  try {
+    const r = await fetch(`guide/${country}/${city}.json`);
+    if (!r.ok) throw new Error();
+    guide = await r.json();
+  } catch(e) {
+    document.getElementById('skeleton').innerHTML = `
+      <div class="text-center py-20">
+        <div class="text-5xl mb-4">😕</div>
+        <p class="text-slate-400">Guide introuvable pour cette destination.</p>
+        <a href="guide-index.html" class="text-primary hover:underline mt-4 inline-block">← Retour aux guides</a>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('skeleton').style.display = 'none';
+  document.getElementById('page-content').classList.remove('hidden');
+  document.title = `TrainNomad — Guide ${guide.city}`;
+
+  renderHero(guide);
+  renderBilan(guide);
+  renderHighlights(guide.highlights || []);
+  renderEditorial(guide);
+  renderGYGTours(guide);
+  renderHotels(guide.hotels || []);
+  renderEscapades(guide.escapades || []);
+  renderCTA(guide);
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+function renderHero(g) {
+  document.getElementById('hero-bg').style.backgroundImage = `url('${g.hero_image}')`;
+  document.getElementById('hero-country').textContent = COUNTRY_NAMES[g.country] || g.country_name;
+  document.getElementById('hero-title').textContent = g.city + ' : ' + g.tagline;
+  document.getElementById('hero-desc').textContent = g.description;
+}
+
+// ─── Bilan ────────────────────────────────────────────────────────────────────
+function renderBilan(g) {
+  const t = g.train, p = g.plane;
+  document.getElementById('co2-badge').textContent = (t?.co2_saving || '—') + '% d\'économie CO2';
+  document.getElementById('train-duration').textContent = t?.duration || '—';
+  document.getElementById('train-price').textContent = t?.price_from ? `À partir de ${t.price_from}€` : '—';
+  document.getElementById('plane-duration').textContent = p?.duration || '—';
+  document.getElementById('plane-co2').textContent = p?.co2_kg ? `+${p.co2_kg}kg CO2` : '—';
+  document.getElementById('co2-pct').textContent = t?.co2_saving || '—';
+  if (t?.stop_area_id) {
+    const ps = new URLSearchParams({ to: t.stop_area_id, toName: t.stop_name || g.city });
+    document.getElementById('train-search-btn').href = 'trajets.html?' + ps.toString();
+  }
+}
+
+// ─── Incontournables ──────────────────────────────────────────────────────────
+function renderHighlights(highlights) {
+  const grid = document.getElementById('highlights-grid');
+  grid.innerHTML = highlights.map(h => {
+    const isLink = !!h.url;
+    const tag = isLink ? `a href="${esc(h.url)}" target="_blank" rel="noopener"` : 'div';
+    const closeTag = isLink ? 'a' : 'div';
+    return `
+    <${tag} class="group flex flex-col items-center text-center gap-3 ${isLink ? 'cursor-pointer' : ''}">
+      <div class="w-16 h-16 rounded-2xl bg-primary/15 border border-primary/20 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-midnight group-hover:scale-110">
+        <span class="material-symbols-outlined text-3xl">${esc(h.icon)}</span>
+      </div>
+      <div>
+        <p class="font-bold text-sm leading-snug group-hover:text-primary transition-colors">${esc(h.label)}</p>
+        ${h.description ? `<p class="text-xs text-slate-500 mt-1 leading-snug max-w-[120px] mx-auto">${esc(h.description)}</p>` : ''}
+        ${isLink ? `<span class="inline-flex items-center gap-0.5 text-[10px] text-primary/60 mt-1 font-semibold group-hover:text-primary transition-colors">En savoir plus <span class="material-symbols-outlined text-xs">open_in_new</span></span>` : ''}
+      </div>
+    </${closeTag}>`;
+  }).join('');
+}
+
+// ─── Sections éditoriales ─────────────────────────────────────────────────────
+function renderEditorial(g) {
+  const container = document.getElementById('editorial-sections');
+  if (!g.editorial) return;
+
+  // Intro générale
+  let html = `
+    <section class="py-10 border-t border-white/5">
+      <p class="text-lg text-slate-200 leading-relaxed max-w-3xl font-medium">${esc(g.editorial.intro || '')}</p>
+    </section>`;
+
+  // Sections thématiques
+  (g.editorial.sections || []).forEach((s, i) => {
+    const isEven = i % 2 === 0;
+
+    // Conseils pratiques (tips)
+    const tipsHtml = s.tips ? `
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        ${s.tips.map(tip => `
+          <div class="flex items-start gap-3 bg-primary/5 border border-primary/10 rounded-xl px-4 py-3">
+            <span class="material-symbols-outlined text-primary text-lg leading-none mt-0.5 flex-shrink-0">${esc(tip.icon)}</span>
+            <p class="text-sm text-slate-300 leading-snug">${esc(tip.text)}</p>
+          </div>`).join('')}
+      </div>` : '';
+
+    // Image + texte en colonne alternée sur desktop
+    html += `
+      <section class="py-12 border-t border-white/5">
+        <div class="flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-start">
+
+          ${s.image ? `
+          <div class="w-full md:w-2/5 flex-shrink-0">
+            <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800">
+              <img src="${esc(s.image)}" alt="${esc(s.title)}"
+                   class="w-full h-full object-cover"
+                   loading="lazy"
+                   onerror="this.parentNode.style.background='#1e3a2a'"/>
+            </div>
+          </div>` : ''}
+
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-primary/15 flex-shrink-0 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-xl">${esc(s.icon || 'info')}</span>
+              </div>
+              <h2 class="text-2xl font-extrabold">${esc(s.title)}</h2>
+            </div>
+            <div class="prose-custom">${paragraphs(s.body || '')}</div>
+            ${tipsHtml}
+          </div>
+
+        </div>
+      </section>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ─── GYG — Tours : card éditoriale + widget availability ─────────────────────
+function renderGYGTours(guide) {
+  const list      = document.getElementById('gyg-tours-list');
+  const cityName  = document.getElementById('gyg-city-name');
+  const tours     = guide.gyg_tours || [];
+  const pid       = guide.gyg_partner_id || GYG_PARTNER_ID;
+  const cmp       = guide.gyg_cmp || guide.slug || 'guide';
+  const locUrl    = guide.gyg_location_url || 'https://www.getyourguide.com/';
+
+  if (cityName) cityName.textContent = guide.city || '—';
+
+  if (!tours.length) {
+    list.innerHTML = `<p class="text-slate-500 text-sm">Aucune activité renseignée.</p>`;
+    return;
+  }
+
+  list.innerHTML = tours.map((t, idx) => `
+    <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start
+                ${idx > 0 ? 'pt-12 border-t border-white/5' : ''}">
+
+      <!-- Photo -->
+      ${t.image ? `
+      <div class="w-full md:w-64 flex-shrink-0">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-800">
+          <img src="${esc(t.image)}" alt="${esc(t.title)}"
+               class="w-full h-full object-cover"
+               loading="lazy"
+               onerror="this.parentNode.style.background='#1e3a2a'"/>
+        </div>
+      </div>` : ''}
+
+      <!-- Contenu -->
+      <div class="flex-1 min-w-0">
+        <!-- En-tête -->
+        <div class="flex items-center gap-2 mb-2 flex-wrap">
+          <span class="text-[10px] font-extrabold bg-primary/10 text-primary px-2.5 py-0.5 rounded-full uppercase tracking-wider">${esc(t.category)}</span>
+        </div>
+        <div class="flex items-start gap-3 mb-3">
+          <div class="w-9 h-9 rounded-xl bg-primary/15 flex-shrink-0 flex items-center justify-center text-primary mt-0.5">
+            <span class="material-symbols-outlined text-xl">${esc(t.icon || 'tour')}</span>
+          </div>
+          <h3 class="text-xl font-extrabold leading-snug">${esc(t.title)}</h3>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5">${esc(t.description)}</p>
+
+        <!-- Widget GYG : availability (calendrier + prix) -->
+        <!-- Fond blanc imposé par GYG — on l'assume avec un cadre net -->
+        <div class="rounded-2xl overflow-hidden shadow-lg shadow-black/30 border border-white/5 bg-white">
+          <div class="px-4 pt-3 pb-1">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Disponibilités & tarifs</p>
+          </div>
+          <div class="px-4 pb-4">
+            <div
+              data-gyg-href="https://widget.getyourguide.com/default/availability.frame"
+              data-gyg-tour-id="${esc(t.tour_id)}"
+              data-gyg-locale-code="fr-FR"
+              data-gyg-currency="EUR"
+              data-gyg-widget="availability"
+              data-gyg-variant="horizontal"
+              data-gyg-partner-id="${esc(pid)}"
+              data-gyg-cmp="${esc(cmp)}">
+              <span class="text-xs text-slate-400">
+                Powered by <a target="_blank" rel="sponsored" href="${esc(locUrl)}" class="underline">GetYourGuide</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>`).join('');
+
+  // Déclenche le rendu GYG si le script est déjà chargé
+  if (window.__gyg && typeof window.__gyg.init === 'function') window.__gyg.init();
+}
+
+// ─── Hôtels ───────────────────────────────────────────────────────────────────
+function renderHotels(hotels) {
+  const grid = document.getElementById('hotels-grid');
+  grid.innerHTML = hotels.map(h => `
+    <div class="hover-card group bg-slate-800/30 border border-slate-700/50 rounded-2xl overflow-hidden cursor-pointer">
+      <div class="relative aspect-video bg-slate-800">
+        ${h.eco ? '<div class="absolute top-3 left-3 z-10 bg-primary text-midnight px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wide">Éco-label</div>' : ''}
+        ${h.image ? `<img src="${esc(h.image)}" alt="${esc(h.name)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.parentNode.style.background='#1e3a2a'"/>` : '<div class="w-full h-full bg-gradient-to-br from-primary/20 to-transparent"></div>'}
+      </div>
+      <div class="p-4">
+        <h4 class="font-bold mb-2">${esc(h.name)}</h4>
+        <p class="text-xs text-primary font-medium flex items-center gap-1 mb-2">
+          <span class="material-symbols-outlined text-sm">directions_walk</span>
+          À moins de ${h.walk_min} min de la gare
+        </p>
+        <p class="text-[10px] text-slate-600 italic">Lien partenaire — Supportez TrainNomad</p>
+      </div>
+    </div>`).join('');
+}
+
+// ─── Escapades ────────────────────────────────────────────────────────────────
+function renderEscapades(escapades) {
+  const grid = document.getElementById('escapades-grid');
+  grid.innerHTML = escapades.map(e => `
+    <div class="group cursor-pointer">
+      <div class="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-slate-800">
+        ${e.image ? `<img src="${esc(e.image)}" alt="${esc(e.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>` : '<div class="w-full h-full bg-gradient-to-br from-primary/20 to-slate-800"></div>'}
+        <div class="absolute top-4 right-4 bg-background-dark/70 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold">${esc(e.tag)}</div>
+      </div>
+      <h4 class="font-bold text-lg group-hover:text-primary transition-colors mb-1">${esc(e.title)}</h4>
+      <p class="text-sm text-slate-400 leading-relaxed">${esc(e.desc)}</p>
+    </div>`).join('');
+}
+
+// ─── CTA ─────────────────────────────────────────────────────────────────────
+function renderCTA(g) {
+  document.getElementById('cta-title').textContent = `Prêt à partir pour ${g.city} ?`;
+  const btn = document.getElementById('cta-btn');
+  if (g.train?.stop_area_id) {
+    const p = new URLSearchParams({ to: g.train.stop_area_id, toName: g.train.stop_name || g.city });
+    btn.href = 'trajets.html?' + p.toString();
+    btn.querySelector('span').nextSibling.textContent = ` Rechercher un trajet vers ${g.city}`;
+  }
+}
+
+// ─── Lancement ───────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

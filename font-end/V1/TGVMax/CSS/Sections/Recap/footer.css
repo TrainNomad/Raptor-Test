@@ -1,0 +1,53 @@
+/* -------------------------------------- */
+/* --- FOOTER.CSS - Flux normal et Centrage --- */
+/* -------------------------------------- */
+a {
+    text-decoration: none;
+    
+}
+
+.footer{
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    position: relative;
+
+    background-color: rgb(25, 96, 128);
+}
+
+.footer_nav{
+    width: 100%;
+    max-width: 1450px; 
+    height: 150px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto; 
+}
+
+.footer_left{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    font-size:var(--body-font-size);
+    color: rgb(var(--secondary-color));
+    padding: 30px;
+}
+.footer_left p{
+    font-size:var(--body-font-size);
+    color: rgb(var(--secondary-color));
+    
+}
+
+.footer_right{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: var(--subheadline-font-size); 
+    color: rgb(var(--secondary-color));
+    padding: 30px;
+}
