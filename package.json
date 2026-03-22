@@ -2,9 +2,9 @@
   "name": "raptor-test",
   "version": "1.0.0",
   "scripts": {
-    "start": "bash scripts/update-gtfs.sh && node --max-old-space-size=450 server.js",
-    "build": "npm install",
-    "update-gtfs": "bash scripts/update-gtfs.sh"
+  "start": "node --max-old-space-size=450 server.js & bash scripts/update-gtfs.sh && wait",
+  "build": "npm install",
+  "update-gtfs": "bash scripts/update-gtfs.sh"
   },
   "engines": {
     "node": ">=18"
